@@ -1,188 +1,172 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ramón Reyes | Alemán, Capacitación y Asesorías</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #222;
-      background: #f7f7f7;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch Lernen mit Ramón</title>
 
-    header {
-      background: linear-gradient(135deg, #1f2937, #4b5563);
-      color: white;
-      text-align: center;
-      padding: 70px 20px;
-    }
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-    header h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f5f7fb;
+color:#222;
+}
 
-    header p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
+header{
+background:linear-gradient(135deg,#58cc02,#1cb0f6);
+color:white;
+padding:70px 20px;
+text-align:center;
+}
 
-    .btn {
-      background: #f59e0b;
-      color: white;
-      padding: 14px 26px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      display: inline-block;
-    }
+header h1{
+font-size:3rem;
+margin-bottom:15px;
+}
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 50px 20px;
-    }
+header p{
+font-size:1.3rem;
+max-width:750px;
+margin:auto;
+line-height:1.5;
+}
 
-    h2 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 30px;
-      color: #1f2937;
-    }
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+}
 
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      text-align: center;
-    }
+.card{
+background:white;
+border-radius:24px;
+padding:30px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.2s;
+}
 
-    .card h3 {
-      color: #374151;
-      margin-bottom: 10px;
-    }
+.card:hover{
+transform:translateY(-5px);
+}
 
-    .about {
-      background: white;
-      border-radius: 14px;
-      padding: 35px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      line-height: 1.7;
-      font-size: 18px;
-    }
+.icon{
+font-size:3rem;
+margin-bottom:15px;
+}
 
-    .contact {
-      text-align: center;
-      background: #111827;
-      color: white;
-      padding: 60px 20px;
-    }
+.card h2{
+margin-bottom:10px;
+color:#111827;
+}
 
-    .contact h2 {
-      color: white;
-    }
+.card p{
+color:#555;
+margin-bottom:20px;
+line-height:1.4;
+}
 
-    footer {
-      background: #030712;
-      color: #ccc;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-    }
+.btn{
+display:inline-block;
+background:#58cc02;
+color:white;
+padding:14px 22px;
+border-radius:16px;
+text-decoration:none;
+font-weight:bold;
+box-shadow:0 5px 0 #46a302;
+}
 
-    .whatsapp {
-      background: #25D366;
-    }
-  </style>
+.btn:hover{
+background:#46b000;
+}
+
+footer{
+text-align:center;
+padding:25px;
+color:#666;
+}
+
+@media(max-width:700px){
+header h1{
+font-size:2.2rem;
+}
+}
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>Ramón Reyes</h1>
-    <p>Profesor de Alemán | Cursos Online | Capacitación | Asesorías Educativas</p>
-    <a class="btn" href="#contacto">Contáctame</a>
-  </header>
+<header>
+<h1>Deutsch Lernen mit Ramón</h1>
+<p>Plataforma de práctica de vocabulario, oraciones y preparación para alemán B1, B2, DSD I y DSD II.</p>
+</header>
 
-  <section>
-    <h2>Servicios</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Cursos de Alemán</h3>
-        <p>Clases para niños, jóvenes y adultos. Preparación A1, A2, B1, B2 y DSD.</p>
-      </div>
+<main class="container">
 
-      <div class="card">
-        <h3>Capacitación Online</h3>
-        <p>Cursos a distancia con material digital, acompañamiento y actividades prácticas.</p>
-      </div>
+<div class="grid">
 
-      <div class="card">
-        <h3>Relatorías</h3>
-        <p>Relatorías educativas, metodológicas y tecnológicas para instituciones.</p>
-      </div>
+<div class="card">
+<div class="icon">🇩🇪</div>
+<h2>Vocabulario B1</h2>
+<p>Practica vocabulario alemán-español con ejercicios interactivos.</p>
+<a class="btn" href="b1.html">Entrar</a>
+</div>
 
-      <div class="card">
-        <h3>Asesorías</h3>
-        <p>Apoyo en proyectos educativos, planificación, evaluación y herramientas digitales.</p>
-      </div>
-    </div>
-  </section>
+<div class="card">
+<div class="icon">✍️</div>
+<h2>Oraciones B1</h2>
+<p>Completa oraciones en alemán usando vocabulario en contexto.</p>
+<a class="btn" href="b1-satztrainer.html">Entrar</a>
+</div>
 
-  <section>
-    <h2>Sobre mí</h2>
-    <div class="about">
-      <p>
-        Soy profesor de alemán con amplia experiencia en enseñanza de idiomas,
-        preparación para certificaciones internacionales y desarrollo de material educativo.
-      </p>
-      <p>
-        Ofrezco clases, cursos, capacitaciones y asesorías orientadas a instituciones,
-        estudiantes y profesionales que desean avanzar de forma clara, práctica y efectiva.
-      </p>
-    </div>
-  </section>
+<div class="card">
+<div class="icon">📘</div>
+<h2>Vocabulario B2</h2>
+<p>Ejercicios de vocabulario avanzado para argumentar y escribir mejor.</p>
+<a class="btn" href="b2.html">Entrar</a>
+</div>
 
-  <section>
-    <h2>Modalidades</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Online</h3>
-        <p>Clases y cursos por videoconferencia con material digital.</p>
-      </div>
+<div class="card">
+<div class="icon">🎯</div>
+<h2>DSD I</h2>
+<p>Material de preparación para comprensión, escritura y expresión oral.</p>
+<a class="btn" href="dsd1.html">Entrar</a>
+</div>
 
-      <div class="card">
-        <h3>Presencial</h3>
-        <p>Capacitaciones y relatorías para instituciones educativas o empresas.</p>
-      </div>
+<div class="card">
+<div class="icon">🏆</div>
+<h2>DSD II</h2>
+<p>Vocabulario, Redemittel y práctica para nivel B2/C1.</p>
+<a class="btn" href="dsd2.html">Entrar</a>
+</div>
 
-      <div class="card">
-        <h3>Personalizado</h3>
-        <p>Programas adaptados al nivel, objetivo y ritmo de cada estudiante o institución.</p>
-      </div>
-    </div>
-  </section>
+<div class="card">
+<div class="icon">🚢</div>
+<h2>Lernen mit Kopf, Herz und Hand</h2>
+<p>Ejercicios de vocabulario del tema trabajado en clase.</p>
+<a class="btn" href="lernen-mit-kopf-herz-und-hand.html">Entrar</a>
+</div>
 
-  <div class="contact" id="contacto">
-    <h2>Contacto</h2>
-    <p>¿Quieres clases, cursos o una asesoría?</p>
-    <a class="btn whatsapp" href="https://wa.me/TU_NUMERO" target="_blank">
-      Escribir por WhatsApp
-    </a>
-    <p style="margin-top:20px;">Correo: contacto@tudominio.cl</p>
-  </div>
+</div>
 
-  <footer>
-    © 2026 Ramón Reyes. Todos los derechos reservados.
-  </footer>
+</main>
+
+<footer>
+<p>© 2026 Deutsch Lernen mit Ramón</p>
+</footer>
 
 </body>
 </html>
