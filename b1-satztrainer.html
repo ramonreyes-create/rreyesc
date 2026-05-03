@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B1 Satztrainer</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+header {
+  background: linear-gradient(135deg,#58cc02,#1cb0f6);
+  color: white;
+  padding: 42px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.1rem;
+}
+
+.container {
+  max-width: 1180px;
+  margin: auto;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 9px;
+  border: none;
+  border-radius: 14px;
+  background: #eef2ff;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar button:hover {
+  background: #dbeafe;
+}
+
+.sidebar button.active {
+  background: #58cc02;
+  color: white;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+.instruction {
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.sentence {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 30px 0;
+  line-height: 1.4;
+}
+
+.hint {
+  background: #eef2ff;
+  color: #3730a3;
+  border-radius: 14px;
+  padding: 12px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  border: 2px solid #e5e7eb;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+button.main {
+  background: #58cc02;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 5px 0 #46a302;
+}
+
+button.main:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #46a302;
+}
+
+button.secondary {
+  background: #1cb0f6;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 8px;
+  box-shadow: 0 5px 0 #1689c7;
+}
+
+.feedback {
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: bold;
+  display: none;
+}
+
+.correct {
+  background: #dcfce7;
+  color: #166534;
+  display: block;
+}
+
+.wrong {
+  background: #fee2e2;
+  color: #991b1b;
+  display: block;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.stat {
+  background: #f3f4f6;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: bold;
+}
+
+.progress {
+  width: 100%;
+  height: 16px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #58cc02;
+  transition: .3s;
+}
+
+.word-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.chip {
+  background: #eef2ff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: .9rem;
+  font-weight: bold;
+}
+
+.example {
+  background: #f8fafc;
+  border-left: 5px solid #58cc02;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+@media(max-width:850px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .sentence {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>B1 Satztrainer</h1>
+  <p>Usa el vocabulario en oraciones reales en alemán</p>
+</header>
+
+<div class="container">
+
+  <aside class="card sidebar">
+    <h2>Themen</h2>
+    <div id="lessonButtons"></div>
+
+    <div class="stats">
+      <div class="stat">💎 XP: <span id="xp">0</span></div>
+      <div class="stat">❤️ <span id="life">5</span></div>
+      <div class="stat">✅ <span id="correctCount">0</span></div>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </aside>
+
+  <main>
+    <section class="card">
+      <h2 id="lessonTitle"></h2>
+      <p class="instruction">
+        Completa la oración con la palabra correcta en alemán. Usa la pista en español.
+      </p>
+
+      <div class="hint" id="hint"></div>
+
+      <div class="sentence" id="sentence"></div>
+
+      <input type="text" id="answer" placeholder="Escribe la palabra que falta...">
+
+      <button class="main" onclick="checkAnswer()">Prüfen</button>
+      <button class="secondary" onclick="nextExercise()">Nächste Aufgabe</button>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="example" id="completeSentence" style="display:none;"></div>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <h2>Palabras practicadas en este tema</h2>
+      <div class="word-list" id="wordList"></div>
+    </section>
+  </main>
+
+</div>
+
+<script>
+const exercises = {"Schule und Lernen": [{"sentence": "Ich muss mich auf die ____ vorbereiten.", "answer": "Prüfung", "hint": "la prueba / el examen"}, {"sentence": "In Mathe habe ich eine gute ____ bekommen.", "answer": "Note", "hint": "la nota"}, {"sentence": "Der Lehrer kann die Grammatik gut ____.", "answer": "erklären", "hint": "explicar"}, {"sentence": "Zu Hause muss ich die neuen Wörter ____.", "answer": "wiederholen", "hint": "repasar"}, {"sentence": "Wenn ich viel übe, kann ich die Prüfung ____.", "answer": "bestehen", "hint": "aprobar"}], "Familie und Freunde": [{"sentence": "Ich ____ mich sehr gut mit meiner Schwester.", "answer": "verstehe", "hint": "llevarse bien"}, {"sentence": "Am Wochenende besuche ich meine ____.", "answer": "Großeltern", "hint": "abuelos"}, {"sentence": "Gute Freunde kann man ____.", "answer": "vertrauen", "hint": "confiar"}, {"sentence": "Wir machen viele Dinge ____.", "answer": "gemeinsam", "hint": "juntos"}, {"sentence": "Manchmal ____ ich mit meinem Bruder.", "answer": "streite", "hint": "discuto / peleo"}], "Freizeit und Hobbys": [{"sentence": "In meiner Freizeit ____ ich gern Musik.", "answer": "höre", "hint": "escuchar"}, {"sentence": "Nach der Schule treffe ich meine ____.", "answer": "Freunde", "hint": "amigos"}, {"sentence": "Am Sonntag gehe ich oft ____.", "answer": "spazieren", "hint": "caminar"}, {"sentence": "Dieses Hobby finde ich sehr ____.", "answer": "interessant", "hint": "interesante"}, {"sentence": "Nach einer langen Woche möchte ich mich ____.", "answer": "entspannen", "hint": "relajarse"}], "Alltag und Wohnen": [{"sentence": "Ich muss mein Zimmer ____.", "answer": "aufräumen", "hint": "ordenar"}, {"sentence": "Meine Wohnung ist klein, aber sehr ____.", "answer": "bequem", "hint": "cómoda"}, {"sentence": "Wir möchten nächstes Jahr ____.", "answer": "umziehen", "hint": "mudarse"}, {"sentence": "Am Samstag gehen wir ____.", "answer": "einkaufen", "hint": "hacer compras"}, {"sentence": "Die Nachbarn sind sehr ____.", "answer": "laut", "hint": "ruidosos"}], "Reisen und Verkehr": [{"sentence": "Ich möchte ein Hotelzimmer ____.", "answer": "buchen", "hint": "reservar"}, {"sentence": "Der Zug fährt um acht Uhr ____.", "answer": "ab", "hint": "partir / salir"}, {"sentence": "Am Flughafen brauche ich meinen ____.", "answer": "Pass", "hint": "pasaporte"}, {"sentence": "Wir möchten in einer Jugendherberge ____.", "answer": "übernachten", "hint": "alojar"}, {"sentence": "Der Bus kommt heute nicht ____.", "answer": "pünktlich", "hint": "puntual"}], "Gesundheit": [{"sentence": "Ich habe starke ____.", "answer": "Kopfschmerzen", "hint": "dolor de cabeza"}, {"sentence": "Wenn man krank ist, sollte man sich ____.", "answer": "ausruhen", "hint": "descansar"}, {"sentence": "Ich habe morgen einen ____ beim Arzt.", "answer": "Termin", "hint": "cita"}, {"sentence": "Gesunde ____ ist sehr wichtig.", "answer": "Ernährung", "hint": "alimentación"}, {"sentence": "Man sollte Rauchen ____.", "answer": "vermeiden", "hint": "evitar"}], "Beruf und Zukunft": [{"sentence": "Ich möchte mich für ein Praktikum ____.", "answer": "bewerben", "hint": "postular"}, {"sentence": "Für die Bewerbung brauche ich einen ____.", "answer": "Lebenslauf", "hint": "currículum"}, {"sentence": "Mein Traumberuf soll interessant und ____ sein.", "answer": "erfolgreich", "hint": "exitoso"}, {"sentence": "Im Vorstellungsgespräch muss man freundlich und ____ sein.", "answer": "zuverlässig", "hint": "confiable"}, {"sentence": "In der Zukunft möchte ich viel Erfahrung ____.", "answer": "sammeln", "hint": "acumular / juntar"}], "Medien und Technik": [{"sentence": "Ich benutze mein ____ jeden Tag.", "answer": "Handy", "hint": "celular"}, {"sentence": "Man sollte private Informationen nicht öffentlich ____.", "answer": "teilen", "hint": "compartir"}, {"sentence": "Diese App ist sehr ____.", "answer": "nützlich", "hint": "útil"}, {"sentence": "Im Internet muss man vorsichtig und ____ sein.", "answer": "sicher", "hint": "seguro"}, {"sentence": "Ich möchte ein Foto ____.", "answer": "hochladen", "hint": "subir"}], "Umwelt": [{"sentence": "Wir sollten Wasser und Strom ____.", "answer": "sparen", "hint": "ahorrar"}, {"sentence": "Man muss die Umwelt ____.", "answer": "schützen", "hint": "proteger"}, {"sentence": "Zu viel Müll kann die Natur ____.", "answer": "verschmutzen", "hint": "contaminar"}, {"sentence": "Recycling ist eine gute ____.", "answer": "Lösung", "hint": "solución"}, {"sentence": "Jeder Mensch hat eine ____ für die Umwelt.", "answer": "Verantwortung", "hint": "responsabilidad"}], "Meinung und Diskussion": [{"sentence": "____ Meinung nach ist Sport sehr wichtig.", "answer": "Meiner", "hint": "en mi opinión"}, {"sentence": "Ein ____ ist, dass man viel lernen kann.", "answer": "Vorteil", "hint": "ventaja"}, {"sentence": "Ein ____ ist, dass es teuer sein kann.", "answer": "Nachteil", "hint": "desventaja"}, {"sentence": "Ich bin ____ diese Idee.", "answer": "für", "hint": "a favor"}, {"sentence": "Ich bin ____ diese Idee.", "answer": "gegen", "hint": "en contra"}]};
+
+let lessonNames = Object.keys(exercises);
+let currentLesson = lessonNames[0];
+let index = 0;
+let xp = Number(localStorage.getItem("satz_b1_xp") || 0);
+let life = Number(localStorage.getItem("satz_b1_life") || 5);
+let correctCount = Number(localStorage.getItem("satz_b1_correct") || 0);
+let answered = false;
+
+document.getElementById("xp").innerText = xp;
+document.getElementById("life").innerText = life;
+document.getElementById("correctCount").innerText = correctCount;
+
+function normalize(text) {
+  return text.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function saveProgress() {
+  localStorage.setItem("satz_b1_xp", xp);
+  localStorage.setItem("satz_b1_life", life);
+  localStorage.setItem("satz_b1_correct", correctCount);
+}
+
+function renderButtons() {
+  const box = document.getElementById("lessonButtons");
+  box.innerHTML = "";
+
+  lessonNames.forEach(name => {
+    const btn = document.createElement("button");
+    btn.innerText = name + " (" + exercises[name].length + ")";
+    btn.className = name === currentLesson ? "active" : "";
+    btn.onclick = function() {
+      currentLesson = name;
+      index = 0;
+      renderButtons();
+      loadExercise();
+      renderWordList();
+    };
+    box.appendChild(btn);
+  });
+}
+
+function renderWordList() {
+  const list = document.getElementById("wordList");
+  list.innerHTML = "";
+
+  exercises[currentLesson].forEach(ex => {
+    const chip = document.createElement("span");
+    chip.className = "chip";
+    chip.innerText = ex.answer + " = " + ex.hint;
+    list.appendChild(chip);
+  });
+}
+
+function loadExercise() {
+  answered = false;
+
+  const ex = exercises[currentLesson][index];
+
+  document.getElementById("lessonTitle").innerText = currentLesson;
+  document.getElementById("hint").innerText = "Pista: " + ex.hint;
+  document.getElementById("sentence").innerText = ex.sentence;
+  document.getElementById("answer").value = "";
+
+  document.getElementById("feedback").className = "feedback";
+  document.getElementById("feedback").innerText = "";
+
+  document.getElementById("completeSentence").style.display = "none";
+  document.getElementById("completeSentence").innerHTML = "";
+
+  updateProgress();
+}
+
+function checkAnswer() {
+  if (answered) return;
+  answered = true;
+
+  const ex = exercises[currentLesson][index];
+  const user = document.getElementById("answer").value;
+  const feedback = document.getElementById("feedback");
+  const complete = document.getElementById("completeSentence");
+
+  if (normalize(user) === normalize(ex.answer)) {
+    xp += 10;
+    correctCount++;
+
+    document.getElementById("xp").innerText = xp;
+    document.getElementById("correctCount").innerText = correctCount;
+
+    feedback.innerText = "✅ Correcto. Muy bien usado en contexto. +10 XP";
+    feedback.className = "feedback correct";
+  } else {
+    life--;
+    document.getElementById("life").innerText = life;
+
+    feedback.innerText = "❌ Falso. La palabra correcta es: " + ex.answer;
+    feedback.className = "feedback wrong";
+  }
+
+  complete.style.display = "block";
+  complete.innerHTML = "<strong>Oración completa:</strong><br>" + ex.sentence.replace("____", "<u>" + ex.answer + "</u>");
+
+  saveProgress();
+}
+
+function nextExercise() {
+  index++;
+
+  if (index >= exercises[currentLesson].length) {
+    index = 0;
+  }
+
+  loadExercise();
+}
+
+function updateProgress() {
+  const total = exercises[currentLesson].length;
+  const percent = Math.round(((index + 1) / total) * 100);
+  document.getElementById("progressBar").style.width = percent + "%";
+}
+
+renderButtons();
+renderWordList();
+loadExercise();
+</script>
+
+</body>
+</html>
