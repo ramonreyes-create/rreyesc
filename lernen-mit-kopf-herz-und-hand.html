@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernen mit Kopf, Herz und Hand</title>
+
+<style>
+* {
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body {
+font-family:Arial, Helvetica, sans-serif;
+background:#f5f7fb;
+color:#222;
+}
+
+header {
+background:linear-gradient(135deg,#58cc02,#1cb0f6);
+color:white;
+padding:40px 20px;
+text-align:center;
+}
+
+header h1 {
+font-size:2.5rem;
+margin-bottom:10px;
+}
+
+header p {
+font-size:1.1rem;
+}
+
+.container {
+max-width:1100px;
+margin:auto;
+padding:25px;
+display:grid;
+grid-template-columns:300px 1fr;
+gap:25px;
+}
+
+.card {
+background:white;
+border-radius:20px;
+padding:22px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.sidebar button {
+width:100%;
+padding:14px;
+margin-bottom:10px;
+border:none;
+border-radius:14px;
+background:#eef2ff;
+font-weight:bold;
+cursor:pointer;
+transition:0.2s;
+}
+
+.sidebar button:hover {
+background:#dbeafe;
+}
+
+.sidebar button.active {
+background:#58cc02;
+color:white;
+}
+
+h2 {
+margin-bottom:15px;
+}
+
+.question {
+font-size:2rem;
+font-weight:bold;
+text-align:center;
+margin:30px 0;
+}
+
+.options {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
+}
+
+.options button {
+padding:15px;
+border:none;
+border-radius:14px;
+background:#f3f4f6;
+font-weight:bold;
+cursor:pointer;
+}
+
+.options button:hover {
+background:#d1fae5;
+}
+
+input {
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #ccc;
+font-size:1rem;
+margin-top:15px;
+}
+
+.green {
+background:#58cc02;
+color:white;
+padding:14px 20px;
+border:none;
+border-radius:14px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
+}
+
+.feedback {
+margin-top:15px;
+font-weight:bold;
+padding:14px;
+border-radius:14px;
+display:none;
+}
+
+.correct {
+background:#dcfce7;
+color:#166534;
+display:block;
+}
+
+.wrong {
+background:#fee2e2;
+color:#991b1b;
+display:block;
+}
+
+.stats {
+display:flex;
+gap:10px;
+margin-top:15px;
+flex-wrap:wrap;
+}
+
+.stat {
+background:#f3f4f6;
+padding:10px 14px;
+border-radius:999px;
+font-weight:bold;
+}
+
+.bank {
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:15px;
+}
+
+.chip {
+background:#eef2ff;
+padding:8px 12px;
+border-radius:999px;
+font-size:.9rem;
+font-weight:bold;
+}
+
+.progress {
+width:100%;
+height:16px;
+background:#e5e7eb;
+border-radius:999px;
+overflow:hidden;
+margin-top:15px;
+}
+
+.progress-bar {
+height:100%;
+width:0%;
+background:#58cc02;
+transition:0.3s;
+}
+
+@media(max-width:850px) {
+.container {
+grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Lernen mit Kopf, Herz und Hand</h1>
+<p>Deutsch ↔ Español Wortschatztrainer</p>
+</header>
+
+<div class="container">
+
+<div class="card sidebar">
+
+<h2>Lektionen</h2>
+
+<div id="lessonButtons"></div>
+
+<div class="stats">
+<div class="stat">💎 XP: <span id="xp">0</span></div>
+<div class="stat">❤️ <span id="life">5</span></div>
+<div class="stat">✅ Richtig: <span id="correctCount">0</span></div>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+</div>
+
+<div>
+
+<div class="card">
+
+<h2 id="lessonTitle">Klassenzimmer unter Segeln</h2>
+
+<p id="instruction">Wähle die richtige Übersetzung.</p>
+
+<div class="question" id="question"></div>
+
+<div class="options" id="options"></div>
+
+<input type="text" id="answer" style="display:none">
+
+<button class="green" id="checkBtn" style="display:none" onclick="checkWritten()">Prüfen</button>
+
+<div class="feedback" id="feedback"></div>
+
+<button class="green" onclick="nextWord()">Nächste Aufgabe</button>
+
+</div>
+
+<div class="card" style="margin-top:20px;">
+
+<h2>Wortschatz dieser Lektion</h2>
+
+<div class="bank" id="bank"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const lessons = {"Klassenzimmer unter Segeln": [["das Segelschiff", "el velero"], ["an Bord", "a bordo"], ["außergewöhnlich", "extraordinario"], ["der Atlantik", "el Atlántico"], ["die Besatzung", "la tripulación"], ["sich kümmern um + A", "ocuparse de"], ["das Segel", "la vela"], ["der Kapitän", "el capitán"], ["sich leisten", "permitirse algo"], ["das Stipendium", "la beca"], ["sich bewerben", "solicitar / presentarse"], ["unterrichten", "enseñar"], ["die Region", "la región"], ["der Bauer", "el agricultor / el granjero / campesino"], ["die Bäuerin", "la agricultora / la granjera / campesina"], ["die Ausdauer", "la resistencia"], ["sich erinnern an + A", "acordarse de"], ["das Knie", "la rodilla"], ["sich trauen", "atreverse"], ["der Mast", "el mástil / el palo"], ["nachdenken", "reflexionar"], ["Ich bin gespannt auf …", "estar curioso por saber algo"], ["der Sturm", "la tormenta"], ["untergehen", "hundirse"], ["mitfahren", "irse de viaje con alguien"], ["das Heimweh", "la nostalgia por la patria"]], "So lernen wir": [["das Chemielabor", "el laboratorio químico"], ["die Aktivität", "la actividad"], ["diskutieren", "discutir / debatir"], ["der Wert", "el valor"], ["beobachten", "observar"], ["experimentieren", "experimentar"], ["der Entwurf", "el diseño / el esbozo"], ["analysieren", "analizar"], ["die Präsentation", "la presentación"], ["erstellen", "realizar / elaborar"], ["recherchieren", "investigar"], ["beschreiben", "describir"], ["öde", "monótono / aburrido"], ["Es fällt mir schwer, …", "Me resulta difícil …"], ["die Vokabel", "el vocabulario"], ["abfragen", "preguntar la lección"], ["durcheinanderbringen", "confundir / mezclar"], ["die Hälfte", "la mitad"], ["aufnehmen", "grabar"], ["der Spaziergang", "el paseo"], ["vortragen", "recitar / presentar"], ["Notizen machen", "tomar apuntes / notas"], ["einfallen", "ocurrir / venir a la memoria"], ["benutzen", "usar / utilizar"], ["der Lerntyp", "el tipo de alumno / aprendizaje"]], "Pro und contra": [["das Ferienlager", "el campamento de verano"], ["freiwillig", "voluntario"], ["büffeln", "estudiar mucho"], ["die Abschlussprüfung", "el examen final"], ["die Nachhilfe", "la tutoría / la clase particular"], ["positiv", "positivo"], ["negativ", "negativo"], ["sich erholen", "recuperarse"], ["damit", "para + infinitivo"], ["um … zu …", "para + infinitivo"], ["nutzen", "aprovechar"], ["die Berufschance", "la oportunidad profesional"], ["Meiner Meinung nach …", "Según mi opinión …"], ["der Vorteil", "la ventaja"], ["der Nachteil", "la desventaja"], ["pro und contra", "a favor y en contra"], ["erlauben", "permitir"], ["Ich bedanke mich für die Aufmerksamkeit.", "Gracias por su atención"]]};
+
+let lessonNames = Object.keys(lessons);
+let currentLesson = lessonNames[0];
+let index = 0;
+let xp = 0;
+let life = 5;
+let correctCount = 0;
+let answered = false;
+let direction = "de-es";
+
+function shuffle(arr) {
+return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function normalize(text) {
+return text.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function renderLessonButtons() {
+let box = document.getElementById("lessonButtons");
+box.innerHTML = "";
+
+lessonNames.forEach(name => {
+let btn = document.createElement("button");
+btn.innerText = name + " (" + lessons[name].length + ")";
+btn.className = name === currentLesson ? "active" : "";
+btn.onclick = function() {
+changeLesson(name);
+};
+box.appendChild(btn);
+});
+}
+
+function changeLesson(name) {
+currentLesson = name;
+index = 0;
+answered = false;
+renderLessonButtons();
+showBank();
+loadWord();
+}
+
+function showBank() {
+let bank = document.getElementById("bank");
+bank.innerHTML = "";
+
+lessons[currentLesson].forEach(w => {
+bank.innerHTML += `<span class="chip">${w[0]} = ${w[1]}</span>`;
+});
+}
+
+function loadWord() {
+
+answered = false;
+
+let list = lessons[currentLesson];
+let item = list[index];
+
+document.getElementById("lessonTitle").innerText = currentLesson;
+
+let mode = Math.random() > 0.4 ? "mc" : "write";
+direction = Math.random() > 0.5 ? "de-es" : "es-de";
+
+document.getElementById("feedback").className = "feedback";
+document.getElementById("feedback").innerText = "";
+
+let questionText = direction === "de-es" ? item[0] : item[1];
+let correctText = direction === "de-es" ? item[1] : item[0];
+
+document.getElementById("question").innerText = questionText;
+
+if (mode === "mc") {
+
+document.getElementById("instruction").innerText = direction === "de-es"
+? "Wähle die spanische Übersetzung."
+: "Wähle die deutsche Übersetzung.";
+
+document.getElementById("answer").style.display = "none";
+document.getElementById("checkBtn").style.display = "none";
+
+let wrong = lessons[currentLesson]
+.filter(x => (direction === "de-es" ? x[1] : x[0]) !== correctText);
+
+let wrongOptions = shuffle(wrong).slice(0,3).map(x => direction === "de-es" ? x[1] : x[0]);
+
+let options = shuffle([correctText, ...wrongOptions]);
+
+let html = "";
+
+options.forEach(op => {
+html += `<button onclick="checkAnswer('${op.replace(/'/g, "\\'")}','${correctText.replace(/'/g, "\\'")}')">${op}</button>`;
+});
+
+document.getElementById("options").innerHTML = html;
+
+} else {
+
+document.getElementById("instruction").innerText = direction === "de-es"
+? "Schreibe die spanische Übersetzung."
+: "Schreibe die deutsche Übersetzung.";
+
+document.getElementById("options").innerHTML = "";
+document.getElementById("answer").style.display = "block";
+document.getElementById("checkBtn").style.display = "inline-block";
+document.getElementById("answer").value = "";
+
+window.correctAnswer = correctText;
+
+}
+
+updateProgress();
+
+}
+
+function checkAnswer(selected, correct) {
+
+if (answered) return;
+answered = true;
+
+let f = document.getElementById("feedback");
+
+if (selected === correct) {
+
+xp += 10;
+correctCount++;
+
+document.getElementById("xp").innerText = xp;
+document.getElementById("correctCount").innerText = correctCount;
+
+f.innerText = "✅ Correcto. ¡Muy bien! +10 XP";
+f.className = "feedback correct";
+
+} else {
+
+life--;
+document.getElementById("life").innerText = life;
+
+f.innerText = "❌ Falso. La respuesta correcta es: " + correct;
+f.className = "feedback wrong";
+
+}
+
+updateProgress();
+
+}
+
+function checkWritten() {
+
+if (answered) return;
+answered = true;
+
+let user = document.getElementById("answer").value;
+let correct = window.correctAnswer;
+
+let f = document.getElementById("feedback");
+
+if (normalize(user) === normalize(correct)) {
+
+xp += 10;
+correctCount++;
+
+document.getElementById("xp").innerText = xp;
+document.getElementById("correctCount").innerText = correctCount;
+
+f.innerText = "✅ Correcto. ¡Muy bien! +10 XP";
+f.className = "feedback correct";
+
+} else {
+
+life--;
+document.getElementById("life").innerText = life;
+
+f.innerText = "❌ Falso. La respuesta correcta es: " + correct;
+f.className = "feedback wrong";
+
+}
+
+updateProgress();
+
+}
+
+function nextWord() {
+
+index++;
+
+if (index >= lessons[currentLesson].length) {
+index = 0;
+}
+
+loadWord();
+
+}
+
+function updateProgress() {
+let percent = Math.round(((index + 1) / lessons[currentLesson].length) * 100);
+document.getElementById("progressBar").style.width = percent + "%";
+}
+
+renderLessonButtons();
+showBank();
+loadWord();
+
+</script>
+
+</body>
+</html>
