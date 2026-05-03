@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutsch Lernen mit Ramón</title>
+<title>Deutsch Lernen Premium</title>
 
 <style>
 *{
@@ -14,52 +14,75 @@ padding:0;
 
 body{
 font-family:Arial, Helvetica, sans-serif;
-background:#f5f7fb;
+background:#f8fafc;
 color:#222;
 }
 
 header{
 background:linear-gradient(135deg,#58cc02,#1cb0f6);
 color:white;
-padding:70px 20px;
+padding:90px 20px;
 text-align:center;
 }
 
 header h1{
-font-size:3rem;
+font-size:3.5rem;
 margin-bottom:15px;
 }
 
 header p{
 font-size:1.3rem;
-max-width:750px;
+max-width:800px;
 margin:auto;
-line-height:1.5;
+line-height:1.6;
+}
+
+.hero-btn{
+margin-top:30px;
+display:inline-block;
+background:white;
+color:#111;
+padding:16px 28px;
+border-radius:18px;
+font-weight:bold;
+text-decoration:none;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.hero-btn:hover{
+transform:translateY(-3px);
 }
 
 .container{
-max-width:1100px;
+max-width:1200px;
 margin:auto;
-padding:40px 20px;
+padding:50px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:2.2rem;
+margin-bottom:35px;
+color:#111827;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:25px;
 }
 
 .card{
 background:white;
-border-radius:24px;
 padding:30px;
-text-align:center;
+border-radius:24px;
 box-shadow:0 10px 25px rgba(0,0,0,0.08);
+text-align:center;
 transition:0.2s;
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:translateY(-6px);
 }
 
 .icon{
@@ -67,15 +90,15 @@ font-size:3rem;
 margin-bottom:15px;
 }
 
-.card h2{
-margin-bottom:10px;
-color:#111827;
+.card h3{
+font-size:1.4rem;
+margin-bottom:12px;
 }
 
 .card p{
 color:#555;
-margin-bottom:20px;
-line-height:1.4;
+line-height:1.5;
+margin-bottom:18px;
 }
 
 .btn{
@@ -93,15 +116,64 @@ box-shadow:0 5px 0 #46a302;
 background:#46b000;
 }
 
+.features{
+margin-top:70px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.feature{
+background:#eef2ff;
+padding:22px;
+border-radius:20px;
+text-align:center;
+font-weight:bold;
+}
+
+.cta{
+margin-top:70px;
+background:#111827;
+color:white;
+padding:55px 25px;
+border-radius:30px;
+text-align:center;
+}
+
+.cta h2{
+font-size:2.2rem;
+margin-bottom:15px;
+}
+
+.cta p{
+max-width:700px;
+margin:auto;
+line-height:1.6;
+margin-bottom:25px;
+}
+
+.whatsapp{
+display:inline-block;
+background:#25D366;
+color:white;
+padding:16px 28px;
+border-radius:18px;
+font-weight:bold;
+text-decoration:none;
+}
+
 footer{
 text-align:center;
-padding:25px;
+padding:35px;
 color:#666;
 }
 
 @media(max-width:700px){
 header h1{
-font-size:2.2rem;
+font-size:2.5rem;
+}
+header p{
+font-size:1.1rem;
 }
 }
 </style>
@@ -110,62 +182,87 @@ font-size:2.2rem;
 <body>
 
 <header>
-<h1>Deutsch Lernen mit Ramón</h1>
-<p>Plataforma de práctica de vocabulario, oraciones y preparación para alemán B1, B2, DSD I y DSD II.</p>
+<h1>Deutsch Lernen Premium</h1>
+<p>Aprende alemán de forma moderna e inteligente. Plataforma creada por Ramón Reyes para estudiantes B1, B2, DSD I y DSD II.</p>
+
+<a href="#cursos" class="hero-btn">Comenzar Ahora</a>
 </header>
 
-<main class="container">
+<section class="container">
+
+<h2 class="section-title" id="cursos">Nuestros Cursos</h2>
 
 <div class="grid">
 
 <div class="card">
 <div class="icon">🇩🇪</div>
-<h2>Vocabulario B1</h2>
-<p>Practica vocabulario alemán-español con ejercicios interactivos.</p>
+<h3>B1 Intensivo</h3>
+<p>Vocabulario, gramática, conversación y preparación oficial.</p>
 <a class="btn" href="b1.html">Entrar</a>
 </div>
 
 <div class="card">
 <div class="icon">✍️</div>
-<h2>Oraciones B1</h2>
-<p>Completa oraciones en alemán usando vocabulario en contexto.</p>
+<h3>B1 Satztrainer</h3>
+<p>Completa oraciones reales y domina el vocabulario.</p>
 <a class="btn" href="b1-satztrainer.html">Entrar</a>
 </div>
 
 <div class="card">
 <div class="icon">📘</div>
-<h2>Vocabulario B2</h2>
-<p>Ejercicios de vocabulario avanzado para argumentar y escribir mejor.</p>
+<h3>B2 Akademisch</h3>
+<p>Argumentación, redacción formal y vocabulario avanzado.</p>
 <a class="btn" href="b2.html">Entrar</a>
 </div>
 
 <div class="card">
 <div class="icon">🎯</div>
-<h2>DSD I</h2>
-<p>Material de preparación para comprensión, escritura y expresión oral.</p>
+<h3>DSD I</h3>
+<p>Preparación completa para examen oficial.</p>
 <a class="btn" href="dsd1.html">Entrar</a>
 </div>
 
 <div class="card">
 <div class="icon">🏆</div>
-<h2>DSD II</h2>
-<p>Vocabulario, Redemittel y práctica para nivel B2/C1.</p>
+<h3>DSD II</h3>
+<p>Nivel B2/C1 con enfoque académico real.</p>
 <a class="btn" href="dsd2.html">Entrar</a>
 </div>
 
 <div class="card">
-<div class="icon">🚢</div>
-<h2>Lernen mit Kopf, Herz und Hand</h2>
-<p>Ejercicios de vocabulario del tema trabajado en clase.</p>
-<a class="btn" href="lernen-mit-kopf-herz-und-hand.html">Entrar</a>
+<div class="icon">🌍</div>
+<h3>Clases Online</h3>
+<p>Clases particulares personalizadas por Zoom o Meet.</p>
+<a class="btn" href="kontakt.html">Consultar</a>
 </div>
 
 </div>
 
-</main>
+<div class="features">
+
+<div class="feature">✅ Método práctico y moderno</div>
+<div class="feature">✅ Preparación oficial DSD</div>
+<div class="feature">✅ Material interactivo</div>
+<div class="feature">✅ Profesor con experiencia real</div>
+<div class="feature">✅ Desde Chile al mundo</div>
+<div class="feature">✅ Clases online y presenciales</div>
+
+</div>
+
+<div class="cta">
+
+<h2>¿Quieres aprender alemán de verdad?</h2>
+
+<p>Únete a una formación seria, moderna y motivadora. Ideal para colegio, universidad, viajes o certificaciones oficiales.</p>
+
+<a class="whatsapp" href="#">📲 Contactar por WhatsApp</a>
+
+</div>
+
+</section>
 
 <footer>
-<p>© 2026 Deutsch Lernen mit Ramón</p>
+© 2026 Deutsch Lernen Premium | Ramón Reyes
 </footer>
 
 </body>
