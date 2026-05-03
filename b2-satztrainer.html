@@ -1,1 +1,130 @@
-
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2 Satztrainer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#222}
+header{background:linear-gradient(135deg,#58cc02,#1cb0f6);color:white;padding:42px 20px;text-align:center}
+header h1{font-size:2.5rem;margin-bottom:10px}
+header p{font-size:1.1rem}
+.container{max-width:1180px;margin:auto;padding:25px;display:grid;grid-template-columns:310px 1fr;gap:25px}
+.card{background:white;border-radius:22px;padding:22px;box-shadow:0 10px 25px rgba(0,0,0,0.08)}
+.sidebar button{width:100%;padding:13px;margin-bottom:9px;border:none;border-radius:14px;background:#eef2ff;font-weight:bold;cursor:pointer;text-align:left}
+.sidebar button:hover{background:#dbeafe}.sidebar button.active{background:#58cc02;color:white}
+h2{margin-bottom:15px}.instruction{color:#555;margin-bottom:15px;line-height:1.5}
+.sentence{font-size:2rem;font-weight:bold;text-align:center;margin:30px 0;line-height:1.4}
+.hint{background:#eef2ff;color:#3730a3;border-radius:14px;padding:12px;font-weight:bold;margin-bottom:15px}
+input{width:100%;padding:15px;border-radius:14px;border:2px solid #e5e7eb;font-size:1.1rem;margin-top:10px}
+button.main{background:#58cc02;color:white;padding:14px 20px;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-top:15px;box-shadow:0 5px 0 #46a302}
+button.secondary{background:#1cb0f6;color:white;padding:14px 20px;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-top:15px;margin-left:8px;box-shadow:0 5px 0 #1689c7}
+.feedback{margin-top:15px;padding:14px;border-radius:14px;font-weight:bold;display:none}
+.correct{background:#dcfce7;color:#166534;display:block}.wrong{background:#fee2e2;color:#991b1b;display:block}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.stat{background:#f3f4f6;padding:10px 14px;border-radius:999px;font-weight:bold}
+.progress{width:100%;height:16px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:15px}.progress-bar{height:100%;width:0%;background:#58cc02;transition:.3s}
+.example{background:#f8fafc;border-left:5px solid #58cc02;padding:14px;border-radius:14px;margin-top:15px;line-height:1.5}
+.small{font-size:.9rem;color:#666;margin-top:12px;line-height:1.4}
+@media(max-width:850px){.container{grid-template-columns:1fr}header h1{font-size:2rem}.sentence{font-size:1.45rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>B2 Satztrainer</h1>
+  <p>Completa oraciones complejas y usa vocabulario B2 en contexto real</p>
+</header>
+<div class="container">
+  <aside class="card sidebar">
+    <h2>Themen B2</h2>
+    <div id="lessonButtons"></div>
+    <div class="stats">
+      <div class="stat">💎 XP: <span id="xp">0</span></div>
+      <div class="stat">❤️ <span id="life">5</span></div>
+      <div class="stat">✅ <span id="correctCount">0</span></div>
+    </div>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <p class="small">El progreso se guarda en este navegador.</p>
+  </aside>
+  <main>
+    <section class="card">
+      <h2 id="lessonTitle"></h2>
+      <p class="instruction">Completa la oración con la palabra correcta en alemán. Usa la pista en español.</p>
+      <div class="hint" id="hint"></div>
+      <div class="sentence" id="sentence"></div>
+      <input type="text" id="answer" placeholder="Escribe la palabra que falta...">
+      <button class="main" onclick="checkAnswer()">Prüfen</button>
+      <button class="secondary" onclick="nextExercise()">Nächste Aufgabe</button>
+      <div class="feedback" id="feedback"></div>
+      <div class="example" id="completeSentence" style="display:none;"></div>
+    </section>
+  </main>
+</div>
+<script>
+const exercises = {"Arbeit und Karriere": [{"sentence": "Für diese Stelle braucht man viel ____.", "answer": "Berufserfahrung", "hint": "experiencia laboral"}, {"sentence": "Eine wichtige ____ für den Job ist sehr gutes Deutsch.", "answer": "Voraussetzung", "hint": "requisito"}, {"sentence": "Viele Erwachsene machen eine ____ neben der Arbeit.", "answer": "Weiterbildung", "hint": "formación continua"}, {"sentence": "Die ____ ist in vielen Ländern ein großes Problem.", "answer": "Arbeitslosigkeit", "hint": "desempleo"}, {"sentence": "Ein Praktikum kann eine gute ____ sein.", "answer": "Karrierechance", "hint": "oportunidad profesional"}, {"sentence": "Ich möchte mich ____ eine Stelle bewerben.", "answer": "um", "hint": "preposición de sich bewerben um"}, {"sentence": "In meiner Abteilung bin ich ____ die Organisation zuständig.", "answer": "für", "hint": "preposición de zuständig sein für"}, {"sentence": "Teamfähigkeit ist eine wichtige ____.", "answer": "Fähigkeit", "hint": "habilidad"}, {"sentence": "Diese Aufgabe ist eine große ____ für mich.", "answer": "Herausforderung", "hint": "desafío"}, {"sentence": "Das monatliche ____ reicht kaum zum Leben.", "answer": "Einkommen", "hint": "ingreso"}, {"sentence": "Vor Arbeitsbeginn unterschreibt man einen ____.", "answer": "Arbeitsvertrag", "hint": "contrato laboral"}, {"sentence": "Nach der ____ suchte er eine neue Stelle.", "answer": "Kündigung", "hint": "despido / renuncia"}, {"sentence": "Man sollte im Beruf Verantwortung ____.", "answer": "übernehmen", "hint": "asumir"}, {"sentence": "Eine ____ ist praktisch, wenn man studiert.", "answer": "Teilzeitstelle", "hint": "trabajo de media jornada"}, {"sentence": "Eine ____ bedeutet meistens 40 Stunden pro Woche.", "answer": "Vollzeitstelle", "hint": "trabajo de jornada completa"}, {"sentence": "Gute ____ sind für die Motivation wichtig.", "answer": "Arbeitsbedingungen", "hint": "condiciones laborales"}, {"sentence": "Seine ____ im Unternehmen ist sehr gut.", "answer": "Leistung", "hint": "rendimiento"}, {"sentence": "Wer gute Arbeit leistet, kann ____ werden.", "answer": "befördert", "hint": "ser ascendido"}, {"sentence": "Viele Menschen möchten später ____ arbeiten.", "answer": "selbstständig", "hint": "independiente / autónomo"}, {"sentence": "Im Moment bin ich bei einer Firma ____.", "answer": "angestellt", "hint": "empleado"}], "Umwelt und Klima": [{"sentence": "____ bedeutet, dass man an die Zukunft denkt.", "answer": "Nachhaltigkeit", "hint": "sostenibilidad"}, {"sentence": "Der ____ betrifft die ganze Welt.", "answer": "Klimawandel", "hint": "cambio climático"}, {"sentence": "Die ____ schadet Menschen, Tieren und Pflanzen.", "answer": "Umweltverschmutzung", "hint": "contaminación ambiental"}, {"sentence": "Solar- und Windenergie gehören zu den ____ Energien.", "answer": "erneuerbaren", "hint": "renovables"}, {"sentence": "Der CO2-____ muss reduziert werden.", "answer": "Ausstoß", "hint": "emisión"}, {"sentence": "Wir sollten mehr Ressourcen ____.", "answer": "sparen", "hint": "ahorrar"}, {"sentence": "Die ____ hilft beim Recycling.", "answer": "Mülltrennung", "hint": "separación de basura"}, {"sentence": "Der hohe ____ von Energie ist problematisch.", "answer": "Verbrauch", "hint": "consumo"}, {"sentence": "Plastik sollte man möglichst ____.", "answer": "vermeiden", "hint": "evitar"}, {"sentence": "Wir müssen den Wasserverbrauch ____.", "answer": "verringern", "hint": "reducir"}, {"sentence": "Eine mögliche ____ ist der Ausbau öffentlicher Verkehrsmittel.", "answer": "Lösung", "hint": "solución"}, {"sentence": "Jeder Mensch trägt ____ für die Umwelt.", "answer": "Verantwortung", "hint": "responsabilidad"}, {"sentence": "Wer Müll trennt, handelt ____.", "answer": "umweltbewusst", "hint": "consciente del medioambiente"}, {"sentence": "Fahrradfahren ist besonders ____.", "answer": "klimafreundlich", "hint": "amigable con el clima"}, {"sentence": "Chemikalien können für die Natur ____ sein.", "answer": "schädlich", "hint": "dañino"}, {"sentence": "Öffentliche Verkehrsmittel verbessern die ____.", "answer": "Mobilität", "hint": "movilidad"}, {"sentence": "Zu viel Konsum führt oft zu ____.", "answer": "Verschwendung", "hint": "desperdicio"}, {"sentence": "Der ____ der Natur ist eine zentrale Aufgabe.", "answer": "Schutz", "hint": "protección"}, {"sentence": "Der Klimawandel ist eine große ____.", "answer": "Gefahr", "hint": "peligro"}, {"sentence": "Eine positive ____ ist noch möglich.", "answer": "Veränderung", "hint": "cambio"}], "Gesellschaft und Integration": [{"sentence": "____ bedeutet, dass alle ähnliche Chancen haben.", "answer": "Chancengleichheit", "hint": "igualdad de oportunidades"}, {"sentence": "Die soziale ____ beeinflusst oft den Bildungsweg.", "answer": "Herkunft", "hint": "origen"}, {"sentence": "____ zwischen Arm und Reich ist ein Problem.", "answer": "Ungleichheit", "hint": "desigualdad"}, {"sentence": "Gute ____ braucht Sprache, Arbeit und Kontakte.", "answer": "Integration", "hint": "integración"}, {"sentence": "____ kann Menschen einsam machen.", "answer": "Ausgrenzung", "hint": "exclusión"}, {"sentence": "Kulturelle ____ bereichert eine Gesellschaft.", "answer": "Vielfalt", "hint": "diversidad"}, {"sentence": "Der soziale ____ ist in Krisen besonders wichtig.", "answer": "Zusammenhalt", "hint": "cohesión"}, {"sentence": "Der Staat muss sinnvolle ____ treffen.", "answer": "Maßnahmen", "hint": "medidas"}, {"sentence": "Diese Entscheidung hat viele ____.", "answer": "Auswirkungen", "hint": "efectos"}, {"sentence": "Schulen sollten schwächere Schüler stärker ____.", "answer": "fördern", "hint": "fomentar / apoyar"}, {"sentence": "Niemand darf wegen seiner Herkunft ____ werden.", "answer": "benachteiligt", "hint": "perjudicado"}, {"sentence": "Viele Jugendliche möchten ____ Projekten teilnehmen.", "answer": "an", "hint": "preposición de teilnehmen an"}, {"sentence": "Wer helfen will, kann sich freiwillig ____.", "answer": "engagieren", "hint": "comprometerse"}, {"sentence": "Die ____ verändert sich ständig.", "answer": "Gesellschaft", "hint": "sociedad"}, {"sentence": "Die ____ eines Landes wird immer vielfältiger.", "answer": "Bevölkerung", "hint": "población"}, {"sentence": "Eine ____ hat oft weniger politischen Einfluss.", "answer": "Minderheit", "hint": "minoría"}, {"sentence": "Die ____ entscheidet in einer Demokratie.", "answer": "Mehrheit", "hint": "mayoría"}, {"sentence": "Der gesellschaftliche ____ ist nicht aufzuhalten.", "answer": "Wandel", "hint": "cambio"}, {"sentence": "Eine ____ Gesellschaft behandelt alle fair.", "answer": "gerechte", "hint": "justa"}, {"sentence": "Ehrenamtliche Arbeit ist meistens ____.", "answer": "freiwillig", "hint": "voluntaria"}], "Bildung und Schule": [{"sentence": "Das deutsche ____ ist föderal organisiert.", "answer": "Bildungssystem", "hint": "sistema educativo"}, {"sentence": "Das Gymnasium ist eine bekannte ____.", "answer": "Schulform", "hint": "tipo de colegio"}, {"sentence": "Die ____ der Schüler wird regelmäßig bewertet.", "answer": "Leistung", "hint": "rendimiento"}, {"sentence": "Individuelle ____ kann Schülern sehr helfen.", "answer": "Förderung", "hint": "apoyo / fomento"}, {"sentence": "____ bedeutet, dass Wechsel zwischen Schulformen möglich sind.", "answer": "Durchlässigkeit", "hint": "permeabilidad"}, {"sentence": "Nach dem Gymnasium machen viele Schüler das ____.", "answer": "Abitur", "hint": "bachillerato alemán"}, {"sentence": "Eine ____ ist eine Alternative zum Studium.", "answer": "Berufsausbildung", "hint": "formación profesional"}, {"sentence": "Für ein ____ braucht man oft das Abitur.", "answer": "Studium", "hint": "estudios universitarios"}, {"sentence": "Eine wichtige ____ ist Motivation.", "answer": "Voraussetzung", "hint": "requisito"}, {"sentence": "Lehrer müssen Leistungen objektiv ____.", "answer": "bewerten", "hint": "evaluar"}, {"sentence": "Vor der Prüfung muss man sich gut ____.", "answer": "vorbereiten", "hint": "prepararse"}, {"sentence": "Viele Jugendliche wollen einen guten Abschluss ____.", "answer": "erreichen", "hint": "alcanzar"}, {"sentence": "Manche Schüler ____ an zu hohem Leistungsdruck.", "answer": "scheitern", "hint": "fracasan"}, {"sentence": "Musikalische ____ sollte früh erkannt werden.", "answer": "Begabung", "hint": "talento"}, {"sentence": "____ Schüler brauchen anspruchsvolle Aufgaben.", "answer": "leistungsstarke", "hint": "de alto rendimiento"}, {"sentence": "____ Schüler brauchen mehr Unterstützung.", "answer": "leistungsschwache", "hint": "de bajo rendimiento"}, {"sentence": "Der Unterricht am Gymnasium ist oft ____.", "answer": "anspruchsvoll", "hint": "exigente"}, {"sentence": "Die Realschule ist stärker ____.", "answer": "praxisorientiert", "hint": "orientada a la práctica"}, {"sentence": "Der ____ entscheidet oft über die Zukunft.", "answer": "Bildungsweg", "hint": "trayectoria educativa"}, {"sentence": "Ein guter ____ öffnet viele Türen.", "answer": "Abschluss", "hint": "título / certificado"}], "Medien und Digitalisierung": [{"sentence": "Künstliche ____ verändert die Arbeitswelt.", "answer": "Intelligenz", "hint": "inteligencia"}, {"sentence": "Ein ____ entscheidet, welche Inhalte wir sehen.", "answer": "Algorithmus", "hint": "algoritmo"}, {"sentence": "Persönliche ____ müssen geschützt werden.", "answer": "Daten", "hint": "datos"}, {"sentence": "Der ____ ist im Internet sehr wichtig.", "answer": "Datenschutz", "hint": "protección de datos"}, {"sentence": "Soziale Medien können die ____ gefährden.", "answer": "Privatsphäre", "hint": "privacidad"}, {"sentence": "Man sollte Nachrichten aus zuverlässigen ____ lesen.", "answer": "Quellen", "hint": "fuentes"}, {"sentence": "Nicht jede Information im Internet ist ____.", "answer": "zuverlässig", "hint": "confiable"}, {"sentence": "Medien können Meinungen stark ____.", "answer": "beeinflussen", "hint": "influir"}, {"sentence": "Falsche Informationen verbreiten sich oft ____.", "answer": "schnell", "hint": "rápidamente"}, {"sentence": "Man sollte Informationen immer ____.", "answer": "überprüfen", "hint": "verificar"}, {"sentence": "Eine ____ kann gefährlich für die Demokratie sein.", "answer": "Falschmeldung", "hint": "noticia falsa"}, {"sentence": "Zu viel ____ kann ungesund sein.", "answer": "Bildschirmzeit", "hint": "tiempo frente a pantalla"}, {"sentence": "Viele Jugendliche sind ____ sozialen Medien abhängig.", "answer": "von", "hint": "preposición de abhängig sein von"}, {"sentence": "Die ____ digitaler Medien hat Vor- und Nachteile.", "answer": "Nutzung", "hint": "uso"}, {"sentence": "Ein großer ____ ist der schnelle Zugang zu Informationen.", "answer": "Vorteil", "hint": "ventaja"}, {"sentence": "Ein ____ ist die Gefahr der Ablenkung.", "answer": "Nachteil", "hint": "desventaja"}, {"sentence": "Viele Treffen finden heute ____ statt.", "answer": "virtuell", "hint": "virtualmente"}, {"sentence": "Neue Apps werden ständig ____.", "answer": "entwickelt", "hint": "desarrolladas"}, {"sentence": "Roboter können manche Tätigkeiten ____.", "answer": "ersetzen", "hint": "reemplazar"}, {"sentence": "Digitale Medien haben große ____ auf Jugendliche.", "answer": "Auswirkungen", "hint": "efectos"}], "Argumentation und Redemittel": [{"sentence": "____ sollte man beide Seiten betrachten.", "answer": "Einerseits", "hint": "por una parte"}, {"sentence": "____ kann es auch Nachteile geben.", "answer": "Andererseits", "hint": "por otra parte"}, {"sentence": "____ Ansicht nach ist das ein wichtiges Thema.", "answer": "Meiner", "hint": "en mi opinión"}, {"sentence": "Ich bin der Meinung, ____ mehr getan werden muss.", "answer": "dass", "hint": "que"}, {"sentence": "Ein wichtiges ____ ist der Umweltschutz.", "answer": "Argument", "hint": "argumento"}, {"sentence": "____ spricht, dass die Kosten sehr hoch sind.", "answer": "Dagegen", "hint": "en contra"}, {"sentence": "____ spricht, dass viele Menschen profitieren.", "answer": "Dafür", "hint": "a favor"}, {"sentence": "____ lässt sich sagen, dass es keine einfache Lösung gibt.", "answer": "Zusammenfassend", "hint": "en resumen"}, {"sentence": "____ möchte ich meine Meinung noch einmal betonen.", "answer": "Abschließend", "hint": "para finalizar"}, {"sentence": "____ dazu gibt es auch positive Beispiele.", "answer": "Im Gegensatz", "hint": "en contraste"}, {"sentence": "____ sollte man die sozialen Folgen beachten.", "answer": "Außerdem", "hint": "además"}, {"sentence": "____ hinaus ist die finanzielle Seite wichtig.", "answer": "Darüber", "hint": "más allá de eso"}, {"sentence": "Viele Menschen sind dafür, ____ es gibt auch Kritik.", "answer": "jedoch", "hint": "sin embargo"}, {"sentence": "Es ist teuer, ____ ist es sinnvoll.", "answer": "trotzdem", "hint": "a pesar de eso"}, {"sentence": "Viele Schüler brauchen Hilfe, ____ sollte man sie unterstützen.", "answer": "deshalb", "hint": "por eso"}, {"sentence": "Die These muss gut ____ werden.", "answer": "begründet", "hint": "justificada"}, {"sentence": "Ein konkretes ____ macht das Argument klarer.", "answer": "Beispiel", "hint": "ejemplo"}, {"sentence": "Am Ende zieht man eine ____.", "answer": "Schlussfolgerung", "hint": "conclusión"}, {"sentence": "Gute Argumente können andere Menschen ____.", "answer": "überzeugen", "hint": "convencer"}, {"sentence": "Ich kann dieser Aussage nicht ____.", "answer": "zustimmen", "hint": "estar de acuerdo"}]};
+let lessonNames = Object.keys(exercises);
+let currentLesson = lessonNames[0];
+let index = 0;
+let xp = Number(localStorage.getItem("satz_b2_xp") || 0);
+let life = Number(localStorage.getItem("satz_b2_life") || 5);
+let correctCount = Number(localStorage.getItem("satz_b2_correct") || 0);
+let answered = false;
+document.getElementById("xp").innerText = xp;
+document.getElementById("life").innerText = life;
+document.getElementById("correctCount").innerText = correctCount;
+function normalize(text){return text.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+function saveProgress(){localStorage.setItem("satz_b2_xp",xp);localStorage.setItem("satz_b2_life",life);localStorage.setItem("satz_b2_correct",correctCount);}
+function renderButtons(){
+ const box=document.getElementById("lessonButtons"); box.innerHTML="";
+ lessonNames.forEach(name=>{
+  const btn=document.createElement("button");
+  btn.innerText=name+" ("+exercises[name].length+")";
+  btn.className=name===currentLesson?"active":"";
+  btn.onclick=function(){currentLesson=name;index=0;renderButtons();loadExercise();};
+  box.appendChild(btn);
+ });
+}
+function loadExercise(){
+ answered=false;
+ const ex=exercises[currentLesson][index];
+ document.getElementById("lessonTitle").innerText=currentLesson;
+ document.getElementById("hint").innerText="Pista: "+ex.hint;
+ document.getElementById("sentence").innerText=ex.sentence;
+ document.getElementById("answer").value="";
+ document.getElementById("feedback").className="feedback";
+ document.getElementById("feedback").innerText="";
+ document.getElementById("completeSentence").style.display="none";
+ document.getElementById("completeSentence").innerHTML="";
+ updateProgress();
+}
+function checkAnswer(){
+ if(answered)return; answered=true;
+ const ex=exercises[currentLesson][index];
+ const user=document.getElementById("answer").value;
+ const feedback=document.getElementById("feedback");
+ const complete=document.getElementById("completeSentence");
+ if(normalize(user)===normalize(ex.answer)){
+  xp+=10; correctCount++;
+  document.getElementById("xp").innerText=xp;
+  document.getElementById("correctCount").innerText=correctCount;
+  feedback.innerText="✅ Correcto. Muy bien usado en contexto. +10 XP";
+  feedback.className="feedback correct";
+ } else {
+  life--; document.getElementById("life").innerText=life;
+  feedback.innerText="❌ Falso. La palabra correcta es: "+ex.answer;
+  feedback.className="feedback wrong";
+ }
+ complete.style.display="block";
+ complete.innerHTML="<strong>Oración completa:</strong><br>"+ex.sentence.replace("____","<u>"+ex.answer+"</u>");
+ saveProgress();
+}
+function nextExercise(){index++; if(index>=exercises[currentLesson].length){index=0;} loadExercise();}
+function updateProgress(){
+ const total=exercises[currentLesson].length;
+ const percent=Math.round(((index+1)/total)*100);
+ document.getElementById("progressBar").style.width=percent+"%";
+}
+renderButtons(); loadExercise();
+</script>
+</body>
+</html>
