@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zusammenleben – Wortschatztrainer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#222}
+header{background:linear-gradient(135deg,#58cc02,#1cb0f6);color:white;padding:40px 20px;text-align:center}
+.container{max-width:1050px;margin:auto;padding:25px;display:grid;grid-template-columns:300px 1fr;gap:25px}
+.card,.login{background:white;border-radius:22px;padding:22px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+.login{max-width:520px;margin:60px auto;text-align:center}
+input{width:100%;padding:15px;border-radius:14px;border:2px solid #e5e7eb;font-size:1.05rem;margin-top:12px}
+button{padding:14px 20px;margin-top:12px;border:none;border-radius:14px;font-weight:900;cursor:pointer}
+.green{background:#58cc02;color:white;box-shadow:0 5px 0 #46a302}.blue{background:#1cb0f6;color:white;box-shadow:0 5px 0 #1689c7}
+.reset-btn{background:#dc2626;color:#fff;padding:16px 24px;border-radius:16px;font-weight:900;font-size:18px;letter-spacing:.6px;text-transform:uppercase;box-shadow:0 6px 0 #991b1b;text-shadow:1px 1px 2px rgba(0,0,0,.35)}
+.question{font-size:2rem;font-weight:900;text-align:center;margin:30px 0}.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.options button{background:#f3f4f6;color:#111;box-shadow:none}.options button:hover{background:#d1fae5}
+.feedback{margin-top:15px;padding:14px;border-radius:14px;font-weight:900;display:none}.correct{background:#dcfce7;color:#166534;display:block}.wrong{background:#fee2e2;color:#991b1b;display:block}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.stat{background:#f3f4f6;padding:10px 14px;border-radius:999px;font-weight:900}
+.progress{width:100%;height:16px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:15px}.progress-bar{height:100%;width:0%;background:#58cc02;transition:.3s}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.chip{background:#e5e7eb;color:#6b7280;border-radius:999px;padding:8px 12px;font-weight:900;letter-spacing:1px}
+.userbox{font-weight:900;margin-bottom:12px}.small{font-size:.9rem;color:#666;margin-top:12px;line-height:1.4}
+
+.word-area{
+margin-top:28px;
+padding-top:18px;
+border-top:2px solid #e5e7eb;
+}
+
+.chip{
+animation:popIn .25s ease;
+}
+
+@keyframes popIn{
+from{transform:scale(.7);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+.level-box{
+background:#eef2ff;
+color:#3730a3;
+padding:12px 14px;
+border-radius:16px;
+font-weight:900;
+margin-bottom:14px;
+display:inline-block;
+}
+
+.completed-message{
+background:#dcfce7;
+color:#166534;
+border-radius:18px;
+padding:18px;
+font-weight:900;
+font-size:1.3rem;
+text-align:center;
+margin-top:18px;
+animation:pulseDone .8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseDone{
+from{transform:scale(1)}
+to{transform:scale(1.03)}
+}
+
+.unlock{
+background:#fef3c7;
+color:#92400e;
+border-radius:18px;
+padding:14px;
+font-weight:900;
+margin-top:15px;
+text-align:center;
+}
+
+@media(max-width:850px){.container{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><h1>Zusammenleben</h1><p>Wortschatztrainer mit persönlichem Fortschritt</p></header>
+<section id="loginBox" class="login"><h2>👩‍🎓 Willkommen!</h2><p>Schreibe deinen Namen, um deine Aktivität zu starten.</p><input id="studentName" placeholder="Dein Name"><button class="green" onclick="login()">Einloggen</button></section>
+<div id="app" class="container" style="display:none">
+<aside class="card"><div class="userbox">Hallo, <span id="currentUser"></span> 👋</div><div class="stats"><div class="stat">💎 XP: <span id="xp">0</span></div><div class="stat">❤️ <span id="life">5</span></div><div class="stat">✅ <span id="correctCount">0</span></div></div><div class="progress"><div class="progress-bar" id="progressBar"></div></div><p class="small" id="counter"></p><button class="reset-btn" onclick="resetActivity()">🔄 NEU STARTEN</button><button class="blue" onclick="logout()">Abmelden</button></aside>
+<main>
+<section class="card" style="margin-top:20px">
+<h2>Übung</h2>
+<div id="levelBox" class="level-box">🔓 Level 1 aktiv</div>
+<p id="instruction">Wähle die richtige Übersetzung.</p>
+<div class="question" id="question"></div>
+<div class="options" id="options"></div>
+<input id="answer" style="display:none" placeholder="Antwort schreiben...">
+<button class="green" id="checkBtn" style="display:none" onclick="checkWritten()">Prüfen</button>
+<div class="feedback" id="feedback"></div>
+<button class="green" onclick="nextWord()">Nächste Aufgabe</button>
+
+<div class="word-area">
+<h2>🔒 Noch zu lernen</h2>
+<p>Nur die Wörter, die noch nicht gelernt wurden, bleiben als 🔒 ????? in der Liste.</p>
+<div class="bank" id="bank"></div>
+</div>
+</section>
+</main></div>
+<script>
+const words = [["das Zusammenleben", "la convivencia"], ["verwandt", "emparentado"], ["die Clique", "el grupo de amigos / la pandilla"], ["verständnisvoll", "comprensivo"], ["anders", "distinto"], ["fantasievoll", "con mucha imaginación"], ["aktiv", "activo"], ["unternehmungslustig", "emprendedor"], ["vielseitig", "polifacético"], ["ernst", "serio"], ["der Unterschied", "la diferencia"], ["die Haarfarbe", "el color de pelo"], ["lässig", "informal"], ["bequem", "cómodo"], ["sympathisch", "simpático"], ["das Lächeln", "la sonrisa"], ["tragen", "llevar puesto"], ["eng", "ajustado"], ["Die Farbe steht dir.", "El color te favorece."], ["wirken", "dar la impresión / tener un efecto"], ["die Kapuzenjacke", "la chaqueta con capucha"], ["das Outfit", "la imagen"], ["elegant", "elegante"], ["der Anzug", "el traje"], ["die Frisur", "el peinado"], ["lockig", "crespo"], ["die Krawatte", "la corbata"], ["kariert", "a cuadros"], ["gestreift", "a rayas"], ["der Bart", "la barba"], ["der Stil", "el estilo"], ["das Top", "el top"], ["das Kennzeichen", "el rasgo / la característica"], ["das Armband", "el brazalete"], ["humorvoll", "con sentido del humor"], ["den Müll rausbringen", "sacar la basura"], ["die Tafel wischen", "limpiar el pizarrón"], ["den Tisch decken", "poner la mesa"], ["zu spät kommen", "llegar tarde"], ["das Geheimnis", "el secreto"], ["verraten", "revelar / traicionar"], ["sich an die Regel halten", "cumplir las reglas"], ["aufbleiben", "no acostarse"], ["die Spülmaschine ausräumen", "vaciar el lavavajillas"], ["unfair", "injusto"], ["wieso", "por qué"], ["die Streitschlichtung", "la mediación / solución del conflicto"], ["der Konflikt", "el conflicto"], ["einführen", "introducir"], ["ausreden lassen", "dejar terminar de hablar"], ["zu Wort kommen", "tener la palabra"], ["beleidigen", "ofender"], ["klären", "aclarar"], ["weitererzählen", "contar a terceros"], ["zustimmen", "estar de acuerdo"], ["die Vereinbarung", "el acuerdo / pacto"], ["unterschreiben", "firmar"], ["der Abschluss", "el cierre / conclusión"], ["ausleihen", "pedir prestado"], ["sich beschweren", "quejarse"], ["sich Mühe geben", "esforzarse"], ["der Blödsinn", "la tontería"], ["der Streber", "un nerd"], ["sich aufregen", "alterarse / enojarse"], ["still", "callarse"], ["eklig", "asqueroso"], ["Igitt!", "¡asqueroso!"], ["Ach ja?", "¿Ah sí?"], ["Oh je!", "¡Vaya!"], ["Aha!", "¡Ajá!"], ["So, so!", "Bueno, bueno."], ["Nanu?", "¿Pero bueno…?"], ["Das ist mir egal.", "Me da igual."], ["Das kann nicht wahr sein.", "No puede ser cierto."], ["der Austauschschüler", "el alumno de intercambio"], ["die Austauschschülerin", "la alumna de intercambio"], ["sich verlieben", "enamorarse"], ["die Heimat", "la patria"], ["erleichtern", "facilitar"], ["irgendwie", "de alguna manera"], ["das Schulsystem", "el sistema escolar"], ["stressig", "estresante"], ["feststehen", "ser seguro / estar definido"], ["der Beginn", "el inicio"], ["gewohnt", "acostumbrado"], ["ungewohnt", "poco habitual"], ["das Ausland", "el país extranjero"], ["überraschend", "sorprendente"]];
+let user="",solved=[],current=0,xp=0,life=5,correctCount=0,currentAnswer="",answered=false;
+function cleanName(n){return n.trim().toLowerCase().replace(/\s+/g,"_")}function storageKey(k){return "zusammenleben_"+cleanName(user)+"_"+k}
+function login(){let n=document.getElementById("studentName").value.trim();if(n===""){alert("Bitte schreibe deinen Namen.");return}user=n;localStorage.setItem("zusammenleben_current_user",user);loadUserData();showApp()}
+function logout(){localStorage.removeItem("zusammenleben_current_user");location.reload()}
+function loadUserData(){solved=JSON.parse(localStorage.getItem(storageKey("solved"))||"[]");xp=Number(localStorage.getItem(storageKey("xp"))||0);life=Number(localStorage.getItem(storageKey("life"))||5);correctCount=Number(localStorage.getItem(storageKey("correct"))||0)}
+function saveUserData(){localStorage.setItem(storageKey("solved"),JSON.stringify(solved));localStorage.setItem(storageKey("xp"),xp);localStorage.setItem(storageKey("life"),life);localStorage.setItem(storageKey("correct"),correctCount)}
+function showApp(){document.getElementById("loginBox").style.display="none";document.getElementById("app").style.display="grid";document.getElementById("currentUser").innerText=user;updateStats();showBank();loadWord()}
+function getPending(){let p=[];for(let i=0;i<words.length;i++){if(!solved.includes(i))p.push(i)}return p}
+function shuffle(a){return [...a].sort(()=>Math.random()-0.5)}function normalize(t){return t.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function showBank(){let bank=document.getElementById("bank");bank.innerHTML="";getPending().forEach(()=>{bank.innerHTML+=`<span class="chip">🔒 ?????</span>`});updateCounter()}
+function updateCounter(){
+let pending=getPending().length,total=words.length,done=total-pending;
+document.getElementById("counter").innerText=pending+" Wörter übrig | "+done+" gelöst";
+document.getElementById("progressBar").style.width=Math.round((done/total)*100)+"%";
+updateLevel(done,total);
+}
+function updateStats(){document.getElementById("xp").innerText=xp;document.getElementById("life").innerText=life;document.getElementById("correctCount").innerText=correctCount;updateCounter()}
+function updateLevel(done,total){
+let percent = Math.round((done/total)*100);
+let levelText = "🔓 Level 1 aktiv";
+
+if(percent >= 25 && percent < 50){
+levelText = "⭐ Level 2 freigeschaltet";
+}
+else if(percent >= 50 && percent < 75){
+levelText = "🔥 Level 3 freigeschaltet";
+}
+else if(percent >= 75 && percent < 100){
+levelText = "🏆 Level 4 freigeschaltet";
+}
+else if(percent === 100){
+levelText = "🎉 Level abgeschlossen";
+}
+
+let box = document.getElementById("levelBox");
+if(box){
+box.innerText = levelText;
+}
+}
+
+function showCompleted(){
+document.getElementById("options").innerHTML="";
+document.getElementById("answer").style.display="none";
+document.getElementById("checkBtn").style.display="none";
+document.getElementById("question").innerHTML='<div class="completed-message">🎉 Level abgeschlossen! Alle Wörter sind gelernt.</div><div class="unlock">🏆 Super! Du hast die Lektion Zusammenleben geschafft.</div>';
+}
+
+function loadWord(){answered=false;let pending=getPending();document.getElementById("feedback").className="feedback";document.getElementById("feedback").innerText="";if(pending.length===0){
+document.getElementById("instruction").innerText="Du hast alle Wörter gelöst.";
+showBank();
+showCompleted();
+return
+}current=pending[Math.floor(Math.random()*pending.length)];let dir=Math.random()>0.5?"de-es":"es-de",mode=Math.random()>0.35?"mc":"write";let q=dir==="de-es"?words[current][0]:words[current][1];currentAnswer=dir==="de-es"?words[current][1]:words[current][0];document.getElementById("question").innerText=q;if(mode==="mc"){document.getElementById("instruction").innerText=dir==="de-es"?"Wähle die spanische Übersetzung.":"Wähle die deutsche Übersetzung.";document.getElementById("answer").style.display="none";document.getElementById("checkBtn").style.display="none";let pool=words.map(w=>dir==="de-es"?w[1]:w[0]).filter(x=>x!==currentAnswer);let opts=shuffle(pool).slice(0,3);opts.push(currentAnswer);opts=shuffle(opts);let html="";opts.forEach(o=>{html+=`<button onclick="checkAnswer('${o.replace(/'/g,"\\'")}')">${o}</button>`});document.getElementById("options").innerHTML=html}else{document.getElementById("instruction").innerText=dir==="de-es"?"Schreibe die spanische Übersetzung.":"Schreibe die deutsche Übersetzung.";document.getElementById("options").innerHTML="";document.getElementById("answer").style.display="block";document.getElementById("answer").value="";document.getElementById("checkBtn").style.display="inline-block"}showBank()}
+function markCorrect(){if(!solved.includes(current)){solved.push(current)}xp+=10;correctCount++;saveUserData();updateStats();showBank()}
+function checkAnswer(selected){if(answered)return;answered=true;let f=document.getElementById("feedback");if(selected===currentAnswer){markCorrect();f.innerText="✅ Richtig! +10 XP";f.className="feedback correct"}else{life--;saveUserData();updateStats();f.innerText="❌ Falsch. Richtige Antwort: "+currentAnswer;f.className="feedback wrong"}}
+function checkWritten(){if(answered)return;answered=true;let u=document.getElementById("answer").value,f=document.getElementById("feedback");if(normalize(u)===normalize(currentAnswer)){markCorrect();f.innerText="✅ Richtig! +10 XP";f.className="feedback correct"}else{life--;saveUserData();updateStats();f.innerText="❌ Falsch. Richtige Antwort: "+currentAnswer;f.className="feedback wrong"}}
+function nextWord(){loadWord()}function resetActivity(){if(confirm("Möchtest du wirklich neu starten?")){solved=[];xp=0;life=5;correctCount=0;saveUserData();updateStats();showBank();loadWord()}}
+window.onload=function(){let saved=localStorage.getItem("zusammenleben_current_user");if(saved){user=saved;loadUserData();showApp()}}
+</script></body></html>
