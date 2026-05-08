@@ -223,7 +223,10 @@ function checkAnswer(){
     }
   } else {
     feedback.className = "feedback wrong";
-    feedback.innerHTML = "❌ Falsch.";
+    feedback.innerHTML =
+      "❌ Falsch. Richtige Antwort: <strong>" +
+      lessons[currentLesson][currentQuestion].answer +
+      "</strong>";
   }
 
   updateProgress();
