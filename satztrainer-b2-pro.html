@@ -12,23 +12,146 @@ input{width:100%;padding:15px;border-radius:16px;border:2px solid #d1d5db;font-s
 .progress{height:18px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:20px}.progress-bar{height:100%;background:#7c3aed;width:0%;transition:.3s}.stats{margin-top:15px;font-weight:900}
 .hidden-words{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.hidden-word{background:#e5e7eb;padding:8px 12px;border-radius:999px;font-weight:900;color:#6b7280}.done{background:#dcfce7;color:#166534;border-radius:18px;padding:20px;font-weight:900;text-align:center;font-size:1.25rem}
 footer{text-align:center;padding:30px;color:#666}
+
+.topbar{
+background:white;
+border-bottom:1px solid #e5e7eb;
+padding:12px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:10;
+box-shadow:0 4px 12px rgba(0,0,0,.04);
+}
+
+.brand{
+font-weight:900;
+color:#7c3aed;
+}
+
+.userbox{
+font-weight:900;
+background:#f3f4f6;
+border-radius:999px;
+padding:8px 12px;
+}
+
+.login{
+max-width:520px;
+margin:40px auto;
+text-align:center;
+}
+
+.login p{
+margin:12px 0;
+color:#555;
+line-height:1.5;
+}
+
+.logout-btn{
+background:#dc2626;
+box-shadow:0 5px 0 #991b1b;
+}
+
+@media(max-width:700px){
+.topbar{
+display:block;
+text-align:center;
+}
+.userbox{
+display:inline-block;
+margin-top:8px;
+}
+}
+
 </style></head><body>
 <header><h1>🧠 Satztrainer B2 PRO</h1><p>Trainiere B2-Satzstrukturen mit spanischen pistas und versteckten Lösungen.</p></header>
-<main class="container"><div class="card"><h2>Themen</h2><div class="lesson-buttons">
+<main class="container" id="mainApp" style="display:none;"><div class="card"><h2>Themen</h2><div class="lesson-buttons">
 <button onclick="changeLesson('umwelt')">🌱 Umwelt</button><button onclick="changeLesson('medien')">📱 Medien</button><button onclick="changeLesson('schule')">🏫 Schule</button><button onclick="changeLesson('zukunft')">🚀 Zukunft</button>
 </div><div class="hint" id="hint">Pista...</div><div class="question" id="question">Lädt...</div><input type="text" id="answer" placeholder="Schreibe das deutsche Wort...">
 <button class="btn" onclick="checkAnswer()">Prüfen</button><button class="btn" onclick="nextQuestion()">Nächste Aufgabe</button><div id="feedback" class="feedback"></div>
-<div class="progress"><div class="progress-bar" id="progress-bar"></div></div><div class="stats"><span id="counter"></span></div><h3 style="margin-top:25px;">🔒 Noch zu lernen</h3><div class="hidden-words" id="hidden-words"></div></div></main>
+<div class="progress"><div class="progress-bar" id="progress-bar"></div></div><div class="stats"><span id="counter"></span></div><h3 style="margin-top:25px;">🔒 Noch zu lernen</h3><div class="hidden-words" id="hidden-words"></div><br><button class="btn logout-btn" onclick="logout()">Abmelden</button></div></main>
 <footer><p>© 2026 – Satztrainer B2 PRO</p></footer>
 <script>
 const lessons = {"umwelt": [["Viele Jugendliche engagieren sich für den ____.", "Umweltschutz", "protección del medioambiente"], ["Man sollte mehr öffentliche Verkehrsmittel benutzen, ____ die Umwelt zu schützen.", "um", "para"], ["Wenn jeder weniger Plastik benutzen würde, ____ die Umwelt sauberer.", "wäre", "sería"], ["Die Regierung sollte strengere Regeln gegen Umweltverschmutzung ____.", "einführen", "introducir"], ["Viele Menschen trennen ihren ____ zu Hause.", "Müll", "basura"], ["Man sollte weniger Energie ____.", "verbrauchen", "consumir"], ["Der Klimawandel ist ein großes ____ Problem.", "globales", "global"], ["Fahrräder sind umweltfreundlicher ____ Autos.", "als", "que"], ["Viele Jugendliche nehmen an Umweltprojekten ____.", "teil", "participan"], ["Wir sollten mehr Bäume ____.", "pflanzen", "plantar"], ["Erneuerbare Energien werden immer ____.", "wichtiger", "más importantes"], ["Plastikflaschen sollte man ____.", "recyceln", "reciclar"], ["Die Luftverschmutzung ist in großen Städten sehr ____.", "hoch", "alta"], ["Viele Tiere sind vom Aussterben ____.", "bedroht", "amenazados"], ["Man darf keinen Müll in der Natur ____.", "wegwerfen", "botar / tirar"], ["Solarenergie ist eine ____ Energiequelle.", "erneuerbare", "renovable"], ["Die Menschen sollten bewusster ____.", "leben", "vivir"], ["Umweltschutz beginnt im eigenen ____.", "Alltag", "vida cotidiana"], ["Viele Schülerinnen engagieren sich freiwillig für ____ Projekte.", "soziale", "sociales"], ["Die Temperaturen steigen wegen des ____.", "Klimawandels", "cambio climático"]], "medien": [["Viele Jugendliche verbringen zu viel Zeit ____ sozialen Medien.", "in", "en"], ["Soziale Netzwerke können praktisch sein, ____ sie auch Risiken haben.", "obwohl", "aunque"], ["Man sollte Informationen kritisch ____, bevor man sie glaubt.", "überprüfen", "verificar"], ["Durch das Internet kann man schneller mit anderen Menschen ____.", "kommunizieren", "comunicarse"], ["Falsche Nachrichten verbreiten sich im Internet sehr ____.", "schnell", "rápidamente"], ["Viele Jugendliche sind von ihrem Handy ____.", "abhängig", "dependientes"], ["Datenschutz ist wichtig, ____ persönliche Daten geschützt werden.", "damit", "para que"], ["Man sollte private Fotos nicht überall ____.", "teilen", "compartir"], ["Ein Vorteil digitaler Medien ____ darin, dass man schnell Informationen findet.", "besteht", "consiste"], ["Ein Nachteil ist, dass man leicht ____ wird.", "abgelenkt", "distraído"], ["Jugendliche sollten lernen, Medien bewusst zu ____.", "nutzen", "usar / aprovechar"], ["Viele Apps sammeln persönliche ____.", "Daten", "datos"], ["Im Internet muss man auf sichere Passwörter ____.", "achten", "prestar atención"], ["Künstliche Intelligenz kann den Unterricht ____.", "verändern", "cambiar"], ["Nicht jede Quelle im Internet ist ____.", "zuverlässig", "confiable"], ["Medienkompetenz bedeutet, Informationen richtig ____ zu können.", "bewerten", "evaluar"], ["Manche Jugendliche posten Inhalte, ohne über die Folgen ____.", "nachzudenken", "reflexionar"], ["Cybermobbing kann für Betroffene sehr ____ sein.", "belastend", "agobiante / dañino"], ["Eltern sollten mit ihren Kindern über Medienregeln ____.", "sprechen", "hablar"], ["Digitale Medien gehören heute zum ____.", "Alltag", "vida cotidiana"]], "schule": [["Viele Schülerinnen und Schüler stehen unter großem ____.", "Leistungsdruck", "presión académica"], ["Wenn die Schule später beginnen würde, ____ die Jugendlichen weniger müde.", "wären", "serían"], ["Hausaufgaben helfen den Schülern, den Stoff besser zu ____.", "verstehen", "entender"], ["Manche Schülerinnen nehmen Nachhilfe, ____ ihre Noten zu verbessern.", "um", "para"], ["Ein gutes Lernklima ist für den Erfolg sehr ____.", "wichtig", "importante"], ["Lehrer sollten ihre Schüler individuell ____.", "fördern", "apoyar / fomentar"], ["Digitale Geräte können den Unterricht interessanter ____.", "machen", "hacer"], ["Manche Schüler haben Schwierigkeiten, sich im Unterricht zu ____.", "konzentrieren", "concentrarse"], ["Noten sind wichtig, ____ sie nicht alles über eine Person sagen.", "obwohl", "aunque"], ["Projektarbeit kann die Zusammenarbeit in der Klasse ____.", "stärken", "fortalecer"], ["Viele Jugendliche wünschen sich mehr ____ im Unterricht.", "Mitbestimmung", "participación en decisiones"], ["Die Schule sollte besser auf das Berufsleben ____.", "vorbereiten", "preparar"], ["Ein Vorteil von Gruppenarbeit ist, dass man voneinander ____.", "lernt", "aprende"], ["Ein Nachteil kann sein, dass nicht alle gleich viel ____.", "arbeiten", "trabajan"], ["Prüfungen verursachen bei vielen Schülern ____.", "Stress", "estrés"], ["Wer regelmäßig übt, kann seine Leistungen ____.", "verbessern", "mejorar"], ["In der Schule sollte man respektvoll miteinander ____.", "umgehen", "tratarse"], ["Ein Schüleraustausch kann die Sprachkenntnisse ____.", "erweitern", "ampliar"], ["Leistungsstarke Schüler brauchen anspruchsvollere ____.", "Aufgaben", "tareas"], ["Schwächere Schüler sollten mehr Unterstützung ____.", "bekommen", "recibir"]], "zukunft": [["Nach dem Abitur möchte ich an der Universität ____.", "studieren", "estudiar"], ["Viele Jugendliche machen sich Sorgen ____ ihre Zukunft.", "um", "por"], ["Wenn ich mehr Zeit hätte, ____ ich ein Praktikum machen.", "würde", "haría"], ["Es ist wichtig, Fremdsprachen zu lernen, ____ bessere Chancen zu haben.", "um", "para"], ["Viele junge Menschen möchten später im Ausland ____.", "arbeiten", "trabajar"], ["Berufserfahrung spielt bei Bewerbungen eine wichtige ____.", "Rolle", "papel / rol"], ["Man sollte seine Stärken und Schwächen gut ____.", "kennen", "conocer"], ["Ein Praktikum hilft dabei, einen Beruf besser ____.", "kennenzulernen", "conocer"], ["Die Wahl des Berufs hängt oft von persönlichen Interessen ____.", "ab", "depende"], ["In Zukunft werden digitale Kompetenzen immer ____.", "wichtiger", "más importantes"], ["Viele Berufe werden sich durch Technik stark ____.", "verändern", "cambiar"], ["Man sollte offen für neue Erfahrungen ____.", "sein", "ser / estar"], ["Ein guter Lebenslauf kann die Chancen auf eine Stelle ____.", "erhöhen", "aumentar"], ["Manche Jugendliche wissen noch nicht, welchen Beruf sie ____ möchten.", "ergreifen", "escoger"], ["Es ist sinnvoll, sich früh über Studienmöglichkeiten zu ____.", "informieren", "informarse"], ["Wer ein Ziel hat, kann motivierter ____.", "lernen", "aprender"], ["Die Zukunft ist nicht immer planbar, ____ man kann sich vorbereiten.", "aber", "pero"], ["Viele Menschen möchten einen Beruf finden, der sie ____.", "erfüllt", "realiza / llena"], ["Gute Ausbildungsmöglichkeiten sind für Jugendliche sehr ____.", "wertvoll", "valiosas"], ["Ich hoffe, dass ich später eine sinnvolle Arbeit ____.", "finde", "encuentre"]]};
-let currentLesson="umwelt";let currentQuestion=0;let solved=[];
-function getPending(){let p=[];for(let i=0;i<lessons[currentLesson].length;i++){if(!solved.includes(i))p.push(i)}return p}
+let currentUser = "";
+let currentLesson="umwelt";
+let currentQuestion=0;
+let solved={};
+
+function cleanName(name){
+  return name.trim().toLowerCase().replace(/\s+/g,"_");
+}
+
+function storageKey(){
+  return "satztrainer_b2_" + cleanName(currentUser) + "_" + currentLesson;
+}
+
+function login(){
+  let name = document.getElementById("studentName").value.trim();
+  if(name === ""){
+    alert("Bitte schreibe deinen Namen.");
+    return;
+  }
+
+  currentUser = name;
+  localStorage.setItem("satztrainer_b2_current_user", currentUser);
+
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("mainApp").style.display = "block";
+  document.getElementById("userNameTop").innerText = currentUser;
+
+  loadSolved();
+  loadQuestion();
+}
+
+function logout(){
+  localStorage.removeItem("satztrainer_b2_current_user");
+  location.reload();
+}
+
+function loadSolved(){
+  solved[currentLesson] = JSON.parse(localStorage.getItem(storageKey()) || "[]");
+}
+
+function saveSolved(){
+  localStorage.setItem(storageKey(), JSON.stringify(solved[currentLesson] || []));
+}
+
+function getSolvedList(){
+  if(!solved[currentLesson]){
+    loadSolved();
+  }
+  return solved[currentLesson] || [];
+}
+function getPending(){let p=[];for(let i=0;i<lessons[currentLesson].length;i++){if(!getSolvedList().includes(i))p.push(i)}return p}
 function loadQuestion(){let pending=getPending();if(pending.length===0){document.getElementById("hint").innerHTML="🎉 Fertig!";document.getElementById("question").innerHTML='<div class="done">Super! Du hast alle Aufgaben dieses Themas gelöst.</div>';document.getElementById("answer").style.display="none";updateProgress();updateHiddenWords();return}if(!pending.includes(currentQuestion)){currentQuestion=pending[0]}let q=lessons[currentLesson][currentQuestion];document.getElementById("answer").style.display="block";document.getElementById("question").innerHTML=q[0];document.getElementById("hint").innerHTML="💡 Pista: "+q[2];document.getElementById("answer").value="";updateProgress();updateHiddenWords()}
-function checkAnswer(){let userAnswer=document.getElementById("answer").value.trim().toLowerCase();let correctAnswer=lessons[currentLesson][currentQuestion][1].toLowerCase();let feedback=document.getElementById("feedback");if(userAnswer===correctAnswer){feedback.className="feedback correct";feedback.innerHTML="✅ Richtig!";if(!solved.includes(currentQuestion)){solved.push(currentQuestion)}}else{feedback.className="feedback wrong";feedback.innerHTML="❌ Falsch."}updateProgress();updateHiddenWords()}
+function checkAnswer(){let userAnswer=document.getElementById("answer").value.trim().toLowerCase();let correctAnswer=lessons[currentLesson][currentQuestion][1].toLowerCase();let feedback=document.getElementById("feedback");if(userAnswer===correctAnswer){feedback.className="feedback correct";feedback.innerHTML="✅ Richtig!";if(!getSolvedList().includes(currentQuestion)){
+      getSolvedList().push(currentQuestion);
+      saveSolved();
+    }}else{feedback.className="feedback wrong";feedback.innerHTML="❌ Falsch."}updateProgress();updateHiddenWords()}
 function nextQuestion(){let pending=getPending();if(pending.length===0){loadQuestion();return}let pos=pending.indexOf(currentQuestion);if(pos===-1||pos===pending.length-1){currentQuestion=pending[0]}else{currentQuestion=pending[pos+1]}document.getElementById("feedback").className="feedback";loadQuestion()}
-function changeLesson(lesson){currentLesson=lesson;currentQuestion=0;solved=[];document.getElementById("feedback").className="feedback";loadQuestion()}
-function updateProgress(){let progress=(solved.length/lessons[currentLesson].length)*100;document.getElementById("progress-bar").style.width=progress+"%";document.getElementById("counter").innerHTML=solved.length+" / "+lessons[currentLesson].length+" gelöst"}
-function updateHiddenWords(){let container=document.getElementById("hidden-words");container.innerHTML="";let remaining=lessons[currentLesson].length-solved.length;for(let i=0;i<remaining;i++){container.innerHTML+='<div class="hidden-word">🔒 ?????</div>'}}
-loadQuestion();
+function changeLesson(lesson){
+  currentLesson=lesson;
+  currentQuestion=0;
+  loadSolved();
+  document.getElementById("feedback").className="feedback";
+  loadQuestion();
+}
+function updateProgress(){let progress=(getSolvedList().length/lessons[currentLesson].length)*100;document.getElementById("progress-bar").style.width=progress+"%";document.getElementById("counter").innerHTML=getSolvedList().length+" / "+lessons[currentLesson].length+" gelöst"}
+function updateHiddenWords(){let container=document.getElementById("hidden-words");container.innerHTML="";let remaining=lessons[currentLesson].length-getSolvedList().length;for(let i=0;i<remaining;i++){container.innerHTML+='<div class="hidden-word">🔒 ?????</div>'}}
+
+window.onload = function(){
+  let savedUser = localStorage.getItem("satztrainer_b2_current_user");
+  if(savedUser){
+    currentUser = savedUser;
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+    document.getElementById("userNameTop").innerText = currentUser;
+    loadSolved();
+    loadQuestion();
+  }
+};
 </script></body></html>
