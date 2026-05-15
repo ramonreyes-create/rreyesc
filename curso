@@ -1,0 +1,344 @@
+# HTML – Deutsch für Anfänger: Begrüßungen und Polizei
+
+```html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch für Anfänger</title>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f5f7fb;
+color:#1f2937;
+line-height:1.6;
+}
+
+header{
+background:linear-gradient(135deg,#1cb0f6,#58cc02);
+color:white;
+text-align:center;
+padding:70px 20px;
+}
+
+header h1{
+font-size:3rem;
+margin-bottom:12px;
+}
+
+header p{
+font-size:1.2rem;
+max-width:800px;
+margin:auto;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
+}
+
+.section{
+background:white;
+padding:30px;
+border-radius:24px;
+margin-bottom:30px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.section h2{
+margin-bottom:20px;
+color:#111827;
+font-size:2rem;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.card{
+background:#eef2ff;
+padding:20px;
+border-radius:20px;
+}
+
+.card h3{
+margin-bottom:10px;
+color:#3730a3;
+}
+
+.vocab-item{
+background:#f9fafb;
+padding:15px;
+border-radius:16px;
+margin-bottom:12px;
+border-left:6px solid #1cb0f6;
+}
+
+.vocab-item strong{
+color:#111827;
+}
+
+.dialog{
+background:#f0fdf4;
+padding:20px;
+border-radius:18px;
+margin-top:20px;
+}
+
+.quiz{
+margin-top:20px;
+}
+
+.question{
+margin-bottom:20px;
+font-weight:bold;
+}
+
+button{
+background:#58cc02;
+color:white;
+border:none;
+padding:14px 22px;
+border-radius:14px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+box-shadow:0 5px 0 #46a302;
+}
+
+button:hover{
+background:#46b000;
+}
+
+.feedback{
+margin-top:10px;
+padding:12px;
+border-radius:12px;
+display:none;
+font-weight:bold;
+}
+
+.correct{
+background:#dcfce7;
+color:#166534;
+display:block;
+}
+
+.wrong{
+background:#fee2e2;
+color:#991b1b;
+display:block;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#666;
+}
+
+@media(max-width:700px){
+header h1{
+font-size:2.2rem;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🇩🇪 Deutsch für Anfänger</h1>
+<p>Grundlegende Begrüßungen und Wortschatz zum Thema Polizei und Arbeit.</p>
+</header>
+
+<main class="container">
+
+<section class="section">
+<h2>👋 Begrüßungen</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Hallo</h3>
+<p>Hola</p>
+</div>
+
+<div class="card">
+<h3>Guten Morgen</h3>
+<p>Buenos días</p>
+</div>
+
+<div class="card">
+<h3>Guten Tag</h3>
+<p>Buenas tardes</p>
+</div>
+
+<div class="card">
+<h3>Guten Abend</h3>
+<p>Buenas noches</p>
+</div>
+
+<div class="card">
+<h3>Tschüss</h3>
+<p>Adiós</p>
+</div>
+
+<div class="card">
+<h3>Wie geht's?</h3>
+<p>¿Cómo estás?</p>
+</div>
+
+</div>
+
+<div class="dialog">
+<h3>🗣 Beispieldialog</h3>
+<p><strong>Anna:</strong> Hallo! Wie geht's?</p>
+<p><strong>Paul:</strong> Mir geht's gut, danke. Und dir?</p>
+<p><strong>Anna:</strong> Auch gut. Tschüss!</p>
+</div>
+</section>
+
+<section class="section">
+<h2>👮 Polizei und Arbeit</h2>
+
+<div class="vocab-item">
+<strong>die Polizei</strong> → la policía
+</div>
+
+<div class="vocab-item">
+<strong>der Polizist</strong> → el policía
+</div>
+
+<div class="vocab-item">
+<strong>die Polizistin</strong> → la policía (mujer)
+</div>
+
+<div class="vocab-item">
+<strong>arbeiten</strong> → trabajar
+</div>
+
+<div class="vocab-item">
+<strong>das Polizeiauto</strong> → el coche policial
+</div>
+
+<div class="vocab-item">
+<strong>helfen</strong> → ayudar
+</div>
+
+<div class="vocab-item">
+<strong>kontrollieren</strong> → controlar
+</div>
+
+<div class="vocab-item">
+<strong>die Straße</strong> → la calle
+</div>
+
+<div class="vocab-item">
+<strong>der Verkehr</strong> → el tráfico
+</div>
+
+<div class="vocab-item">
+<strong>die Uniform</strong> → el uniforme
+</div>
+
+<div class="dialog">
+<h3>🗣 Beispiel</h3>
+<p>Der Polizist arbeitet auf der Straße.</p>
+<p>Die Polizei hilft den Menschen.</p>
+<p>Die Polizistin kontrolliert den Verkehr.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>🎯 Kleine Übung</h2>
+
+<div class="quiz">
+
+<div class="question">
+1. Was bedeutet „Hallo“?
+<br><br>
+<input type="text" id="q1" placeholder="Antwort schreiben...">
+<div id="f1" class="feedback"></div>
+</div>
+
+<div class="question">
+2. Wie sagt man „la policía“ auf Deutsch?
+<br><br>
+<input type="text" id="q2" placeholder="Antwort schreiben...">
+<div id="f2" class="feedback"></div>
+</div>
+
+<div class="question">
+3. Was macht die Polizei?
+<br><br>
+<input type="text" id="q3" placeholder="Antwort schreiben...">
+<div id="f3" class="feedback"></div>
+</div>
+
+<button onclick="checkAnswers()">Antworten prüfen</button>
+
+</div>
+</section>
+
+</main>
+
+<footer>
+<p>© 2026 – Deutsch für Anfänger</p>
+</footer>
+
+<script>
+function normalize(text){
+return text.toLowerCase().trim();
+}
+
+function checkAnswers(){
+
+let q1 = normalize(document.getElementById("q1").value);
+let q2 = normalize(document.getElementById("q2").value);
+let q3 = normalize(document.getElementById("q3").value);
+
+let f1 = document.getElementById("f1");
+let f2 = document.getElementById("f2");
+let f3 = document.getElementById("f3");
+
+if(q1.includes("hola")){
+f1.className = "feedback correct";
+f1.innerText = "✅ Richtig!";
+}else{
+f1.className = "feedback wrong";
+f1.innerText = "❌ Hallo = Hola";
+}
+
+if(q2.includes("polizei")){
+f2.className = "feedback correct";
+f2.innerText = "✅ Sehr gut!";
+}else{
+f2.className = "feedback wrong";
+f2.innerText = "❌ Richtige Antwort: die Polizei";
+}
+
+if(q3.includes("hilft") || q3.includes("kontrolliert") || q3.includes("arbeitet")){
+f3.className = "feedback correct";
+f3.innerText = "✅ Super!";
+}else{
+f3.className = "feedback wrong";
+f3.innerText = "❌ Beispiel: Die Polizei hilft den Menschen.";
+}
+}
+</script>
+
+</body>
+</html>
+```
