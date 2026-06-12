@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nicos Weg A1 – Einheit 1: Hallo!</title>
+<style>
+  :root{--bg:#f4f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--accent:#2563eb;--ok:#15803d;--bad:#b91c1c;--warn:#b45309}
+  *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+  header{background:linear-gradient(135deg,#1d4ed8,#38bdf8);color:white;padding:28px 20px;text-align:center}
+  header h1{margin:0;font-size:30px} header p{margin:8px 0 0;font-size:16px}
+  main{max-width:980px;margin:22px auto;padding:0 16px 80px}
+  .card{background:var(--card);border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+  h2{margin-top:0;color:#1d4ed8}.small{color:var(--muted);font-size:14px}.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  label{display:block;margin:10px 0 6px;font-weight:bold} input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px}
+  button{border:0;border-radius:12px;padding:11px 16px;font-size:15px;font-weight:bold;cursor:pointer;margin:6px 4px 6px 0;background:var(--accent);color:white}
+  button.secondary{background:#64748b} button.green{background:var(--ok)} button.orange{background:var(--warn)}
+  .q{border-top:1px solid #e5e7eb;padding-top:14px;margin-top:14px}.options{display:grid;gap:8px;margin-top:8px}
+  .option{border:1px solid #cbd5e1;border-radius:12px;padding:10px;background:#f8fafc;cursor:pointer}.option:hover{background:#e0f2fe}.option.selected{outline:3px solid #93c5fd;background:#dbeafe}
+  .correct{border-color:#22c55e!important;background:#dcfce7!important}.wrong{border-color:#ef4444!important;background:#fee2e2!important}
+  .feedback{font-weight:bold;margin-top:8px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+  .pill{display:inline-block;background:#e0f2fe;color:#075985;border-radius:999px;padding:6px 10px;margin:4px;font-weight:bold}.progress{height:16px;background:#e5e7eb;border-radius:999px;overflow:hidden}.bar{height:100%;width:0;background:#22c55e;transition:.3s}
+  table{width:100%;border-collapse:collapse;margin-top:12px}td,th{border:1px solid #e5e7eb;padding:10px;text-align:left} th{background:#eff6ff}
+  .hidden{display:none}.center{text-align:center}.timer{font-size:22px;font-weight:bold;color:#1d4ed8}.notice{background:#fff7ed;border-left:5px solid #f97316;padding:12px;border-radius:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Nicos Weg A1 – Einheit 1: Hallo!</h1>
+  <p>90 Minuten · Übungen mit automatischer Rückmeldung · Keine offenen Fragen</p>
+</header>
+<main>
+  <section class="card" id="startCard">
+    <h2>Start</h2>
+    <p>Trage deinen Namen ein und starte die Übung. Danach arbeitet die Seite im Vollbildmodus.</p>
+    <div class="row">
+      <div><label>Name</label><input id="studentName" placeholder="Name der Schülerin" /></div>
+      <div><label>Kurs</label><input id="course" placeholder="z. B. 7A" /></div>
+    </div>
+    <button onclick="startLesson()">Starten</button>
+    <p class="small">Themen: Begrüßung, Abschied, ich/du/Sie, heißen, Dialoge.</p>
+  </section>
+
+  <section class="card hidden" id="workCard">
+    <div class="center">
+      <div class="timer" id="timer">90:00</div>
+      <div class="small">Aktueller Fortschritt</div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <p><span id="scoreText">0 / 0 Punkte</span></p>
+    </div>
+  </section>
+
+  <section class="card hidden exercise" data-title="1. Begrüßung oder Abschied?">
+    <h2>1. Begrüßung oder Abschied?</h2>
+    <p class="small">Wähle die richtige Kategorie.</p>
+    <div id="ex1"></div><button onclick="checkSelectExercise('ex1')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="2. Formell oder informell?">
+    <h2>2. Formell oder informell?</h2>
+    <p class="small">Entscheide, ob der Satz formell oder informell ist.</p>
+    <div id="ex2"></div><button onclick="checkSelectExercise('ex2')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="3. Verb: heißen">
+    <h2>3. Verb: heißen</h2>
+    <p class="small">Wähle die richtige Verbform.</p>
+    <div id="ex3"></div><button onclick="checkSelectExercise('ex3')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="4. Personalpronomen">
+    <h2>4. Personalpronomen</h2>
+    <p class="small">Wähle: ich, du oder Sie.</p>
+    <div id="ex4"></div><button onclick="checkSelectExercise('ex4')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="5. Dialog ordnen">
+    <h2>5. Dialog ordnen</h2>
+    <p class="small">Wähle die richtige Reihenfolge.</p>
+    <div id="ex5"></div><button onclick="checkSelectExercise('ex5')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="6. Was passt?">
+    <h2>6. Was passt?</h2>
+    <p class="small">Wähle die passende Antwort.</p>
+    <div id="ex6"></div><button onclick="checkSelectExercise('ex6')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="7. Mini-Hören/Lesen ohne Audio">
+    <h2>7. Mini-Situationen</h2>
+    <p class="small">Lies die Situation und wähle den passenden Satz.</p>
+    <div id="ex7"></div><button onclick="checkSelectExercise('ex7')">Prüfen</button>
+  </section>
+
+  <section class="card hidden exercise" data-title="8. Abschlusstest">
+    <h2>8. Abschlusstest</h2>
+    <p class="small">10 Fragen. Wähle immer eine Antwort.</p>
+    <div id="ex8"></div><button onclick="checkSelectExercise('ex8')">Prüfen</button>
+  </section>
+
+  <section class="card hidden" id="resultCard">
+    <h2>Ergebnis</h2>
+    <p id="finalText"></p>
+    <table><tbody id="resultTable"></tbody></table>
+    <button class="green" onclick="finish()">Arbeit abschließen</button>
+    <button class="secondary" onclick="window.print()">Drucken</button>
+  </section>
+</main>
+<script>
+const exercises = {
+ ex1:[
+  ['Hallo!','Begrüßung',['Begrüßung','Abschied']], ['Guten Morgen!','Begrüßung',['Begrüßung','Abschied']], ['Tschüss!','Abschied',['Begrüßung','Abschied']], ['Auf Wiedersehen!','Abschied',['Begrüßung','Abschied']], ['Guten Abend!','Begrüßung',['Begrüßung','Abschied']], ['Bis morgen!','Abschied',['Begrüßung','Abschied']]
+ ],
+ ex2:[
+  ['Wie heißt du?','informell',['formell','informell']], ['Wie heißen Sie?','formell',['formell','informell']], ['Hallo, Nico!','informell',['formell','informell']], ['Guten Tag, Frau Müller!','formell',['formell','informell']], ['Tschüss, Emma!','informell',['formell','informell']], ['Auf Wiedersehen, Herr Schmidt!','formell',['formell','informell']]
+ ],
+ ex3:[
+  ['Ich ___ Nico.','heiße',['heiße','heißt','heißen']], ['Wie ___ du?','heißt',['heiße','heißt','heißen']], ['Wie ___ Sie?','heißen',['heiße','heißt','heißen']], ['Er ___ Max.','heißt',['heiße','heißt','heißen']], ['Sie ___ Emma.','heißt',['heiße','heißt','heißen']], ['Wir ___ Anna und Nico.','heißen',['heiße','heißt','heißen']]
+ ],
+ ex4:[
+  ['___ heiße Nico.','ich',['ich','du','Sie']], ['Wie heißt ___?','du',['ich','du','Sie']], ['Wie heißen ___?','Sie',['ich','du','Sie']], ['___ bin Laura.','ich',['ich','du','Sie']], ['Guten Tag! Heißen ___ Frau Weber?','Sie',['ich','du','Sie']], ['Hallo! Bist ___ Nico?','du',['ich','du','Sie']]
+ ],
+ ex5:[
+  ['Dialog informell: 1) ___ 2) Ich heiße Mia. Und du? 3) Ich heiße Nico.','Hallo! Wie heißt du?',['Hallo! Wie heißt du?','Auf Wiedersehen!','Wie heißen Sie?']],
+  ['Dialog formell: 1) Guten Tag. 2) ___ 3) Ich heiße Frau Berg.','Wie heißen Sie?',['Wie heißt du?','Wie heißen Sie?','Tschüss!']],
+  ['Dialog Abschied: 1) Bis morgen! 2) ___','Tschüss!',['Guten Morgen!','Tschüss!','Wie heißt du?']],
+  ['Dialog Morgen: 1) ___ 2) Guten Morgen!','Guten Morgen!',['Guten Morgen!','Gute Nacht!','Auf Wiedersehen!']]
+ ],
+ ex6:[
+  ['Wie heißt du?','Ich heiße Nico.',['Ich heiße Nico.','Guten Abend.','Auf Wiedersehen.']],
+  ['Guten Tag!','Guten Tag!',['Tschüss!','Guten Tag!','Ich heiße.']],
+  ['Tschüss!','Bis morgen!',['Bis morgen!','Wie heißen Sie?','Hallo!']],
+  ['Wie heißen Sie?','Ich heiße Frau Meier.',['Ich heiße Frau Meier.','Ich heißt Frau Meier.','Du heiße Frau Meier.']],
+  ['Bist du Nico?','Ja, ich bin Nico.',['Ja, ich bin Nico.','Ja, du bist Nico.','Ja, Sie heißt Nico.']]
+ ],
+ ex7:[
+  ['Du kommst morgens in die Klasse.','Guten Morgen!',['Guten Morgen!','Gute Nacht!','Auf Wiedersehen!']],
+  ['Du sprichst mit der Direktorin.','Guten Tag! Wie heißen Sie?',['Hallo! Wie heißt du?','Guten Tag! Wie heißen Sie?','Tschüss!']],
+  ['Du gehst nach Hause.','Auf Wiedersehen!',['Auf Wiedersehen!','Guten Morgen!','Wie heißt du?']],
+  ['Du triffst deine Freundin.','Hallo!',['Guten Tag, Frau Müller!','Hallo!','Wie heißen Sie?']],
+  ['Du fragst einen neuen Schüler nach dem Namen.','Wie heißt du?',['Wie heißt du?','Wie heißen Sie?','Ich heiße du.']]
+ ],
+ ex8:[
+  ['Was ist richtig?','Ich heiße Nico.',['Ich heißt Nico.','Ich heiße Nico.','Ich heißen Nico.']],
+  ['Was ist formell?','Wie heißen Sie?',['Wie heißt du?','Wie heißen Sie?','Hallo Nico!']],
+  ['Was ist ein Abschied?','Tschüss!',['Guten Morgen!','Hallo!','Tschüss!']],
+  ['Was passt zu „du“?','heißt',['heiße','heißt','heißen']],
+  ['Was passt zu „Sie“?','heißen',['heiße','heißt','heißen']],
+  ['Was passt zu „ich“?','bin',['bist','bin','sind']],
+  ['Was sagt man am Morgen?','Guten Morgen!',['Guten Morgen!','Guten Abend!','Gute Nacht!']],
+  ['Richtige Antwort auf „Wie heißt du?“','Ich heiße Anna.',['Ich heiße Anna.','Du heißt Anna.','Sie heißen Anna.']],
+  ['Richtige Frage formell','Wie heißen Sie?',['Wie heißt du?','Wie heißen Sie?','Wie heißt ich?']],
+  ['Richtige Verabschiedung formell','Auf Wiedersehen!',['Hallo!','Auf Wiedersehen!','Guten Morgen!']]
+ ]
+};
+let total=0, score=0, checked={}; let seconds=90*60;
+function startLesson(){
+ const n=document.getElementById('studentName').value.trim(); if(!n){alert('Bitte Namen eingeben.');return;}
+ document.getElementById('startCard').classList.add('hidden'); document.getElementById('workCard').classList.remove('hidden');
+ document.querySelectorAll('.exercise,#resultCard').forEach(e=>e.classList.remove('hidden'));
+ if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{});} 
+ renderAll(); setInterval(tick,1000); updateScore();
+}
+function tick(){ if(seconds<=0)return; seconds--; const m=String(Math.floor(seconds/60)).padStart(2,'0'); const s=String(seconds%60).padStart(2,'0'); document.getElementById('timer').textContent=m+':'+s; }
+function renderAll(){ Object.keys(exercises).forEach(id=>render(id,exercises[id])); total=Object.values(exercises).flat().length; }
+function render(id,data){
+ const box=document.getElementById(id); box.innerHTML='';
+ data.forEach((q,i)=>{ const div=document.createElement('div'); div.className='q'; div.dataset.answer=q[1];
+  div.innerHTML=`<b>${i+1}. ${q[0]}</b><div class="options">${q[2].map(opt=>`<div class="option" onclick="selectOption(this)">${opt}</div>`).join('')}</div><div class="feedback"></div>`;
+  box.appendChild(div);
+ });
+}
+function selectOption(el){ const parent=el.parentElement; parent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected')); el.classList.add('selected'); }
+function checkSelectExercise(id){
+ let local=0; const qs=document.querySelectorAll('#'+id+' .q');
+ qs.forEach(q=>{ const ans=q.dataset.answer; const sel=q.querySelector('.selected'); const fb=q.querySelector('.feedback');
+  q.querySelectorAll('.option').forEach(o=>{o.classList.remove('correct','wrong'); if(o.textContent===ans)o.classList.add('correct');});
+  if(sel && sel.textContent===ans){local++; fb.innerHTML='<span class="ok">Richtig!</span>';} else { if(sel)sel.classList.add('wrong'); fb.innerHTML='<span class="bad">Nicht richtig. Richtige Antwort: '+ans+'</span>'; }
+ });
+ checked[id]=local; updateScore();
+}
+function updateScore(){ score=Object.values(checked).reduce((a,b)=>a+b,0); document.getElementById('scoreText').textContent=score+' / '+total+' Punkte'; document.getElementById('bar').style.width=(total?score/total*100:0)+'%'; updateResult(); }
+function updateResult(){
+ const percent=total?Math.round(score/total*100):0; document.getElementById('finalText').innerHTML=`<b>Name:</b> ${document.getElementById('studentName').value} · <b>Kurs:</b> ${document.getElementById('course').value || '-'} · <b>Ergebnis:</b> ${score}/${total} Punkte (${percent}%)`;
+ const rows=Object.keys(exercises).map(id=>`<tr><td>${id.toUpperCase()}</td><td>${checked[id]??0} / ${exercises[id].length}</td></tr>`).join('');
+ document.getElementById('resultTable').innerHTML='<tr><th>Teil</th><th>Punkte</th></tr>'+rows;
+}
+function finish(){ updateResult(); alert('Arbeit abgeschlossen. Ergebnis anzeigen oder drucken.'); document.getElementById('resultCard').scrollIntoView({behavior:'smooth'}); }
+</script>
+</body>
+</html>
