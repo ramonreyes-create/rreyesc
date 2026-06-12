@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nicos Weg A1 – Memory Einheit 1</title>
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#e0f2fe,#f8fafc);color:#1f2937;min-height:100vh}
+    header{padding:18px;background:#ffffffcc;box-shadow:0 2px 10px rgba(0,0,0,.08);position:sticky;top:0;z-index:10}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
+    h1{margin:0;font-size:1.5rem}.subtitle{margin:5px 0 0;color:#6b7280}
+    .panel{background:white;border-radius:18px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.12);margin-bottom:18px}
+    .start{display:grid;gap:12px;max-width:620px;margin:25px auto}
+    label{font-weight:bold}input{padding:14px;border:2px solid #d1d5db;border-radius:12px;font-size:1rem}
+    button{border:0;border-radius:12px;padding:13px 18px;font-size:1rem;font-weight:bold;cursor:pointer;background:#2563eb;color:white}
+    button.secondary{background:#374151}.hidden{display:none}
+    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px}
+    .stat{background:white;padding:12px;border-radius:14px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.08)}
+    .stat strong{display:block;font-size:1.3rem;color:#2563eb}
+    .feedback{min-height:44px;font-weight:bold;padding:12px 14px;border-radius:14px;background:white;box-shadow:0 3px 12px rgba(0,0,0,.08);margin-bottom:14px}
+    .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+    .memory-card{position:relative;height:120px;perspective:900px;cursor:pointer}
+    .inner{position:absolute;inset:0;transition:transform .45s;transform-style:preserve-3d}
+    .memory-card.flipped .inner,.memory-card.matched .inner{transform:rotateY(180deg)}
+    .front,.back{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;box-shadow:0 5px 15px rgba(0,0,0,.14);font-weight:bold}
+    .front{background:linear-gradient(135deg,#2563eb,#60a5fa);color:white;font-size:2rem}
+    .back{background:white;transform:rotateY(180deg);border:3px solid #dbeafe;font-size:1.05rem}
+    .memory-card.matched .back{border-color:#16a34a;background:#f0fdf4}
+    .ok{color:#16a34a}.bad{color:#dc2626}.small{font-size:.9rem;color:#6b7280}
+    .result{font-size:1.15rem;line-height:1.5}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.grid{grid-template-columns:repeat(3,1fr)}.memory-card{height:105px}.back{font-size:.9rem}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap" style="padding:0">
+      <h1>Nicos Weg A1 – Memory: Einheit 1</h1>
+      <p class="subtitle">Begrüßungen, Abschied, einfache Fragen und Antworten</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="startPanel" class="panel start">
+      <h2>Start</h2>
+      <p>Finde die passenden Paare: Deutsch + Español.</p>
+      <label for="studentName">Name der Schülerin / des Schülers</label>
+      <input id="studentName" placeholder="Name eingeben..." autocomplete="off"/>
+      <button onclick="startGame()">Spiel starten</button>
+      <p class="small">Beim Start wird Vollbild aktiviert. Das Spiel ist vollständig autocorregible.</p>
+    </section>
+
+    <section id="gamePanel" class="hidden">
+      <div class="stats">
+        <div class="stat"><span>Name</span><strong id="nameBox">–</strong></div>
+        <div class="stat"><span>Zeit</span><strong id="timer">00:00</strong></div>
+        <div class="stat"><span>Bewegungen</span><strong id="moves">0</strong></div>
+        <div class="stat"><span>Paare</span><strong id="pairs">0/12</strong></div>
+        <div class="stat"><span>Punkte</span><strong id="score">0%</strong></div>
+      </div>
+
+      <div id="feedback" class="feedback">Wähle zwei Karten.</div>
+      <div id="grid" class="grid"></div>
+
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="secondary" onclick="restartGame()">Neu starten</button>
+        <button class="secondary" onclick="toggleFullscreen()">Vollbild</button>
+      </div>
+    </section>
+
+    <section id="resultPanel" class="panel hidden">
+      <h2>Ergebnis</h2>
+      <div id="resultText" class="result"></div>
+      <button onclick="restartGame()">Noch einmal spielen</button>
+    </section>
+  </main>
+
+  <script>
+    const pairsData = [
+      {id:1, de:"Hallo", es:"Hola"},
+      {id:2, de:"Guten Morgen", es:"Buenos días"},
+      {id:3, de:"Guten Tag", es:"Buenas tardes"},
+      {id:4, de:"Tschüss", es:"Chao"},
+      {id:5, de:"Auf Wiedersehen", es:"Adiós"},
+      {id:6, de:"Wie heißt du?", es:"¿Cómo te llamas?"},
+      {id:7, de:"Ich heiße ...", es:"Me llamo ..."},
+      {id:8, de:"Wie geht's?", es:"¿Cómo estás?"},
+      {id:9, de:"Gut", es:"Bien"},
+      {id:10, de:"Danke", es:"Gracias"},
+      {id:11, de:"Ja", es:"Sí"},
+      {id:12, de:"Nein", es:"No"}
+    ];
+
+    let cards = [], firstCard = null, secondCard = null, locked = false;
+    let moves = 0, matchedPairs = 0, seconds = 0, timerInterval = null, student = "";
+
+    function shuffle(array){
+      for(let i=array.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [array[i],array[j]] = [array[j],array[i]];
+      }
+      return array;
+    }
+
+    function startGame(){
+      const nameInput = document.getElementById("studentName").value.trim();
+      if(!nameInput){ alert("Bitte gib zuerst deinen Namen ein."); return; }
+      student = nameInput;
+      document.getElementById("nameBox").textContent = student;
+      document.getElementById("startPanel").classList.add("hidden");
+      document.getElementById("gamePanel").classList.remove("hidden");
+      document.getElementById("resultPanel").classList.add("hidden");
+      requestFullscreenSafe();
+      setupGame();
+    }
+
+    function setupGame(){
+      cards = [];
+      pairsData.forEach(p=>{
+        cards.push({id:p.id, text:p.de, lang:"de"});
+        cards.push({id:p.id, text:p.es, lang:"es"});
+      });
+      shuffle(cards);
+      firstCard = null; secondCard = null; locked = false;
+      moves = 0; matchedPairs = 0; seconds = 0;
+      updateStats();
+      document.getElementById("feedback").innerHTML = "Wähle zwei Karten.";
+      renderCards();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(()=>{ seconds++; updateStats(); },1000);
+    }
+
+    function renderCards(){
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      cards.forEach((card,index)=>{
+        const div = document.createElement("div");
+        div.className = "memory-card";
+        div.dataset.index = index;
+        div.dataset.id = card.id;
+        div.dataset.lang = card.lang;
+        div.onclick = () => flipCard(div);
+        div.innerHTML = '<div class="inner"><div class="front">?</div><div class="back">'+card.text+'</div></div>';
+        grid.appendChild(div);
+      });
+    }
+
+    function flipCard(cardEl){
+      if(locked || cardEl.classList.contains("flipped") || cardEl.classList.contains("matched")) return;
+      cardEl.classList.add("flipped");
+      if(!firstCard){ firstCard = cardEl; return; }
+      secondCard = cardEl;
+      moves++;
+      checkMatch();
+    }
+
+    function checkMatch(){
+      locked = true;
+      const sameId = firstCard.dataset.id === secondCard.dataset.id;
+      const differentLang = firstCard.dataset.lang !== secondCard.dataset.lang;
+      if(sameId && differentLang){
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matchedPairs++;
+        document.getElementById("feedback").innerHTML = '<span class="ok">Richtig! Das ist ein Paar.</span>';
+        resetSelection();
+        updateStats();
+        if(matchedPairs === pairsData.length) finishGame();
+      } else {
+        document.getElementById("feedback").innerHTML = '<span class="bad">Noch nicht richtig. Versuch es noch einmal.</span>';
+        setTimeout(()=>{
+          firstCard.classList.remove("flipped");
+          secondCard.classList.remove("flipped");
+          resetSelection();
+          updateStats();
+        },900);
+      }
+    }
+
+    function resetSelection(){ firstCard = null; secondCard = null; locked = false; }
+
+    function updateStats(){
+      const min = String(Math.floor(seconds/60)).padStart(2,"0");
+      const sec = String(seconds%60).padStart(2,"0");
+      document.getElementById("timer").textContent = min + ":" + sec;
+      document.getElementById("moves").textContent = moves;
+      document.getElementById("pairs").textContent = matchedPairs + "/12";
+      document.getElementById("score").textContent = Math.round((matchedPairs / pairsData.length) * 100) + "%";
+    }
+
+    function finishGame(){
+      clearInterval(timerInterval);
+      const efficiency = Math.max(0, Math.round(100 - Math.max(0, moves - 12) * 4));
+      const min = String(Math.floor(seconds/60)).padStart(2,"0");
+      const sec = String(seconds%60).padStart(2,"0");
+      document.getElementById("resultPanel").classList.remove("hidden");
+      document.getElementById("resultText").innerHTML =
+        "<p><strong>Name:</strong> " + student + "</p>" +
+        "<p><strong>Zeit:</strong> " + min + ":" + sec + "</p>" +
+        "<p><strong>Bewegungen:</strong> " + moves + "</p>" +
+        "<p><strong>Gefundene Paare:</strong> " + matchedPairs + "/12</p>" +
+        "<p><strong>Ergebnis:</strong> 100%</p>" +
+        "<p><strong>Effizienz:</strong> " + efficiency + "%</p>" +
+        '<p class="ok"><strong>Sehr gut!</strong> Du hast alle Wörter aus Einheit 1 gefunden.</p>';
+      document.getElementById("feedback").innerHTML = '<span class="ok">Fertig! Alle Paare wurden gefunden.</span>';
+      window.scrollTo({top:document.body.scrollHeight, behavior:"smooth"});
+    }
+
+    function restartGame(){
+      document.getElementById("resultPanel").classList.add("hidden");
+      setupGame();
+    }
+
+    function requestFullscreenSafe(){
+      const el = document.documentElement;
+      if(el.requestFullscreen){ el.requestFullscreen().catch(()=>{}); }
+      else if(el.webkitRequestFullscreen){ el.webkitRequestFullscreen(); }
+    }
+
+    function toggleFullscreen(){
+      if(!document.fullscreenElement){ requestFullscreenSafe(); }
+      else{ document.exitFullscreen().catch(()=>{}); }
+    }
+  </script>
+</body>
+</html>
