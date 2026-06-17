@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muss i denn – Lied mit Musik und Text</title>
+  <style>
+    :root{
+      --bg1:#f8efe0;
+      --bg2:#e7c99d;
+      --brown:#7a4a22;
+      --brown2:#a8672b;
+      --cream:#fffaf1;
+      --text:#2b2118;
+      --green:#2f855a;
+      --red:#c53030;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      min-height:100vh;
+      padding:24px;
+    }
+    header{
+      max-width:1000px;
+      margin:0 auto 20px;
+      text-align:center;
+      background:rgba(255,255,255,.7);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 8px 24px rgba(0,0,0,.15);
+    }
+    h1{
+      margin:0;
+      color:var(--brown);
+      font-size:clamp(2rem,5vw,3.5rem);
+    }
+    .subtitle{
+      font-size:1.1rem;
+      margin:8px 0 0;
+    }
+    .container{
+      max-width:1000px;
+      margin:0 auto;
+      display:grid;
+      gap:18px;
+    }
+    .card{
+      background:var(--cream);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 8px 20px rgba(0,0,0,.15);
+      border:2px solid rgba(122,74,34,.15);
+    }
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+    }
+    button{
+      border:none;
+      border-radius:14px;
+      padding:12px 18px;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      background:var(--brown);
+      color:white;
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+    }
+    button:hover{background:#5f3515}
+    button.secondary{background:var(--brown2)}
+    button.danger{background:var(--red)}
+    .status{
+      font-weight:bold;
+      color:var(--green);
+      min-width:170px;
+      text-align:center;
+    }
+    .lyrics{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .verse{
+      background:white;
+      border-radius:16px;
+      padding:18px;
+      line-height:1.7;
+      font-size:1.1rem;
+      border-left:6px solid var(--brown2);
+    }
+    .verse h2{
+      margin-top:0;
+      color:var(--brown);
+      font-size:1.25rem;
+    }
+    .line{
+      padding:4px 8px;
+      border-radius:8px;
+      transition:.2s;
+    }
+    .line.active{
+      background:#ffe7bd;
+      font-weight:bold;
+    }
+    .translation{
+      background:white;
+      border-radius:16px;
+      padding:18px;
+      line-height:1.7;
+      font-size:1.05rem;
+      border-left:6px solid #d6a05b;
+    }
+    .vocab{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+    }
+    .word{
+      background:white;
+      border-radius:14px;
+      padding:12px;
+      border:1px solid #efd7b5;
+    }
+    .word strong{color:var(--brown)}
+    .task{
+      background:white;
+      border-radius:16px;
+      padding:16px;
+      margin-top:10px;
+    }
+    input{
+      width:100%;
+      padding:10px;
+      border-radius:10px;
+      border:1px solid #c9b18f;
+      font-size:1rem;
+      margin-top:6px;
+    }
+    .feedback{
+      font-weight:bold;
+      margin-top:8px;
+    }
+    .ok{color:var(--green)}
+    .bad{color:var(--red)}
+    footer{
+      text-align:center;
+      margin-top:24px;
+      font-size:.9rem;
+      color:#5f4a36;
+    }
+    @media(max-width:760px){
+      .lyrics{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎵 Muss i denn</h1>
+    <p class="subtitle">Traditionelles deutsches Lied – Musik, Text und Unterrichtsaktivität</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="controls">
+        <button onclick="playSong()">▶ Lied abspielen</button>
+        <button class="danger" onclick="stopSong()">■ Stop</button>
+        <button class="secondary" onclick="toggleTranslation()">Übersetzung anzeigen/verbergen</button>
+        <button class="secondary" onclick="toggleFullscreen()">Vollbild</button>
+        <span class="status" id="status">Bereit</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="lyrics">
+        <div class="verse">
+          <h2>Text</h2>
+          <div id="l1" class="line">Muss i denn, muss i denn</div>
+          <div id="l2" class="line">zum Städtele hinaus,</div>
+          <div id="l3" class="line">Städtele hinaus,</div>
+          <div id="l4" class="line">und du, mein Schatz, bleibst hier?</div>
+          <br>
+          <div id="l5" class="line">Wenn i komm, wenn i komm,</div>
+          <div id="l6" class="line">wenn i wieder, wieder komm,</div>
+          <div id="l7" class="line">kehr i ein, mein Schatz, bei dir.</div>
+        </div>
+
+        <div class="translation" id="translation">
+          <h2>Traducción</h2>
+          <p>
+            ¿Debo irme, debo irme<br>
+            fuera del pueblito,<br>
+            fuera del pueblito,<br>
+            y tú, mi amor, te quedas aquí?
+          </p>
+          <p>
+            Cuando vuelva, cuando vuelva,<br>
+            cuando vuelva otra vez,<br>
+            pasaré a verte, mi amor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Wortschatz</h2>
+      <div class="vocab">
+        <div class="word"><strong>muss i denn</strong><br>¿debo entonces?</div>
+        <div class="word"><strong>das Städtele</strong><br>el pueblito</div>
+        <div class="word"><strong>hinaus</strong><br>hacia afuera</div>
+        <div class="word"><strong>mein Schatz</strong><br>mi amor / mi tesoro</div>
+        <div class="word"><strong>bleiben</strong><br>quedarse</div>
+        <div class="word"><strong>wiederkommen</strong><br>volver</div>
+        <div class="word"><strong>einkehren</strong><br>pasar / entrar</div>
+        <div class="word"><strong>bei dir</strong><br>donde ti / contigo</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mini-Übung</h2>
+      <div class="task">
+        <label><strong>1. Ergänze:</strong> Und du, mein __________, bleibst hier?</label>
+        <input id="answer1" placeholder="Schreibe das fehlende Wort">
+        <button onclick="checkAnswer()">Prüfen</button>
+        <div id="feedback" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <strong>2. Frage für den Unterricht:</strong>
+        <p>Wie fühlt sich der Sänger? Ist er traurig, hoffnungsvoll oder beides?</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Hinweis: Die Melodie wird im Browser synthetisch gespielt. Es ist keine externe Audiodatei nötig.
+  </footer>
+
+  <script>
+    let audioCtx;
+    let timeouts = [];
+    let currentOscillators = [];
+
+    const noteFreq = {
+      C4:261.63, D4:293.66, E4:329.63, F4:349.23, G4:392.00, A4:440.00, B4:493.88,
+      C5:523.25, D5:587.33, E5:659.25, F5:698.46, G5:783.99
+    };
+
+    /*
+      Melodía simplificada, creada para uso educativo.
+      No es una grabación externa.
+    */
+    const melody = [
+      ["G4", 450, "l1"], ["C5", 450, "l1"], ["C5", 450, "l1"], ["D5", 450, "l1"],
+      ["E5", 600, "l2"], ["D5", 300, "l2"], ["C5", 600, "l2"],
+      ["D5", 450, "l3"], ["E5", 450, "l3"], ["F5", 450, "l3"], ["E5", 450, "l3"],
+      ["D5", 600, "l4"], ["C5", 900, "l4"],
+
+      ["G4", 450, "l5"], ["C5", 450, "l5"], ["C5", 450, "l5"], ["D5", 450, "l5"],
+      ["E5", 600, "l6"], ["D5", 300, "l6"], ["C5", 600, "l6"],
+      ["D5", 450, "l7"], ["E5", 450, "l7"], ["D5", 450, "l7"], ["C5", 900, "l7"]
+    ];
+
+    function clearHighlights(){
+      document.querySelectorAll(".line").forEach(el => el.classList.remove("active"));
+    }
+
+    function playTone(freq, startTime, duration){
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.value = freq;
+
+      gain.gain.setValueAtTime(0.0001, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.25, startTime + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration / 1000);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(startTime);
+      osc.stop(startTime + duration / 1000 + 0.05);
+      currentOscillators.push(osc);
+    }
+
+    function playSong(){
+      stopSong();
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      let currentTime = audioCtx.currentTime + 0.1;
+      let accumulated = 0;
+
+      document.getElementById("status").textContent = "Spielt ...";
+
+      melody.forEach(([note, duration, lineId]) => {
+        playTone(noteFreq[note], currentTime, duration);
+
+        const t = setTimeout(() => {
+          clearHighlights();
+          document.getElementById(lineId).classList.add("active");
+        }, accumulated);
+        timeouts.push(t);
+
+        currentTime += duration / 1000;
+        accumulated += duration;
+      });
+
+      const endTimeout = setTimeout(() => {
+        clearHighlights();
+        document.getElementById("status").textContent = "Fertig";
+      }, accumulated + 200);
+      timeouts.push(endTimeout);
+    }
+
+    function stopSong(){
+      timeouts.forEach(t => clearTimeout(t));
+      timeouts = [];
+      currentOscillators.forEach(osc => {
+        try { osc.stop(); } catch(e) {}
+      });
+      currentOscillators = [];
+      clearHighlights();
+      document.getElementById("status").textContent = "Bereit";
+    }
+
+    function toggleTranslation(){
+      const box = document.getElementById("translation");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function checkAnswer(){
+      const answer = document.getElementById("answer1").value.trim().toLowerCase();
+      const feedback = document.getElementById("feedback");
+      if(answer === "schatz"){
+        feedback.textContent = "Richtig! Sehr gut.";
+        feedback.className = "feedback ok";
+      } else {
+        feedback.textContent = "Noch einmal versuchen. Tipp: mein S...";
+        feedback.className = "feedback bad";
+      }
+    }
+
+    function toggleFullscreen(){
+      if(!document.fullscreenElement){
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>
