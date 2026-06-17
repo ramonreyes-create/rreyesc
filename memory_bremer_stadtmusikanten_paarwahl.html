@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory – Die Bremer Stadtmusikanten</title>
+  <style>
+    :root {
+      --bg: #f7f2e8;
+      --card: #fffaf0;
+      --accent: #8b5e34;
+      --accent2: #d99b52;
+      --text: #2b2118;
+      --ok: #2f855a;
+      --shadow: rgba(0,0,0,.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f7f2e8, #f2dfc2);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+
+    .panel {
+      max-width: 1100px;
+      margin: 0 auto 20px auto;
+      background: rgba(255,255,255,.7);
+      border: 2px solid #ead2aa;
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: 0 8px 20px var(--shadow);
+    }
+
+    .info {
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-weight: bold;
+      border: 1px solid #ead2aa;
+    }
+
+    select {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-left: 6px;
+      background: #fffaf0;
+      color: var(--text);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    button:hover {
+      background: #6f4625;
+    }
+
+    .instructions {
+      max-width: 1100px;
+      margin: 0 auto 18px auto;
+      background: #fffaf0;
+      border-left: 7px solid var(--accent2);
+      padding: 14px 18px;
+      border-radius: 12px;
+      line-height: 1.45;
+    }
+
+    .game {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      aspect-ratio: 1 / 1;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform .5s;
+      transform-style: preserve-3d;
+    }
+
+    .card.flipped .inner,
+    .card.matched .inner {
+      transform: rotateY(180deg);
+    }
+
+    .front, .back {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 12px;
+      box-shadow: 0 8px 18px var(--shadow);
+      border: 3px solid #fff;
+    }
+
+    .front {
+      background: linear-gradient(135deg, #8b5e34, #d99b52);
+      color: white;
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background: var(--card);
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: bold;
+      line-height: 1.25;
+    }
+
+    .de {
+      border-color: #8b5e34;
+    }
+
+    .es {
+      border-color: #d99b52;
+    }
+
+    .matched .back {
+      background: #e6ffef;
+      border-color: var(--ok);
+      color: #22543d;
+    }
+
+    .message {
+      max-width: 1100px;
+      margin: 18px auto 0 auto;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--ok);
+      min-height: 32px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: .9rem;
+      color: #5f4a36;
+    }
+
+    @media print {
+      button, .panel, .message {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .card {
+        break-inside: avoid;
+      }
+
+      .front {
+        background: #ddd !important;
+        color: black;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Memory – Die Bremer Stadtmusikanten</h1>
+    <p class="subtitle">Finde die passenden Paare: Deutsch – Spanisch</p>
+  </header>
+
+  <section class="instructions">
+    <strong>Anleitung:</strong> Wähle zuerst die Anzahl der Paare. Klicke dann auf zwei Karten.
+    Wenn Deutsch und Spanisch zusammenpassen, bleiben die Karten offen.
+    Ziel ist es, alle Paare mit möglichst wenigen Versuchen zu finden.
+  </section>
+
+  <section class="panel">
+    <div class="info">Versuche: <span id="moves">0</span></div>
+    <div class="info">Paare: <span id="pairs">0</span> / <span id="totalPairs">0</span></div>
+    <label class="info">
+      Anzahl:
+      <select id="pairSelector" onchange="startGame()">
+        <option value="6">6 Paare</option>
+        <option value="8">8 Paare</option>
+        <option value="10">10 Paare</option>
+        <option value="12" selected>12 Paare</option>
+        <option value="16">16 Paare</option>
+        <option value="20">20 Paare</option>
+      </select>
+    </label>
+    <button onclick="startGame()">Neu mischen</button>
+    <button onclick="toggleFullscreen()">Vollbild</button>
+  </section>
+
+  <main class="game" id="game"></main>
+  <div class="message" id="message"></div>
+
+  <footer>
+    Erstellt für den Deutschunterricht – Märchen: Die Bremer Stadtmusikanten
+  </footer>
+
+  <script>
+    const vocab = [
+      { de: "der Esel", es: "el burro" },
+      { de: "der Hund", es: "el perro" },
+      { de: "die Katze", es: "el gato" },
+      { de: "der Hahn", es: "el gallo" },
+      { de: "die Räuber", es: "los ladrones" },
+      { de: "das Haus", es: "la casa" },
+      { de: "die Musik", es: "la música" },
+      { de: "die Reise", es: "el viaje" },
+      { de: "die Freundschaft", es: "la amistad" },
+      { de: "alt", es: "viejo" },
+      { de: "laut", es: "ruidoso / fuerte" },
+      { de: "glücklich", es: "feliz" },
+      { de: "gemeinsam", es: "juntos" },
+      { de: "helfen", es: "ayudar" },
+      { de: "fliehen", es: "escapar" },
+      { de: "singen", es: "cantar" },
+      { de: "spielen", es: "tocar un instrumento" },
+      { de: "entdecken", es: "descubrir" },
+      { de: "vertreiben", es: "expulsar" },
+      { de: "das Märchen", es: "el cuento" }
+    ];
+
+    let cards = [];
+    let flipped = [];
+    let lockBoard = false;
+    let moves = 0;
+    let matchedPairs = 0;
+    let currentPairCount = 12;
+
+    const game = document.getElementById("game");
+    const movesEl = document.getElementById("moves");
+    const pairsEl = document.getElementById("pairs");
+    const totalPairsEl = document.getElementById("totalPairs");
+    const messageEl = document.getElementById("message");
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function startGame() {
+      currentPairCount = parseInt(document.getElementById("pairSelector").value, 10);
+      const selectedVocab = shuffle([...vocab]).slice(0, currentPairCount);
+
+      cards = [];
+      selectedVocab.forEach((item, index) => {
+        cards.push({ text: item.de, type: "de", pairId: index });
+        cards.push({ text: item.es, type: "es", pairId: index });
+      });
+
+      shuffle(cards);
+      flipped = [];
+      lockBoard = false;
+      moves = 0;
+      matchedPairs = 0;
+
+      movesEl.textContent = moves;
+      pairsEl.textContent = matchedPairs;
+      totalPairsEl.textContent = currentPairCount;
+      messageEl.textContent = "";
+      game.innerHTML = "";
+
+      cards.forEach((cardData, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.index = index;
+        card.dataset.pairId = cardData.pairId;
+
+        card.innerHTML = `
+          <div class="inner">
+            <div class="front">🎵</div>
+            <div class="back ${cardData.type}">${cardData.text}</div>
+          </div>
+        `;
+
+        card.addEventListener("click", () => flipCard(card));
+        game.appendChild(card);
+      });
+    }
+
+    function flipCard(card) {
+      if (lockBoard) return;
+      if (card.classList.contains("flipped")) return;
+      if (card.classList.contains("matched")) return;
+
+      card.classList.add("flipped");
+      flipped.push(card);
+
+      if (flipped.length === 2) {
+        moves++;
+        movesEl.textContent = moves;
+        checkMatch();
+      }
+    }
+
+    function checkMatch() {
+      const [card1, card2] = flipped;
+      const isMatch = card1.dataset.pairId === card2.dataset.pairId;
+
+      if (isMatch) {
+        card1.classList.add("matched");
+        card2.classList.add("matched");
+        flipped = [];
+        matchedPairs++;
+        pairsEl.textContent = matchedPairs;
+
+        if (matchedPairs === currentPairCount) {
+          let bewertung = "";
+          if (moves <= currentPairCount + 5) {
+            bewertung = "⭐⭐⭐ Experte!";
+          } else if (moves <= currentPairCount + 15) {
+            bewertung = "⭐⭐ Gut gemacht!";
+          } else {
+            bewertung = "⭐ Weiter üben!";
+          }
+          messageEl.textContent = `${bewertung} Du hast alle Paare in ${moves} Versuchen gefunden.`;
+        }
+      } else {
+        lockBoard = true;
+        setTimeout(() => {
+          card1.classList.remove("flipped");
+          card2.classList.remove("flipped");
+          flipped = [];
+          lockBoard = false;
+        }, 900);
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    startGame();
+  </script>
+</body>
+</html>
