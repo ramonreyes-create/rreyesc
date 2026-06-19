@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nicos Weg A1 – Kapitel 1, 2, 3 | Actividades cerradas</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent2:#0f766e;
+      --good:#dcfce7;
+      --bad:#fee2e2;
+      --border:#d1d5db;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(135deg,#eef4ff,#f7fbff);
+      color:var(--ink);
+    }
+    header{
+      background:#0f172a;
+      color:white;
+      padding:28px 18px;
+      text-align:center;
+    }
+    header h1{margin:0 0 8px;font-size:28px}
+    header p{margin:0;color:#dbeafe}
+    main{
+      max-width:1050px;
+      margin:24px auto;
+      padding:0 16px 40px;
+    }
+    .intro,.section,.result{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+      padding:22px;
+      margin-bottom:20px;
+    }
+    .intro{
+      border-left:8px solid var(--accent);
+    }
+    .meta{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      margin-top:16px;
+    }
+    .pill{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      color:#1e40af;
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:bold;
+      text-align:center;
+    }
+    h2{
+      margin:0 0 14px;
+      color:#0f172a;
+      border-bottom:2px solid #e5e7eb;
+      padding-bottom:8px;
+    }
+    h3{
+      margin:18px 0 8px;
+      color:#1e3a8a;
+    }
+    .task{
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:16px;
+      margin:14px 0;
+      background:#fbfdff;
+    }
+    .task p{
+      margin:0 0 10px;
+      font-weight:bold;
+    }
+    label{
+      display:block;
+      padding:9px 10px;
+      margin:6px 0;
+      border:1px solid #e5e7eb;
+      border-radius:10px;
+      cursor:pointer;
+      background:white;
+      transition:.15s;
+    }
+    label:hover{
+      border-color:#93c5fd;
+      background:#eff6ff;
+    }
+    input[type="radio"]{
+      margin-right:8px;
+      transform:scale(1.1);
+    }
+    select{
+      width:100%;
+      max-width:420px;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:white;
+      font-size:15px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      gap:12px;
+    }
+    .mini{
+      background:#f8fafc;
+      border:1px dashed #cbd5e1;
+      border-radius:12px;
+      padding:12px;
+    }
+    .mini b{display:block;margin-bottom:6px}
+    button{
+      border:0;
+      border-radius:14px;
+      padding:14px 22px;
+      background:var(--accent);
+      color:white;
+      font-size:17px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(37,99,235,.25);
+    }
+    button:hover{background:#1d4ed8}
+    .actions{
+      text-align:center;
+      margin:24px 0;
+    }
+    .correct{
+      background:var(--good)!important;
+      border-color:#22c55e!important;
+    }
+    .wrong{
+      background:var(--bad)!important;
+      border-color:#ef4444!important;
+    }
+    .result{
+      display:none;
+      border-left:8px solid var(--accent2);
+    }
+    .score{
+      font-size:26px;
+      font-weight:bold;
+      color:#0f766e;
+    }
+    .feedback{
+      font-size:18px;
+      margin-top:8px;
+    }
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:25px;
+    }
+    .namebox{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:14px;
+    }
+    .namebox input{
+      flex:1;
+      min-width:240px;
+      padding:12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      font-size:15px;
+    }
+    .tag{
+      display:inline-block;
+      background:#ecfeff;
+      color:#155e75;
+      border:1px solid #a5f3fc;
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:13px;
+      margin-left:6px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Nicos Weg A1 – Kapitel 1, 2 und 3</h1>
+  <p>Ejercicios cerrados de vocabulario, comprensión y multiple choice</p>
+</header>
+
+<main>
+  <section class="intro">
+    <h2>Instrucciones</h2>
+    <p>Responde todas las actividades. Solo hay una alternativa correcta por pregunta. Al final presiona <b>“Evaluar”</b> para ver tu resultado.</p>
+    <div class="namebox">
+      <input id="studentName" type="text" placeholder="Nombre de la alumna">
+    </div>
+    <div class="meta">
+      <div class="pill">Nivel: A1</div>
+      <div class="pill">Capítulos: 1–3</div>
+      <div class="pill">Tipo: Cerrado</div>
+      <div class="pill">Total: 30 puntos</div>
+    </div>
+  </section>
+
+  <form id="quizForm">
+
+    <section class="section">
+      <h2>Teil A – Wortschatz: Deutsch → Spanisch <span class="tag">10 Punkte</span></h2>
+
+      <div class="task">
+        <p>1. Was bedeutet „der Flughafen“?</p>
+        <label><input type="radio" name="q1" value="a"> el tren</label>
+        <label><input type="radio" name="q1" value="b"> el aeropuerto</label>
+        <label><input type="radio" name="q1" value="c"> la mochila</label>
+      </div>
+
+      <div class="task">
+        <p>2. Was bedeutet „der Koffer“?</p>
+        <label><input type="radio" name="q2" value="a"> la maleta</label>
+        <label><input type="radio" name="q2" value="b"> el pasaporte</label>
+        <label><input type="radio" name="q2" value="c"> la familia</label>
+      </div>
+
+      <div class="task">
+        <p>3. Was bedeutet „Hilfe!“?</p>
+        <label><input type="radio" name="q3" value="a"> ¡Gracias!</label>
+        <label><input type="radio" name="q3" value="b"> ¡Ayuda!</label>
+        <label><input type="radio" name="q3" value="c"> ¡Hola!</label>
+      </div>
+
+      <div class="task">
+        <p>4. Was bedeutet „Ich heiße Nico“?</p>
+        <label><input type="radio" name="q4" value="a"> Me llamo Nico</label>
+        <label><input type="radio" name="q4" value="b"> Vivo en Nico</label>
+        <label><input type="radio" name="q4" value="c"> Tengo a Nico</label>
+      </div>
+
+      <div class="task">
+        <p>5. Was bedeutet „Tschüss“?</p>
+        <label><input type="radio" name="q5" value="a"> Adiós</label>
+        <label><input type="radio" name="q5" value="b"> Por favor</label>
+        <label><input type="radio" name="q5" value="c"> Lo siento</label>
+      </div>
+
+      <div class="task">
+        <p>6. Was bedeutet „Danke“?</p>
+        <label><input type="radio" name="q6" value="a"> Perdón</label>
+        <label><input type="radio" name="q6" value="b"> Gracias</label>
+        <label><input type="radio" name="q6" value="c"> Hasta luego</label>
+      </div>
+
+      <div class="task">
+        <p>7. Was bedeutet „bitte“?</p>
+        <label><input type="radio" name="q7" value="a"> por favor / de nada</label>
+        <label><input type="radio" name="q7" value="b"> muy bien</label>
+        <label><input type="radio" name="q7" value="c"> aeropuerto</label>
+      </div>
+
+      <div class="task">
+        <p>8. Was bedeutet „Wie geht es dir?“</p>
+        <label><input type="radio" name="q8" value="a"> ¿Dónde vives?</label>
+        <label><input type="radio" name="q8" value="b"> ¿Cómo estás?</label>
+        <label><input type="radio" name="q8" value="c"> ¿Cómo te llamas?</label>
+      </div>
+
+      <div class="task">
+        <p>9. Was bedeutet „gut“?</p>
+        <label><input type="radio" name="q9" value="a"> bien</label>
+        <label><input type="radio" name="q9" value="b"> mal</label>
+        <label><input type="radio" name="q9" value="c"> rápido</label>
+      </div>
+
+      <div class="task">
+        <p>10. Was bedeutet „Entschuldigung“?</p>
+        <label><input type="radio" name="q10" value="a"> Disculpe / perdón</label>
+        <label><input type="radio" name="q10" value="b"> Buenas noches</label>
+        <label><input type="radio" name="q10" value="c"> Familia</label>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Teil B – Pregunta y respuesta <span class="tag">8 Punkte</span></h2>
+
+      <div class="task">
+        <p>11. Welche Antwort passt? – „Wie heißt du?“</p>
+        <label><input type="radio" name="q11" value="a"> Ich heiße Nico.</label>
+        <label><input type="radio" name="q11" value="b"> Ich komme aus Spanien.</label>
+        <label><input type="radio" name="q11" value="c"> Mir geht es gut.</label>
+      </div>
+
+      <div class="task">
+        <p>12. Welche Antwort passt? – „Woher kommst du?“</p>
+        <label><input type="radio" name="q12" value="a"> Ich bin Emma.</label>
+        <label><input type="radio" name="q12" value="b"> Ich komme aus Spanien.</label>
+        <label><input type="radio" name="q12" value="c"> Ich wohne Koffer.</label>
+      </div>
+
+      <div class="task">
+        <p>13. Welche Antwort passt? – „Wie geht es dir?“</p>
+        <label><input type="radio" name="q13" value="a"> Danke, gut.</label>
+        <label><input type="radio" name="q13" value="b"> Ich heiße gut.</label>
+        <label><input type="radio" name="q13" value="c"> Aus Deutschland.</label>
+      </div>
+
+      <div class="task">
+        <p>14. Welche Antwort passt? – „Wer ist das?“</p>
+        <label><input type="radio" name="q14" value="a"> Das ist Lisa.</label>
+        <label><input type="radio" name="q14" value="b"> Ich bin Spanien.</label>
+        <label><input type="radio" name="q14" value="c"> Sehr gut, danke.</label>
+      </div>
+
+      <div class="task">
+        <p>15. Welche Frage passt zur Antwort? – „Ich heiße Lisa.“</p>
+        <label><input type="radio" name="q15" value="a"> Wie heißt du?</label>
+        <label><input type="radio" name="q15" value="b"> Wo ist der Flughafen?</label>
+        <label><input type="radio" name="q15" value="c"> Wie alt ist dein Koffer?</label>
+      </div>
+
+      <div class="task">
+        <p>16. Welche Frage passt zur Antwort? – „Ich komme aus Deutschland.“</p>
+        <label><input type="radio" name="q16" value="a"> Woher kommst du?</label>
+        <label><input type="radio" name="q16" value="b"> Wie geht es dir?</label>
+        <label><input type="radio" name="q16" value="c"> Was ist das?</label>
+      </div>
+
+      <div class="task">
+        <p>17. Welche Antwort ist höflich?</p>
+        <label><input type="radio" name="q17" value="a"> Danke!</label>
+        <label><input type="radio" name="q17" value="b"> Koffer!</label>
+        <label><input type="radio" name="q17" value="c"> Spanien!</label>
+      </div>
+
+      <div class="task">
+        <p>18. Welche Antwort passt? – „Hallo!“</p>
+        <label><input type="radio" name="q18" value="a"> Hallo!</label>
+        <label><input type="radio" name="q18" value="b"> Flughafen.</label>
+        <label><input type="radio" name="q18" value="c"> Aus.</label>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Teil C – Comprensión de la historia <span class="tag">7 Punkte</span></h2>
+
+      <div class="task">
+        <p>19. Nico kommt am Anfang der Geschichte …</p>
+        <label><input type="radio" name="q19" value="a"> in Deutschland an.</label>
+        <label><input type="radio" name="q19" value="b"> in Chile an.</label>
+        <label><input type="radio" name="q19" value="c"> in der Schule an.</label>
+      </div>
+
+      <div class="task">
+        <p>20. Nico kommt aus …</p>
+        <label><input type="radio" name="q20" value="a"> Spanien.</label>
+        <label><input type="radio" name="q20" value="b"> Frankreich.</label>
+        <label><input type="radio" name="q20" value="c"> Österreich.</label>
+      </div>
+
+      <div class="task">
+        <p>21. Nico hat ein Problem, weil …</p>
+        <label><input type="radio" name="q21" value="a"> er seinen Koffer / seine Tasche verliert.</label>
+        <label><input type="radio" name="q21" value="b"> er kein Deutsch lernen will.</label>
+        <label><input type="radio" name="q21" value="c"> er Emma nicht mag.</label>
+      </div>
+
+      <div class="task">
+        <p>22. Lisa hilft Nico, weil …</p>
+        <label><input type="radio" name="q22" value="a"> er Hilfe braucht.</label>
+        <label><input type="radio" name="q22" value="b"> er ihr Lehrer ist.</label>
+        <label><input type="radio" name="q22" value="c"> er ihr Vater ist.</label>
+      </div>
+
+      <div class="task">
+        <p>23. Emma ist …</p>
+        <label><input type="radio" name="q23" value="a"> ein Mädchen.</label>
+        <label><input type="radio" name="q23" value="b"> ein Flughafen.</label>
+        <label><input type="radio" name="q23" value="c"> ein Koffer.</label>
+      </div>
+
+      <div class="task">
+        <p>24. Die ersten Kapitel üben vor allem …</p>
+        <label><input type="radio" name="q24" value="a"> Begrüßung, Vorstellung und einfache Fragen.</label>
+        <label><input type="radio" name="q24" value="b"> Konjunktiv II und Passiv.</label>
+        <label><input type="radio" name="q24" value="c"> politische Diskussionen.</label>
+      </div>
+
+      <div class="task">
+        <p>25. Welche Aussage ist richtig?</p>
+        <label><input type="radio" name="q25" value="a"> Nico spricht am Anfang nur wenig Deutsch.</label>
+        <label><input type="radio" name="q25" value="b"> Nico ist Deutschlehrer.</label>
+        <label><input type="radio" name="q25" value="c"> Nico lebt am Anfang in Chile.</label>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Teil D – Grammatik und Wortstellung <span class="tag">5 Punkte</span></h2>
+
+      <div class="task">
+        <p>26. Wähle den richtigen Satz.</p>
+        <label><input type="radio" name="q26" value="a"> Ich heiße Nico.</label>
+        <label><input type="radio" name="q26" value="b"> Ich Nico heiße.</label>
+        <label><input type="radio" name="q26" value="c"> Heiße ich Nico aus.</label>
+      </div>
+
+      <div class="task">
+        <p>27. Wähle den richtigen Satz.</p>
+        <label><input type="radio" name="q27" value="a"> Ich komme aus Spanien.</label>
+        <label><input type="radio" name="q27" value="b"> Ich aus Spanien komme.</label>
+        <label><input type="radio" name="q27" value="c"> Aus ich komme Spanien.</label>
+      </div>
+
+      <div class="task">
+        <p>28. Wähle die richtige Frage.</p>
+        <label><input type="radio" name="q28" value="a"> Wie heißt du?</label>
+        <label><input type="radio" name="q28" value="b"> Wie du heißt?</label>
+        <label><input type="radio" name="q28" value="c"> Du wie heißt?</label>
+      </div>
+
+      <div class="task">
+        <p>29. Wähle die richtige Frage.</p>
+        <label><input type="radio" name="q29" value="a"> Woher kommst du?</label>
+        <label><input type="radio" name="q29" value="b"> Woher du kommst?</label>
+        <label><input type="radio" name="q29" value="c"> Kommst woher du?</label>
+      </div>
+
+      <div class="task">
+        <p>30. Wähle den passenden Dialog.</p>
+        <label><input type="radio" name="q30" value="a"> – Hallo! / – Hallo!</label>
+        <label><input type="radio" name="q30" value="b"> – Flughafen! / – Spanien gut.</label>
+        <label><input type="radio" name="q30" value="c"> – Koffer? / – Ich aus.</label>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="button" onclick="gradeQuiz()">Evaluar</button>
+    </div>
+  </form>
+
+  <section class="result" id="resultBox">
+    <h2>Resultado</h2>
+    <div class="score" id="scoreText"></div>
+    <div class="feedback" id="feedbackText"></div>
+    <p id="studentResult"></p>
+  </section>
+
+  <p class="footer-note">Material de práctica para clase de alemán A1 – actividades cerradas y autocorregibles.</p>
+</main>
+
+<script>
+const answers = {
+  q1:"b", q2:"a", q3:"b", q4:"a", q5:"a",
+  q6:"b", q7:"a", q8:"b", q9:"a", q10:"a",
+  q11:"a", q12:"b", q13:"a", q14:"a", q15:"a",
+  q16:"a", q17:"a", q18:"a", q19:"a", q20:"a",
+  q21:"a", q22:"a", q23:"a", q24:"a", q25:"a",
+  q26:"a", q27:"a", q28:"a", q29:"a", q30:"a"
+};
+
+function gradeQuiz(){
+  let total = Object.keys(answers).length;
+  let score = 0;
+
+  document.querySelectorAll("label").forEach(l => {
+    l.classList.remove("correct", "wrong");
+  });
+
+  for (const [q, correct] of Object.entries(answers)){
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    const allOptions = document.querySelectorAll(`input[name="${q}"]`);
+    allOptions.forEach(opt => {
+      if(opt.value === correct){
+        opt.parentElement.classList.add("correct");
+      }
+    });
+    if(selected){
+      if(selected.value === correct){
+        score++;
+      }else{
+        selected.parentElement.classList.add("wrong");
+      }
+    }
+  }
+
+  const percent = Math.round((score / total) * 100);
+  const name = document.getElementById("studentName").value.trim();
+
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("scoreText").textContent = `${score} / ${total} Punkte – ${percent}%`;
+
+  let feedback = "";
+  if(percent >= 90){
+    feedback = "Sehr gut! Du verstehst die ersten Kapitel sehr sicher.";
+  } else if(percent >= 75){
+    feedback = "Gut gemacht! Wiederhole noch einige Wörter und Fragen.";
+  } else if(percent >= 60){
+    feedback = "In Ordnung. Wiederhole Begrüßungen, Fragen und die wichtigsten Wörter.";
+  } else {
+    feedback = "Du solltest die Kapitel noch einmal sehen und den Wortschatz wiederholen.";
+  }
+
+  document.getElementById("feedbackText").textContent = feedback;
+  document.getElementById("studentResult").textContent = name ? `Alumna: ${name}` : "";
+  document.getElementById("resultBox").scrollIntoView({behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
