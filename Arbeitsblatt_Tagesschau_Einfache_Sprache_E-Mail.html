@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arbeitsblatt – tagesschau in Einfacher Sprache</title>
+  <style>
+    :root{
+      --navy:#17365d;--blue:#2f75b5;--teal:#21897e;--gold:#f1c75b;
+      --ink:#22313f;--muted:#667784;--line:#d7e0e8;--soft:#edf5fa;
+      --ok:#18794e;--bad:#b42318;--paper:#fff;--bg:#eef2f5
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,sans-serif}
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;gap:10px;align-items:center;
+      justify-content:space-between;padding:12px max(18px,calc((100vw - 1050px)/2));
+      background:var(--navy);color:#fff}
+    .toolbar div{display:flex;gap:8px;flex-wrap:wrap}
+    button,.button{border:0;border-radius:8px;padding:10px 14px;background:var(--gold);
+      color:var(--navy);font-weight:700;cursor:pointer;text-decoration:none}
+    button.secondary{background:#fff;color:var(--navy)}
+    main{width:min(1050px,calc(100% - 24px));margin:24px auto 50px;background:var(--paper);
+      box-shadow:0 16px 45px #17365d18;border-radius:14px;overflow:hidden}
+    header{padding:48px 52px 38px;background:linear-gradient(135deg,var(--navy),#245681);color:#fff}
+    header .eyebrow{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#aee4dd}
+    h1{margin:9px 0;font-size:38px;line-height:1.08}
+    header p{margin:0;color:#e8f1f7;font-size:18px}
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+    .meta label{font-weight:700}
+    .meta input{width:100%;margin-top:5px;padding:10px;border:1px solid #ffffff80;border-radius:7px;background:#fff;color:#111}
+    .content{padding:38px 52px 52px}
+    .intro{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;margin-bottom:30px}
+    .card,.score-card{padding:20px;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .score-card{background:var(--soft);text-align:center}
+    #score{font-size:36px;font-weight:850;color:var(--navy)}
+    section{margin:34px 0;padding-top:6px}
+    h2{margin:0 0 8px;color:var(--navy);font-size:25px}
+    h3{color:var(--navy)}
+    .instruction{margin:0 0 18px;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin:14px 0}
+    th{background:var(--blue);color:#fff;text-align:left}
+    th,td{padding:11px;border:1px solid var(--line);vertical-align:top}
+    select,input[type="text"],textarea{font:inherit;border:1px solid #aebdca;border-radius:7px;padding:8px;background:#fff}
+    select{min-width:115px}
+    textarea{width:100%;min-height:95px;resize:vertical}
+    .topic-list,.check-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .choice{display:flex;gap:9px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff}
+    .choice input{margin-top:5px;transform:scale(1.15)}
+    .answer-line{width:100%;margin:5px 0 12px}
+    .feedback{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-weight:700}
+    .feedback.ok{display:block;background:#e8f5ee;color:var(--ok)}
+    .feedback.bad{display:block;background:#fdecea;color:var(--bad)}
+    .section-check{margin-top:14px;background:var(--teal);color:#fff}
+    .sentence-starters{padding:16px 20px;border-left:5px solid var(--teal);background:#edf8f6}
+    details{margin-top:25px;border:1px solid #e0b84c;border-radius:9px;background:#fff9e8;padding:15px}
+    summary{cursor:pointer;font-weight:800;color:var(--navy)}
+    .teacher{margin-top:13px}
+    .source{margin-top:28px;color:var(--muted);font-size:13px}
+    .source a{color:var(--blue)}
+    @media(max-width:760px){
+      header,.content{padding:30px 20px}
+      h1{font-size:30px}.intro,.meta,.topic-list,.check-list{grid-template-columns:1fr}
+      .toolbar strong{display:none}
+      table{font-size:14px}
+      .table-wrap{overflow-x:auto}
+    }
+    @media print{
+      body{background:#fff;font-size:12px}.toolbar{display:none}main{width:auto;margin:0;box-shadow:none}
+      header{padding:22px 28px;background:#fff!important;color:var(--ink);border-bottom:3px solid var(--navy)}
+      header p{color:var(--muted)}header .eyebrow{color:var(--teal)}
+      .content{padding:24px 28px}.score-card{display:none}section{break-inside:avoid;margin:22px 0}
+      textarea{min-height:70px}details{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <strong>TAGESSCHAU · INTERAKTIVES ARBEITSBLATT</strong>
+    <div>
+      <button class="secondary" type="button" onclick="saveWork()">Speichern</button>
+      <button class="secondary" type="button" onclick="window.print()">Drucken / PDF</button>
+      <button type="button" onclick="sendAnswers()">Antworten per E-Mail senden</button>
+    </div>
+  </div>
+
+  <main>
+    <header>
+      <div class="eyebrow">Hör-Seh-Verstehen · Niveau A2–B1</div>
+      <h1>tagesschau in Einfacher Sprache</h1>
+      <p>Nachrichten verstehen, zusammenfassen und darüber sprechen</p>
+      <div class="meta">
+        <label>Name<input id="studentName" type="text" autocomplete="name"></label>
+        <label>Datum<input id="date" type="text" placeholder="TT.MM.JJJJ"></label>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="intro">
+        <div class="card">
+          <h3>Lernziele</h3>
+          <p>Ich kann die Themen einer Nachrichtensendung erkennen, wichtige Informationen notieren,
+            eine Nachricht zusammenfassen und meine Meinung äußern.</p>
+          <a class="button" href="https://www.tagesschau.de/tagesschau_in_einfacher_sprache/tse-1352.html"
+             target="_blank" rel="noopener">Video öffnen</a>
+        </div>
+        <div class="score-card">
+          <div>Bearbeitete Teile</div>
+          <div id="score">0 / 9</div>
+          <small>Vollständigkeitsprüfung</small>
+        </div>
+      </div>
+
+      <section>
+        <h2>1. Vor dem Sehen: Wortschatz</h2>
+        <p class="instruction">Wähle für jedes Wort die passende Erklärung.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Wort</th><th>Erklärung</th></tr></thead>
+          <tbody>
+            <tr><td>der Vorsitzende</td><td><select><option value="">Bitte wählen</option><option value="a">Eine Person verliert ihre Position.</option><option value="b">Ein militärischer Angriff</option><option value="c">Eine Person, die eine Gruppe leitet</option><option value="d">Internetplattformen</option><option value="e">Ein Verfahren vor Gericht</option><option value="f">Sich mit einem Thema beschäftigen</option></select></td></tr>
+            <tr><td>die Klage</td><td><select><option value="">Bitte wählen</option><option value="a">Eine Person verliert ihre Position.</option><option value="b">Ein militärischer Angriff</option><option value="c">Eine Person, die eine Gruppe leitet</option><option value="d">Internetplattformen</option><option value="e">Ein Verfahren vor Gericht</option><option value="f">Sich mit einem Thema beschäftigen</option></select></td></tr>
+            <tr><td>der Angriff</td><td><select><option value="">Bitte wählen</option><option value="a">Eine Person verliert ihre Position.</option><option value="b">Ein militärischer Angriff</option><option value="c">Eine Person, die eine Gruppe leitet</option><option value="d">Internetplattformen</option><option value="e">Ein Verfahren vor Gericht</option><option value="f">Sich mit einem Thema beschäftigen</option></select></td></tr>
+            <tr><td>entlassen werden</td><td><select><option value="">Bitte wählen</option><option value="a">Eine Person verliert ihre Position.</option><option value="b">Ein militärischer Angriff</option><option value="c">Eine Person, die eine Gruppe leitet</option><option value="d">Internetplattformen</option><option value="e">Ein Verfahren vor Gericht</option><option value="f">Sich mit einem Thema beschäftigen</option></select></td></tr>
+            <tr><td>die sozialen Medien</td><td><select><option value="">Bitte wählen</option><option value="a">Eine Person verliert ihre Position.</option><option value="b">Ein militärischer Angriff</option><option value="c">Eine Person, die eine Gruppe leitet</option><option value="d">Internetplattformen</option><option value="e">Ein Verfahren vor Gericht</option><option value="f">Sich mit einem Thema beschäftigen</option></select></td></tr>
+            <tr><td>sich mit etwas befassen</td><td><select><option value="">Bitte wählen</option><option value="a">Eine Person verliert ihre Position.</option><option value="b">Ein militärischer Angriff</option><option value="c">Eine Person, die eine Gruppe leitet</option><option value="d">Internetplattformen</option><option value="e">Ein Verfahren vor Gericht</option><option value="f">Sich mit einem Thema beschäftigen</option></select></td></tr>
+          </tbody>
+        </table></div>
+        <div class="feedback"></div>
+      </section>
+
+      <section>
+        <h2>2. Vor dem Sehen: Vermutungen</h2>
+        <p class="instruction">Schreibe zu drei Themen eine Vermutung.</p>
+        <input class="answer-line" type="text" data-save placeholder="Ich glaube, dass …">
+        <input class="answer-line" type="text" data-save placeholder="Vielleicht …">
+        <input class="answer-line" type="text" data-save placeholder="Wahrscheinlich …">
+      </section>
+
+      <section>
+        <h2>3. Erstes Sehen: Welche Themen kommen vor?</h2>
+        <p class="instruction">Kreuze alle Themen an, die in der Sendung vorkommen.</p>
+        <div class="topic-list">
+          <label class="choice"><input type="checkbox">Politik in Deutschland</label>
+          <label class="choice"><input type="checkbox">Corona-Masken und ein Gerichtsverfahren</label>
+          <label class="choice"><input type="checkbox">Ein Fußballspiel</label>
+          <label class="choice"><input type="checkbox">Neue Angriffe im Krieg gegen Iran</label>
+          <label class="choice"><input type="checkbox">Die ukrainische Armee</label>
+          <label class="choice"><input type="checkbox">Soziale Medien in Frankreich</label>
+          <label class="choice"><input type="checkbox">Eine neue Musikgruppe</label>
+          <label class="choice"><input type="checkbox">Das Wetter</label>
+        </div>
+        <div class="feedback"></div>
+      </section>
+
+      <section>
+        <h2>4. Erstes Sehen: Reihenfolge</h2>
+        <p class="instruction">Trage die richtige Reihenfolge von 1 bis 6 ein.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Thema</th><th>Reihenfolge</th></tr></thead>
+          <tbody>
+            <tr><td>Das Wetter</td><td><select><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+            <tr><td>Soziale Medien in Frankreich</td><td><select><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+            <tr><td>Die ukrainische Armee</td><td><select><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+            <tr><td>Corona-Masken und Gericht</td><td><select><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+            <tr><td>Die Unionsfraktion und Frei</td><td><select><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+            <tr><td>Neue Angriffe im Krieg gegen Iran</td><td><select><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+          </tbody>
+        </table></div>
+        <div class="feedback"></div>
+      </section>
+
+      <section>
+        <h2>5. Zweites Sehen: Richtig oder falsch?</h2>
+        <p class="instruction">Wähle die passende Antwort.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Aussage</th><th>Antwort</th></tr></thead>
+          <tbody>
+            <tr><td>Frei soll Vorsitzender der Unionsfraktion werden.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+            <tr><td>Ein Gericht beschäftigt sich mit einer Klage zu Corona-Masken.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+            <tr><td>Im Krieg gegen Iran gibt es keine neuen Angriffe.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+            <tr><td>Der Chef der ukrainischen Armee wurde entlassen.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+            <tr><td>In Frankreich geht es um eine Altersgrenze für soziale Medien.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+            <tr><td>Die Altersgrenze in Frankreich soll bei 18 Jahren liegen.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+            <tr><td>Am Ende der Sendung kommt das Wetter.</td><td><select><option value="">–</option><option value="R">Richtig</option><option value="F">Falsch</option></select></td></tr>
+          </tbody>
+        </table></div>
+        <label>Verbessere die falschen Aussagen:<textarea data-save></textarea></label>
+        <div class="feedback"></div>
+      </section>
+
+      <section>
+        <h2>6. Zweites Sehen: Informationen sammeln</h2>
+        <p class="instruction">Notiere Stichwörter. Du musst keine vollständigen Sätze schreiben.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Thema</th><th>Wer oder wo?</th><th>Was ist passiert?</th><th>Wichtige Information</th></tr></thead>
+          <tbody id="notesTable"></tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2>7. Eine Nachricht zusammenfassen</h2>
+        <div class="sentence-starters"><strong>Satzanfänge:</strong> In der Nachricht geht es um … ·
+          Das Ereignis findet in … statt. · Wichtig ist, dass … · Außerdem wird berichtet, dass …</div>
+        <textarea data-save placeholder="Meine Zusammenfassung …"></textarea>
+      </section>
+
+      <section>
+        <h2>8. Mündliche Aufgabe: Nachrichtensprecher/in</h2>
+        <p>Bereitet zu zweit eine Nachricht von ungefähr 45 Sekunden vor. Verwendet mindestens
+          drei Wörter aus Aufgabe 1.</p>
+        <textarea data-save placeholder="Guten Tag. Hier sind die Nachrichten in Einfacher Sprache …"></textarea>
+      </section>
+
+      <section>
+        <h2>9. Diskussion</h2>
+        <p>Wähle eine Frage: Sollten soziale Medien erst ab 15 Jahren erlaubt sein? Warum sind
+          Nachrichten in Einfacher Sprache wichtig? Welche Nachricht ist am wichtigsten?</p>
+        <textarea data-save placeholder="Meiner Meinung nach …"></textarea>
+      </section>
+<p class="source">Quelle:
+        <a href="https://www.tagesschau.de/tagesschau_in_einfacher_sprache/tse-1352.html" target="_blank" rel="noopener">
+          tagesschau in Einfacher Sprache, Sendung vom 16.07.2026
+        </a>
+      </p>
+    </div>
+  </main>
+  <script>
+    const recipient="ramon.reyes@csuv.cl";
+    const topics=["Unionsfraktion","Corona-Masken","Krieg gegen Iran","Ukraine","Soziale Medien","Wetter"];
+    const tbody=document.getElementById("notesTable");
+    topics.forEach((topic,i)=>{
+      const row=document.createElement("tr");
+      row.innerHTML=`<td><strong>${topic}</strong></td>`+
+        `<td><input type="text" data-save data-key="note-${i}-1"></td>`+
+        `<td><input type="text" data-save data-key="note-${i}-2"></td>`+
+        `<td><input type="text" data-save data-key="note-${i}-3"></td>`;
+      tbody.appendChild(row);
+    });
+
+    const sections=[...document.querySelectorAll("section")];
+    sections.forEach((section,index)=>{
+      section.dataset.part=String(index+1);
+      let feedback=section.querySelector(".feedback");
+      if(!feedback){
+        feedback=document.createElement("div");
+        feedback.className="feedback";
+        section.appendChild(feedback);
+      }
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="section-check";
+      button.textContent="Prüfen";
+      button.addEventListener("click",()=>checkSection(section,true));
+      feedback.before(button);
+    });
+
+    function allSaveFields(){
+      return [...document.querySelectorAll("[data-save], select, input[type=checkbox], #studentName, #date")];
+    }
+    function fieldKey(el,index){return el.dataset.key||el.id||`field-${index}`;}
+    function saveWork(showMessage=true){
+      const data={};
+      allSaveFields().forEach((el,i)=>data[fieldKey(el,i)]=el.type==="checkbox"?el.checked:el.value);
+      localStorage.setItem("tagesschau-arbeitsblatt-private",JSON.stringify(data));
+      if(showMessage)alert("Die Antworten wurden auf diesem Gerät gespeichert.");
+    }
+    function loadWork(){
+      const raw=localStorage.getItem("tagesschau-arbeitsblatt-private"); if(!raw)return;
+      const data=JSON.parse(raw);
+      allSaveFields().forEach((el,i)=>{
+        const v=data[fieldKey(el,i)]; if(v===undefined)return;
+        if(el.type==="checkbox")el.checked=v; else el.value=v;
+      });
+    }
+    function controlsFor(section){
+      return [...section.querySelectorAll("select, textarea, input[type=text], input[type=checkbox]")];
+    }
+    function isComplete(section){
+      const controls=controlsFor(section);
+      const checks=controls.filter(el=>el.type==="checkbox");
+      const other=controls.filter(el=>el.type!=="checkbox");
+      const otherComplete=other.every(el=>String(el.value||"").trim()!=="");
+      const checkComplete=checks.length===0||checks.some(el=>el.checked);
+      return controls.length>0&&otherComplete&&checkComplete;
+    }
+    function checkSection(section,scroll=false){
+      const complete=isComplete(section);
+      const feedback=section.querySelector(".feedback");
+      feedback.className=`feedback ${complete?"ok":"bad"}`;
+      feedback.textContent=complete
+        ?"Vollständigkeit geprüft: Dieser Teil ist bearbeitet."
+        :"Bitte beantworte noch alle Felder in diesem Teil.";
+      section.dataset.complete=complete?"true":"false";
+      updateProgress();
+      saveWork(false);
+      if(scroll)feedback.scrollIntoView({behavior:"smooth",block:"nearest"});
+      return complete;
+    }
+    function updateProgress(){
+      const completed=sections.filter(isComplete).length;
+      document.getElementById("score").textContent=`${completed} / ${sections.length}`;
+    }
+    function answerText(section){
+      const title=section.querySelector("h2")?.textContent?.trim()||`Aufgabe ${section.dataset.part}`;
+      const lines=[title];
+      controlsFor(section).forEach((el,index)=>{
+        if(el.type==="checkbox"){
+          const label=el.closest("label")?.textContent?.trim()||`Auswahl ${index+1}`;
+          lines.push(`- ${label}: ${el.checked?"angekreuzt":"nicht angekreuzt"}`);
+        }else if(el.tagName==="SELECT"){
+          const rowLabel=el.closest("tr")?.querySelector("td")?.textContent?.trim()||`Antwort ${index+1}`;
+          const selected=el.options[el.selectedIndex]?.text||"";
+          lines.push(`- ${rowLabel}: ${selected}`);
+        }else{
+          const row=el.closest("tr");
+          const label=row?.querySelector("td")?.textContent?.trim()||
+            el.closest("label")?.childNodes[0]?.textContent?.trim()||
+            el.placeholder||`Antwort ${index+1}`;
+          lines.push(`- ${label}: ${String(el.value||"").trim()}`);
+        }
+      });
+      return lines.join("\n");
+    }
+    function downloadCopy(text,name){
+      const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+      const link=document.createElement("a");
+      link.href=URL.createObjectURL(blob);
+      link.download=name;
+      link.click();
+      setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+    }
+    function sendAnswers(){
+      const name=document.getElementById("studentName").value.trim();
+      const date=document.getElementById("date").value.trim();
+      if(!name||!date){
+        alert("Bitte trage zuerst deinen Namen und das Datum ein.");
+        return;
+      }
+      const incomplete=sections.filter(section=>!checkSection(section,false));
+      if(incomplete.length){
+        incomplete[0].scrollIntoView({behavior:"smooth",block:"center"});
+        alert(`Bitte bearbeite zuerst alle Teile. Noch offen: ${incomplete.length}.`);
+        return;
+      }
+      const body=[
+        "Arbeitsblatt: tagesschau in Einfacher Sprache",
+        `Name: ${name}`,
+        `Datum: ${date}`,
+        "",
+        ...sections.map(answerText)
+      ].join("\n\n");
+      const safeName=name.replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,"_");
+      downloadCopy(body,`Tagesschau_Antworten_${safeName}.txt`);
+      const subject=encodeURIComponent(`Tagesschau-Arbeitsblatt – ${name}`);
+      const mailBody=encodeURIComponent(body);
+      saveWork(false);
+      window.location.href=`mailto:${recipient}?subject=${subject}&body=${mailBody}`;
+    }
+    loadWork();
+    updateProgress();
+  </script>
+</body>
+</html>
