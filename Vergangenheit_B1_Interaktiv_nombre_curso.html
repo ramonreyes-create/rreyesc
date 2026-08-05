@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="de" class="notranslate" translate="no">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" content="notranslate"><meta http-equiv="Content-Language" content="de">
+<title>Vergangenheit B1 - Interaktives Training</title>
+<style>
+:root{--navy:#173759;--blue:#2d6fa3;--light:#eaf2f8;--teal:#16847c;--green:#16734b;--red:#b5363e;--gold:#efb546;--ink:#172235;--muted:#607286;--line:#ccd8e3;--bg:#edf2f6;--paper:#fff;--shadow:0 10px 30px #17375917}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Arial,sans-serif}button,input,textarea{font:inherit}.top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:13px 24px;background:var(--navy);color:#fff;box-shadow:0 3px 15px #102a4433}.brand{display:flex;align-items:center;gap:11px}.logo{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--gold);color:var(--navy);font-weight:900}.brand h1{margin:0;font-size:1.15rem}.brand p{margin:0;color:#dce7f0;font-size:.82rem}.top-stats{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.stat{padding:7px 10px;border-radius:9px;background:#ffffff18;font-weight:800}.progress{width:140px;height:8px;border-radius:99px;background:#ffffff35;overflow:hidden}.progress span{display:block;width:0;height:100%;background:var(--gold);transition:.3s}.wrap{width:min(1200px,calc(100% - 26px));margin:22px auto 65px}.hero{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:25px;background:linear-gradient(135deg,#fff,#eaf4fa);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.eyebrow{color:var(--blue);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem}.hero h2{margin:5px 0;color:var(--navy);font-size:clamp(1.7rem,4vw,2.6rem)}.hero p{margin:5px 0;color:var(--muted);max-width:760px}.nav{display:flex;gap:8px;overflow:auto;margin:16px 0}.nav button{white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:9px 13px;background:#fff;color:var(--navy);font-weight:800;cursor:pointer}.nav button.active{background:var(--blue);color:#fff;border-color:var(--blue)}.section{display:none;padding:22px;background:var(--paper);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.section.active{display:block}.section h2{margin-top:0;color:var(--navy)}.rule{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}.rule div{padding:13px;border-radius:11px;background:var(--light)}.rule b{display:block;color:var(--blue)}.questions{display:grid;gap:11px}.q{padding:14px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe}.q.correct{border-color:#70ba93;background:#effaf4}.q.wrong{border-color:#df999d;background:#fff5f5}.q-line{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.q strong{color:var(--navy)}input.answer{min-width:145px;flex:1;padding:9px 10px;border:1.5px solid #aebfd0;border-radius:9px;background:#fff}input.answer.small{min-width:105px;max-width:180px}.feedback{display:block;min-height:18px;margin-top:5px;font-size:.88rem;font-weight:800}.correct .feedback{color:var(--green)}.wrong .feedback{color:var(--red)}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:900;cursor:pointer}.primary{background:var(--teal);color:#fff}.secondary{background:var(--light);color:var(--navy)}.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:17px}.open-q textarea{width:100%;min-height:72px;margin-top:8px;padding:11px;border:1.5px solid #aebfd0;border-radius:9px;resize:vertical}.split{display:grid;grid-template-columns:1fr 1fr;gap:15px}.source,.rewrite{min-height:640px;padding:18px;border:1px solid var(--line);border-radius:13px;background:#fbfcfe}.source{overflow:auto}.source h3{text-align:center;color:var(--navy)}.source p{text-align:justify}.source mark{background:#fff1a8;padding:1px 2px}.rewrite textarea{width:100%;min-height:560px;padding:13px;border:1.5px solid #9eb2c6;border-radius:10px;resize:vertical;line-height:1.65}.counter{color:var(--muted);text-align:right;font-weight:800}.checklist{display:grid;gap:8px;margin-top:12px}.checklist label{padding:9px;border-radius:8px;background:var(--light)}.save-panel{position:sticky;bottom:10px;z-index:15;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding:14px 17px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 8px 28px #1737592a}.status{font-weight:800}.status.ok{color:var(--green)}.status.error{color:var(--red)}@media(max-width:820px){.top{padding:10px 12px}.brand p{display:none}.hero{grid-template-columns:1fr}.rule,.split{grid-template-columns:1fr}.source,.rewrite{min-height:auto}.rewrite textarea{min-height:420px}.top-stats .stat:first-child{display:none}}@media print{.top,.nav,.actions,.save-panel{display:none}.wrap{width:100%;margin:0}.hero,.section{box-shadow:none;border:0}.section{display:block;page-break-before:always}.section:first-of-type{page-break-before:auto}.split{grid-template-columns:1fr 1fr}}
+.fullscreen-btn{border:1px solid #ffffff66;background:#ffffff18;color:#fff;border-radius:9px;padding:7px 10px;font-weight:800;cursor:pointer}.warning{position:fixed;inset:0;z-index:9999;display:none;place-items:center;padding:22px;background:#102a44f2}.warning.show{display:grid}.warning-card{width:min(560px,100%);padding:30px;border-radius:19px;background:#fff;text-align:center;box-shadow:0 20px 70px #0008}.warning-icon{font-size:3.2rem}.warning-card h2{margin:7px 0;color:var(--red)}.warning-card p{color:var(--muted)}.resume-note{margin-top:10px;padding:10px 12px;border-left:4px solid var(--teal);border-radius:7px;background:#eef9f7;color:var(--navy);font-weight:700}.identity-panel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;padding:17px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.identity-panel label{display:grid;gap:6px;color:var(--navy);font-weight:900}.identity-panel input{width:100%;padding:10px 12px;border:1.5px solid #aebfd0;border-radius:9px;background:#fff}.identity-note{grid-column:1/-1;margin:0;color:var(--muted);font-size:.9rem}@media(max-width:650px){.identity-panel{grid-template-columns:1fr}.identity-note{grid-column:auto}}
+
+
+.login-screen{
+  position:fixed;inset:0;z-index:10000;display:grid;place-items:center;
+  padding:22px;background:linear-gradient(135deg,#102a44,#173759);
+}
+.login-screen.hidden{display:none}
+.login-card{
+  width:min(430px,100%);padding:28px;border-radius:20px;background:#fff;
+  box-shadow:0 25px 80px #0008
+}
+.login-card h2{margin:0 0 6px;color:var(--navy)}
+.login-card p{margin:0 0 18px;color:var(--muted)}
+.login-card label{display:grid;gap:6px;margin:12px 0;color:var(--navy);font-weight:900}
+.login-card input{
+  width:100%;padding:11px 12px;border:1.5px solid #aebfd0;
+  border-radius:9px;background:#fff
+}
+.login-error{min-height:22px;margin-top:8px;color:var(--red);font-weight:800}
+.user-box{
+  display:flex;align-items:center;gap:8px;padding:6px 9px;border-radius:10px;
+  background:#ffffff18
+}
+.logout-btn{
+  border:1px solid #ffffff66;background:#ffffff18;color:#fff;
+  border-radius:9px;padding:7px 10px;font-weight:800;cursor:pointer
+}
+@media(max-width:720px){.user-box span{display:none}}
+
+
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h2>Anmeldung / Ingreso</h2>
+    <p>Gib deinen Namen und deine Klasse ein, um das Training zu öffnen.</p>
+    <form id="loginForm">
+      <label>Name der Schülerin / Nombre
+        <input id="loginName" autocomplete="name" placeholder="Vor- und Nachname" required>
+      </label>
+      <label>Klasse / Curso
+        <input id="loginCourse" placeholder="z. B. 8. SA" required>
+      </label>
+      <button class="btn primary" type="submit" style="width:100%">Training öffnen / Ingresar</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<header class="top"><div class="brand"><span class="logo">B1</span><div><h1>Vergangenheit und Zeitformen</h1><p>DSD I · Grammatiktraining</p></div></div><div class="top-stats"><div class="user-box"><span id="loggedUser">–</span><button class="logout-btn" type="button" onclick="logoutUser()">Abmelden</button></div><span class="stat" id="answered">0 / 29 bearbeitet</span><span class="stat" id="scoreTop">0 Punkte</span><div class="progress"><span id="progressBar"></span></div><button class="fullscreen-btn" id="fullscreenButton" type="button" onclick="enterFullscreen()">⛶ Vollbild</button></div></header>
+<main class="wrap">
+<section class="hero"><div><span class="eyebrow">Schritt für Schritt</span><h2>Präsens, Perfekt, Präteritum und Futur I</h2><p>Bearbeite die vier Teile der Reihe nach. Deine Eingaben werden automatisch auf diesem Gerät gespeichert. Am Ende wird deine gesamte Arbeit an den DSD-I-Portalzugang und/oder an Google Sheets gesendet.</p><div class="resume-note">Du kannst später weitermachen: Öffne die Aufgabe wieder mit demselben Browser auf diesem Gerät.</div></div><button class="btn primary" onclick="startTraining()">Training im Vollbild starten</button></section>
+<div class="identity-panel"><label>Name der Schülerin<input id="studentName" autocomplete="name" placeholder="Vor- und Nachname" required></label><label>Klasse / Kurs<input id="studentCourse" placeholder="z. B. 10A" required></label><p class="identity-note">Name und Klasse werden zusammen mit Ergebnissen, Antworten, Text, Bearbeitungszeit und registrierten Unterbrechungen übermittelt.</p></div>
+<nav class="nav" id="nav"><button class="active" data-part="1">1 · Perfekt</button><button data-part="2">2 · Zeitformen</button><button data-part="3">3 · Vergangenheit</button><button data-part="4">4 · Text umschreiben</button></nav>
+
+<section class="section active" id="part1"><h2>Aufgabe 1: Sätze im Perfekt</h2><p>Vervollständige die Sätze. Schreibe das Hilfsverb und das Partizip II in die Felder.</p><div class="questions" id="perfectQs">
+<div class="q auto" data-answer="sind|gefahren"><div class="q-line"><strong>1.</strong> Im Sommer <input class="answer small" aria-label="Hilfsverb 1"> wir an den Strand <input class="answer" aria-label="Partizip 1">. <b>(fahren)</b></div><span class="feedback"></span></div>
+<div class="q auto" data-answer="hat|gebacken"><div class="q-line"><strong>2.</strong> Er <input class="answer small" aria-label="Hilfsverb 2"> eine leckere Torte <input class="answer" aria-label="Partizip 2">. <b>(backen)</b></div><span class="feedback"></span></div>
+<div class="q auto" data-answer="ist|gebadet"><div class="q-line"><strong>3.</strong> Sie <input class="answer small" aria-label="Hilfsverb 3"> im See <input class="answer" aria-label="Partizip 3">. <b>(baden)</b></div><span class="feedback"></span></div>
+<div class="q auto" data-answer="habe|gelesen"><div class="q-line"><strong>4.</strong> Ich <input class="answer small" aria-label="Hilfsverb 4"> ein sehr interessantes Buch <input class="answer" aria-label="Partizip 4">. <b>(lesen)</b></div><span class="feedback"></span></div>
+<div class="q auto" data-answer="ist|gegangen"><div class="q-line"><strong>5.</strong> Sie <input class="answer small" aria-label="Hilfsverb 5"> ins Kino <input class="answer" aria-label="Partizip 5">. <b>(gehen)</b></div><span class="feedback"></span></div></div>
+<div class="actions"><button class="btn secondary" onclick="checkSection('part1')">Antworten prüfen</button><button class="btn primary" onclick="showPart(2)">Weiter zu Aufgabe 2 →</button></div></section>
+
+<section class="section" id="part2"><h2>Aufgabe 2: Die richtige Zeitform</h2><div class="rule"><div><b>Präsens</b>jetzt · immer · regelmäßig<br><i>Ich gehe zur Schule.</i></div><div><b>Perfekt</b>Vergangenheit<br><i>Ich bin zur Schule gegangen.</i></div><div><b>Futur I</b>Zukunft · Absicht · Plan<br><i>Ich werde zur Schule gehen.</i></div></div><p>Setze die Verben in der passenden Zeitform ein.</p><div class="questions" id="tenseQs"></div><div class="actions"><button class="btn secondary" onclick="checkSection('part2')">Antworten prüfen</button><button class="btn primary" onclick="showPart(3)">Weiter zu Aufgabe 3 →</button></div></section>
+
+<section class="section" id="part3"><h2>Aufgabe 3: Bringe die Sätze in die Vergangenheit</h2><p>Entscheide: Perfekt oder Präteritum? Schreibe jeweils den vollständigen Satz.</p><div class="questions" id="pastQs"></div><div class="actions"><button class="btn secondary" onclick="checkSection('part3')">Antworten prüfen</button><button class="btn primary" onclick="showPart(4)">Weiter zum Text →</button></div></section>
+
+<section class="section" id="part4"><h2>Aufgabe 4: Ein ganz normaler Tag im Austausch</h2><p>Schreibe den Text in die Vergangenheit um. Setze die Verben ins Perfekt; <b>haben</b> und <b>sein</b> verwendest du im Präteritum (<i>hatte, war</i>). Passe auch die Zeitangaben an.</p><div class="split"><article class="source"><h3>Ein ganz normaler Tag im Austausch</h3><div id="sourceText"></div></article><article class="rewrite"><h3>Mein Text in der Vergangenheit</h3><textarea id="longText" spellcheck="true" lang="de" placeholder="Mein Name war Camila und ich bin aus Chile gekommen. …"></textarea><div class="counter"><span id="wordCount">0</span> Wörter</div><div class="checklist"><label><input type="checkbox" class="self"> Ich habe die Verben ins Perfekt gesetzt.</label><label><input type="checkbox" class="self"> Ich habe <i>haben</i> und <i>sein</i> im Präteritum verwendet.</label><label><input type="checkbox" class="self"> Ich habe die Zeitangaben angepasst.</label><label><input type="checkbox" class="self"> Ich habe den gesamten Text kontrolliert.</label></div></article></div></section>
+
+<div class="save-panel"><span class="status" id="saveStatus">Deine Arbeit wird automatisch gespeichert.</span><button class="btn primary" id="submitButton" onclick="submitWork()">Arbeit abgeben</button></div>
+</main>
+<aside class="warning" id="fullscreenWarning" role="alertdialog" aria-modal="true" aria-labelledby="warningTitle"><div class="warning-card"><div class="warning-icon">⚠️</div><h2 id="warningTitle">Du hast den Vollbildmodus verlassen</h2><p>Die Aufgabe soll im Vollbildmodus bearbeitet werden. Der Austritt wurde registriert. Deine bisherigen Antworten bleiben gespeichert.</p><button class="btn primary" type="button" onclick="enterFullscreen()">Zurück zum Vollbildmodus</button><p><small id="exitCountText"></small></p></div></aside>
+<script>
+
+const AUTH_SESSION_KEY='dsd-vergangenheit-student-session';
+
+function currentAuthUser(){
+  try{return JSON.parse(sessionStorage.getItem(AUTH_SESSION_KEY)||'null')}catch{return null}
+}
+
+function showLogin(){
+  loginScreen.classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  loginError.textContent='';
+  const savedName=localStorage.getItem('dsd_last_student_name')||'';
+  const savedCourse=localStorage.getItem('dsd_last_student_course')||'';
+  loginName.value=savedName;
+  loginCourse.value=savedCourse;
+  setTimeout(()=>loginName.focus(),50);
+}
+
+function hideLogin(user){
+  loggedUser.textContent=(user.name||'')+' · '+(user.course||'');
+  loginScreen.classList.add('hidden');
+  document.body.style.overflow='';
+  studentName.value=user.name||'';
+  studentCourse.value=user.course||'';
+  persist();
+}
+
+function loginUser(name,course){
+  name=name.trim();
+  course=course.trim();
+  if(!name||!course)return false;
+  const sessionUser={name,course,loginAt:new Date().toISOString()};
+  sessionStorage.setItem(AUTH_SESSION_KEY,JSON.stringify(sessionUser));
+  localStorage.setItem('dsd_last_student_name',name);
+  localStorage.setItem('dsd_last_student_course',course);
+  hideLogin(sessionUser);
+  return true;
+}
+
+function logoutUser(){
+  persist();
+  sessionStorage.removeItem(AUTH_SESSION_KEY);
+  if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
+  showLogin();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  loginForm.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(!loginUser(loginName.value,loginCourse.value)){
+      loginError.textContent='Bitte Name und Klasse eintragen.';
+    }
+  });
+  const user=currentAuthUser();
+  if(user)hideLogin(user);else showLogin();
+});const user=currentAuthUser();if(user)hideLogin(user);else showLogin()});
+
+const STORE='dsd-vergangenheit-b1-v1',startedAt=Date.now();
+// Reemplaza el texto de abajo por la URL /exec de tu aplicación web de Google Apps Script.
+const GOOGLE_SHEETS_WEB_APP_URL='PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT';
+let fullscreenStarted=false,fullscreenExits=0,exitTimes=[],attentionEvents=[],hiddenSince=null,blurSince=null;
+const tenseData=[
+['Ich ___ (machen) meine Hausaufgaben jeden Tag.',['mache']],
+['Gestern ___ wir ins Kino ___. (gehen)',['sind','gegangen']],
+['Nächste Woche ___ wir nach Berlin ___. (fahren)',['werden','fahren']],
+['Meine Schwester ___ (lesen) gerade ein Buch.',['liest']],
+['Ich ___ gestern ein neues Handy ___. (kaufen)',['habe','gekauft']],
+['Wir ___ morgen unsere Großeltern ___. (besuchen)',['werden','besuchen']],
+['Du ___ (sein) sehr fleißig!',['bist']],
+['Ihr ___ letzte Woche für den Test ___. (lernen)',['habt','gelernt']],
+['Ich denke, ich ___ (bestehen) die Prüfung diese Woche.',['werde','bestehen']],
+['Letztes Wochenende ___ wir in den Bergen ___. (spazieren)',['sind','spazieren gegangen']],
+['Sie ___ (spielen) oft Basketball.',['spielt']],
+['Letztes Jahr ___ wir ein Austauschprogramm ___. (machen)',['haben','gemacht']],
+['Wir ___ morgen in ein Konzert ___. (gehen)',['werden','gehen']],
+['Mein Bruder ___ nächstes Jahr mit dem Studium ___. (anfangen)',['wird','anfangen']]
+];
+const pastData=[
+['Herr Mayer putzt jeden Sonntag seine Wohnung.','Herr Mayer hat jeden Sonntag seine Wohnung geputzt.'],
+['Mit meiner Familie diskutieren wir immer sehr viel.','Mit meiner Familie haben wir immer sehr viel diskutiert.'],
+['Heute bekommt ihr Besuch von den Großeltern.','Heute habt ihr Besuch von den Großeltern bekommen.'],
+['Sie ziehen alle einen grünen Pullover an.','Sie haben alle einen grünen Pullover angezogen.'],
+['In der Schule haben wir diesen Montag viele Hausaufgaben.','In der Schule hatten wir diesen Montag viele Hausaufgaben.'],
+['Triffst du morgen deine Freundin Lisa?','Hast du morgen deine Freundin Lisa getroffen?'],
+['Amanda und Louisa essen einen großen Salat mit Pommes.','Amanda und Louisa haben einen großen Salat mit Pommes gegessen.'],
+['Dieses Jahr fliege ich nach Bolivien in den Urlaub.','Dieses Jahr bin ich nach Bolivien in den Urlaub geflogen.'],
+['Bist du bereit für die Klassenarbeit?','Warst du bereit für die Klassenarbeit?'],
+['Deine Tante ist im Supermarkt und kauft Getränke ein.','Deine Tante war im Supermarkt und hat Getränke eingekauft.']
+];
+const sourceParas=[
+'Mein Name ist Camila und ich komme aus Chile. Für sechs Monate wohne ich in München und mache hier ein Austauschjahr. Ich lebe bei einer netten Gastfamilie und liebe mein Leben in Deutschland. Manchmal vermisse ich meine Freunde in Santiago, aber wir sprechen oft am Handy. Ich glaube, ein Jahr im Ausland ist eine wunderbare Idee.',
+'Heute Morgen beginne ich meinen Tag sehr früh. Ich öffne die Augen, aber ich bin noch müde, denn ich schlafe nie genug. Zuerst brauche ich einen starken Kaffee. In der Küche kocht meine Gastmutter schon das Frühstück, und ich helfe ihr. Wir essen Brot mit Käse und trinken Tee. Ich probiere auch die neue Marmelade – sie schmeckt super. Danach putze ich schnell meine Zähne und trage meine warme Jacke, denn draußen ist es kalt.',
+'Jetzt habe ich es eilig. Der Bus kommt in fünf Minuten, also renne ich zur Haltestelle und verpasse ihn fast. Zum Glück fahre ich pünktlich zur Schule. Im Unterricht lernen wir heute viel. Wir lesen einen langen Text und analysieren ihn zusammen. Die Lehrerin erklärt die Grammatik und schreibt alles an die Tafel. Ich verstehe nicht alles, deshalb frage ich meine Freundin Nina. Sie antwortet geduldig und hilft mir.',
+'In der Pause treffe ich meine Freunde auf dem Schulhof. Wir diskutieren über ein Projekt und organisieren die Arbeit. Wir recherchieren im Internet und bereiten eine Präsentation vor. Nina studiert später vielleicht Biologie, denn sie liebt die Natur. Ich weiß noch nicht genau, was mir am besten gefällt.',
+'Nach der Schule gehe ich nicht sofort nach Hause. Zuerst kaufe ich in einem Geschäft eine neue Hose. Doch dann sehe ich ein großes Loch und finde das gar nicht gut. Also gehe ich zurück und reklamiere die Hose. Ich beschwere mich höflich, und der Verkäufer gibt mir mein Geld zurück.',
+'Am Nachmittag habe ich endlich frei. Ich höre Musik und tanze in meinem Zimmer. Manchmal spiele ich auch Gitarre. Am Abend arbeite ich noch ein bisschen für die Schule und bringe mein Zimmer in Ordnung.',
+'Am Wochenende reise ich oft nach Berlin und besuche meine Tante. Ich fliege nie, sondern nehme immer den Zug, denn der Zug transportiert mich schnell und günstig durch das Land.'
+];
+const norm=s=>String(s||'').trim().toLowerCase().replace(/[.,!?;:]/g,'').replace(/\s+/g,' ');
+function build(){tenseQs.innerHTML=tenseData.map((x,i)=>{let n=0;const text=x[0].replace(/___/g,()=>'<input class="answer '+(x[1].length>1?'small':'')+'" aria-label="Aufgabe 2, Satz '+(i+1)+', Feld '+(++n)+'">');return '<div class="q auto" data-answer="'+x[1].join('|')+'"><div class="q-line"><strong>'+(i+1)+'.</strong> '+text+'</div><span class="feedback"></span></div>'}).join('');pastQs.innerHTML=pastData.map((x,i)=>'<div class="q auto open-q" data-answer="'+x[1].replaceAll('"','&quot;')+'"><strong>'+(i+1)+'. '+x[0]+'</strong><textarea class="answer" aria-label="Aufgabe 3, Satz '+(i+1)+'"></textarea><span class="feedback"></span></div>').join('');sourceText.innerHTML=sourceParas.map(p=>'<p>'+p+'</p>').join('')}
+function allFields(){return [...document.querySelectorAll('.answer,#longText,.self')]}
+function persist(){const data={studentName:studentName.value,studentCourse:studentCourse.value,fields:allFields().map(x=>x.type==='checkbox'?x.checked:x.value),fullscreenExits,exitTimes,attentionEvents,lastSaved:new Date().toISOString()};localStorage.setItem(STORE,JSON.stringify(data));updateProgress();saveStatus.textContent='✓ Automatisch gespeichert · '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});saveStatus.className='status ok'}
+function restore(){try{const d=JSON.parse(localStorage.getItem(STORE)||'null');studentName.value=d?.studentName||'';studentCourse.value=d?.studentCourse||'';if(d?.fields)allFields().forEach((x,i)=>{if(x.type==='checkbox')x.checked=Boolean(d.fields[i]);else x.value=d.fields[i]||''});fullscreenExits=Number(d?.fullscreenExits||0);exitTimes=Array.isArray(d?.exitTimes)?d.exitTimes:[];attentionEvents=Array.isArray(d?.attentionEvents)?d.attentionEvents:[];if(d?.lastSaved){saveStatus.textContent='Gespeicherte Arbeit wiederhergestellt.';saveStatus.className='status ok'}}catch{}updateProgress()}
+async function enterFullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();fullscreenStarted=true;fullscreenWarning.classList.remove('show');fullscreenButton.textContent='⛶ Vollbild aktiv'}catch{fullscreenWarning.classList.add('show')}}
+function startTraining(){enterFullscreen();showPart(1)}
+document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement){fullscreenWarning.classList.remove('show');fullscreenButton.textContent='⛶ Vollbild aktiv';return}fullscreenButton.textContent='⛶ Vollbild';if(fullscreenStarted){fullscreenExits++;exitTimes.push(new Date().toISOString());exitCountText.textContent='Vollbild verlassen: '+fullscreenExits+' Mal';persist();fullscreenWarning.classList.add('show')}});
+function recordAttention(type,start){const end=Date.now(),seconds=Math.max(1,Math.round((end-start)/1000));attentionEvents.push({type,start:new Date(start).toISOString(),end:new Date(end).toISOString(),seconds});persist();exitCountText.textContent='Vollbild verlassen: '+fullscreenExits+' Mal · Unterbrechungen: '+attentionEvents.length;fullscreenWarning.classList.add('show')}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){hiddenSince=Date.now()}else if(hiddenSince){recordAttention('Tabwechsel oder Fenster minimiert',hiddenSince);hiddenSince=null}});
+window.addEventListener('blur',()=>{if(!document.hidden)blurSince=Date.now()});
+window.addEventListener('focus',()=>{if(blurSince&&!document.hidden){recordAttention('Fensterfokus verloren',blurSince);blurSince=null}});
+function updateProgress(){const autos=[...document.querySelectorAll('.auto')],done=autos.filter(q=>[...q.querySelectorAll('.answer')].every(x=>x.value.trim())).length;answered.textContent=done+' / '+autos.length+' bearbeitet';progressBar.style.width=(done/autos.length*100)+'%';wordCount.textContent=(longText.value.trim().match(/\S+/g)||[]).length}
+function checkQuestion(q){const fields=[...q.querySelectorAll('.answer')],expected=q.dataset.answer.split('|'),ok=fields.length===expected.length&&fields.every((f,i)=>norm(f.value)===norm(expected[i]));q.classList.toggle('correct',ok);q.classList.toggle('wrong',!ok);q.querySelector('.feedback').textContent=ok?'✓ Richtig':'Noch nicht richtig. Prüfe Hilfsverb, Verbform und Wortstellung.';return ok}
+function checkSection(id){const qs=[...document.querySelectorAll('#'+id+' .auto')],score=qs.filter(checkQuestion).length;scoreTop.textContent=totalScore()+' Punkte';persist();const firstWrong=qs.find(q=>q.classList.contains('wrong'));if(firstWrong)firstWrong.scrollIntoView({behavior:'smooth',block:'center'})}
+function totalScore(){return [...document.querySelectorAll('.auto')].filter(q=>{const f=[...q.querySelectorAll('.answer')],e=q.dataset.answer.split('|');return f.length===e.length&&f.every((x,i)=>norm(x.value)===norm(e[i]))}).length}
+function showPart(n){document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===n-1));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',Number(b.dataset.part)===n));document.getElementById('part'+n).scrollIntoView({behavior:'smooth',block:'start'})}
+function buildSubmissionPayload(){
+  const checks=[...document.querySelectorAll('.self')].map(x=>x.checked);
+  const rewrite=longText.value.trim();
+  const automatic=[...document.querySelectorAll('.auto')].map((q,i)=>{
+    const fields=[...q.querySelectorAll('.answer')];
+    const expected=q.dataset.answer.split('|');
+    const correct=fields.length===expected.length&&fields.every((field,j)=>norm(field.value)===norm(expected[j]));
+    return {number:i+1,answer:fields.map(x=>x.value),correct};
+  });
+  const score=automatic.filter(x=>x.correct).length+checks.filter(Boolean).length;
+  const total=automatic.length+checks.length;
+  return {
+    timestamp:new Date().toISOString(),
+    student:{name:studentName.value.trim(),course:studentCourse.value.trim()},
+    exercise:'Vergangenheit B1 - Zeitformen und Perfekt',
+    area:'Grammatik',
+    score,
+    total,
+    percentage:total?Math.round(score/total*100):0,
+    answers:{
+      automatic,
+      rewrite,
+      wordCount:(rewrite.match(/\S+/g)||[]).length,
+      selfChecklist:checks,
+      fullscreen:{exits:fullscreenExits,times:exitTimes},
+      attention:{events:attentionEvents,total:attentionEvents.length,totalSeconds:attentionEvents.reduce((sum,event)=>sum+event.seconds,0)}
+    },
+    duration_seconds:Math.round((Date.now()-startedAt)/1000),
+    source_url:location.href,
+    user_agent:navigator.userAgent
+  };
+}
+async function submitToGoogleSheet(payload){
+  const url=GOOGLE_SHEETS_WEB_APP_URL.trim();
+  if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(url)){
+    throw new Error('Die Google-Sheets-Adresse wurde noch nicht in der HTML-Datei eingetragen.');
+  }
+  await fetch(url,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(payload)
+  });
+}
+async function submitWork(){
+  if(!studentName.value.trim()||!studentCourse.value.trim()){
+    saveStatus.textContent='Bitte Name und Klasse eintragen.';
+    saveStatus.className='status error';
+    document.querySelector('.identity-panel').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  persist();
+  saveStatus.textContent='Die Arbeit wird übermittelt …';
+  saveStatus.className='status';
+  submitButton.disabled=true;
+  const payload=buildSubmissionPayload();
+  const sentTo=[];
+  const errors=[];
+  if(window.DSDTraining?.connected){
+    try{
+      await DSDTraining.submit({
+        exercise:payload.exercise,
+        area:payload.area,
+        score:payload.score,
+        total:payload.total,
+        answers:payload.answers,
+        duration_seconds:payload.duration_seconds
+      });
+      sentTo.push('DSD-I-Portal');
+    }catch(error){errors.push('Portal: '+(error.message||'Fehler'));}
+  }
+  try{
+    await submitToGoogleSheet(payload);
+    sentTo.push('Google Sheets');
+  }catch(error){errors.push('Google Sheets: '+(error.message||'Fehler'));}
+  if(sentTo.length){
+    saveStatus.textContent='✓ Arbeit an '+sentTo.join(' und ')+' gesendet: '+payload.score+' von '+payload.total+' Punkten.';
+    saveStatus.className='status ok';
+    localStorage.removeItem(STORE);
+    return;
+  }
+  submitButton.disabled=false;
+  saveStatus.textContent=errors.join(' · ')||'Die Arbeit konnte nicht übermittelt werden.';
+  saveStatus.className='status error';
+}
+document.addEventListener('input',persist);document.addEventListener('change',persist);nav.addEventListener('click',e=>{const b=e.target.closest('[data-part]');if(b)showPart(Number(b.dataset.part))});build();restore();if(currentAuthUser())enterFullscreen();document.addEventListener('pointerdown',()=>{if(currentAuthUser()&&!document.fullscreenElement)enterFullscreen()},{once:true,capture:true});
+</script>
+</body></html>
