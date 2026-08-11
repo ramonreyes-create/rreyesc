@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Levantamiento docente · Competencias digitales e IA</title>
+  <style>
+    :root{--navy:#7f1424;--blue:#c91f37;--sky:#fff0f2;--ink:#282124;--muted:#74666a;--line:#eadbde;--ok:#19764b;--danger:#a71028;--bg:#f8f5f6}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#f6eff1 0,#fbfafb 430px);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+    .hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#6e101f,#ad182e 48%,#d12942);color:white;padding:34px 20px 72px;border-bottom:4px solid #efb9c2}.hero:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff18;border-radius:50%;right:-130px;top:-240px;box-shadow:0 0 0 55px #ffffff08,0 0 0 110px #ffffff05}.hero-inner,.wrap{max-width:980px;margin:auto}.hero-inner{position:relative;z-index:1;display:flex;align-items:center;gap:28px}.school-logo{width:120px;height:120px;object-fit:contain;background:white;border-radius:18px;padding:9px;box-shadow:0 12px 30px #4b07134d;flex:none}.hero-copy{min-width:0}.eyebrow{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;opacity:.85;font-weight:700}.hero h1{margin:.28rem 0 .55rem;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.035em;line-height:1.08}.hero p{max-width:680px;margin:0;opacity:.92;font-size:1.02rem}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.meta span{font-size:.78rem;font-weight:650;padding:6px 10px;border-radius:999px;background:#ffffff17;border:1px solid #ffffff26}
+    .wrap{margin-top:-40px;padding:0 16px 60px;position:relative;z-index:2}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,34px);box-shadow:0 12px 34px #6815250d;margin-bottom:20px;transition:box-shadow .2s,border-color .2s}.card:focus-within{border-color:#dca0aa;box-shadow:0 14px 38px #68152516}
+    h2{font-size:1.24rem;margin:0 0 7px;color:var(--navy);letter-spacing:-.01em;border-left:4px solid var(--blue);padding-left:12px}.hint{color:var(--muted);margin:0 0 23px;padding-left:16px;font-size:.92rem}.required{color:var(--danger)}
+    label.legend{font-weight:700;display:block;margin-bottom:8px;font-size:.93rem}.field{margin:20px 0}input[type=text],input[type=url],select,textarea{width:100%;border:1px solid #cdbdc0;border-radius:10px;padding:12px 13px;font:inherit;background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s}input::placeholder,textarea::placeholder{color:#a39498}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px #c91f3720}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px}.choice{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px;background:#fffdfd}.choice:hover{border-color:#d98b98;background:#fff5f6}.choice input{margin-top:4px;accent-color:var(--blue)}
+    .tool{display:grid;grid-template-columns:minmax(145px,1fr) minmax(180px,1.45fr);gap:18px;align-items:center;padding:11px 12px;border-radius:10px}.tool:nth-child(odd){background:#fcf8f9}.tool label{font-weight:650;font-size:.93rem}
+    .actions{position:sticky;bottom:12px;background:#fffffff2;backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:15px;padding:12px;display:flex;gap:10px;justify-content:flex-end;box-shadow:0 10px 30px #68152520;z-index:5}.btn{border:0;border-radius:10px;padding:12px 21px;font-weight:750;font-size:.94rem;cursor:pointer;transition:transform .15s,filter .15s,box-shadow .15s}.secondary{background:#f5e5e8;color:var(--navy)}.primary{background:linear-gradient(135deg,#b71931,#d12a43);color:white;box-shadow:0 4px 12px #8f172b42}.btn:hover{filter:brightness(.97);transform:translateY(-1px)}.btn:active{transform:translateY(0)}
+    details{border-top:1px solid var(--line);padding-top:16px;margin-top:24px}summary{cursor:pointer;color:var(--blue);font-weight:650}.status{display:none;margin:15px 0 0;padding:12px 14px;border-radius:9px}.status.ok{display:block;background:#e7f5ed;color:var(--ok)}.status.error{display:block;background:#fdecea;color:var(--danger)}
+    .conditional{display:none}.conditional.show{display:block}.privacy{font-size:.82rem;color:var(--muted);text-align:center;margin:15px auto 0;max-width:650px}.footer{text-align:center;color:#8b787d;font-size:.78rem;padding:0 16px 28px}.footer strong{color:var(--navy)}
+    /* Layout institucional: limpio, compacto y orientado a la lectura */
+    body{background:#f6f5f5}
+    .hero{background:#fff;color:var(--ink);padding:0;border:0;border-top:7px solid var(--blue);box-shadow:0 1px 0 #e8e1e3;overflow:visible}
+    .hero:after{display:none}
+    .hero-inner{min-height:174px;padding:26px 24px;display:grid;grid-template-columns:104px minmax(0,1fr);gap:28px;align-items:center}
+    .school-logo{width:104px;height:104px;border-radius:0;padding:0;box-shadow:none;background:transparent}
+    .eyebrow{color:var(--blue);opacity:1;font-size:.72rem;letter-spacing:.13em;margin-bottom:5px}
+    .hero h1{color:#3a2b2f;font-size:clamp(2rem,4vw,2.7rem);margin:0 0 8px;letter-spacing:-.035em}
+    .hero p{color:#695b5f;opacity:1;font-size:.98rem;max-width:720px}
+    .meta{margin-top:14px;gap:7px}.meta span{background:#f8eef0;border:1px solid #efd9dd;color:#7b2635;padding:5px 10px;font-size:.74rem}
+    .wrap{max-width:920px;margin:28px auto 0;padding:0 20px 56px}
+    .card{border:1px solid #e5dfe1;border-radius:12px;padding:30px 34px;box-shadow:0 2px 8px #4b172008;margin-bottom:16px;position:relative;overflow:hidden}
+    .card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#c91f37}
+    .card:focus-within{border-color:#d9b6bd;box-shadow:0 4px 14px #6815250e}
+    h2{font-size:1.18rem;border:0;padding:0;margin:0 0 4px;color:#491f27}
+    .hint{padding:0;margin:0 0 24px;color:#7b6c70;font-size:.89rem}
+    .field{margin:18px 0}
+    input[type=text],input[type=url],select,textarea{border-radius:7px;background:#fff;border-color:#cfc6c8;padding:11px 12px}
+    .grid{gap:8px}.choice{border-radius:7px;padding:10px 11px;background:#fff}.choice:hover{background:#fdf7f8}
+    .tool{grid-template-columns:minmax(170px,1fr) minmax(220px,1.25fr);border-radius:7px;padding:9px 11px}.tool:nth-child(odd){background:#faf7f8}
+    details{background:#faf8f8;border:1px solid #ebe4e6;border-radius:8px;padding:13px 15px;margin-top:26px}details[open]{padding-bottom:2px}summary{font-size:.88rem}
+    .actions{bottom:10px;border-radius:10px;border-color:#ddd4d6;padding:10px;background:#fffffff7;box-shadow:0 8px 22px #3c171d18}
+    .btn{border-radius:7px;padding:11px 20px}.primary{background:#c91f37;box-shadow:none}.secondary{background:#f1e9eb}
+    .privacy{margin-top:13px}.footer{background:#fff;border-top:1px solid #e8e1e3;padding:22px 16px}
+    @media(max-width:620px){.hero{border-top-width:5px}.hero-inner{min-height:auto;padding:20px 18px;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:start}.school-logo{width:64px;height:64px}.eyebrow{font-size:.59rem;line-height:1.35}.hero h1{font-size:1.55rem;margin-top:2px}.hero p{grid-column:1/-1;font-size:.88rem}.meta{display:none}.wrap{margin-top:14px;padding:0 10px 40px}.card{border-radius:9px;padding:23px 19px 23px 22px;margin-bottom:11px}.card:before{width:3px}.hint{padding:0;margin-top:7px}.tool{grid-template-columns:1fr;gap:5px;padding:10px}.actions{justify-content:stretch;bottom:7px}.actions .btn{flex:1;padding-inline:8px;font-size:.87rem}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="hero-inner"><img class="school-logo" src="logo_colegio_santa_ursula.png" alt="Logo Colegio Santa Úrsula Vitacura"><div class="hero-copy"><div class="eyebrow">Colegio Santa Úrsula Vitacura · Diagnóstico institucional</div><h1>Levantamiento docente</h1><p>Queremos conocer nuestras competencias digitales y usos de inteligencia artificial para orientar apoyos y capacitaciones pertinentes.</p><div class="meta"><span>Tiempo estimado: 5–7 minutos</span><span>Uso interno</span><span>Borrador disponible</span></div></div></div></header>
+  <main class="wrap">
+    <form id="survey">
+      <section class="card"><h2>1. Identificación</h2><p class="hint">Completa tus datos básicos.</p>
+        <div class="field"><label class="legend" for="nombre">Nombre del docente <span class="required">*</span></label><input id="nombre" name="nombre" type="text" autocomplete="name" required placeholder="Nombre y apellido"></div>
+        <div class="field"><label class="legend" for="area">Asignatura, departamento o área</label><input id="area" name="area" type="text" placeholder="Ej.: Matemática, Educación Básica"></div>
+      </section>
+
+      <section class="card"><h2>2. Herramientas de Google</h2><p class="hint">Indica tu nivel actual en cada herramienta.</p><div id="googleTools"></div></section>
+
+      <section class="card"><h2>3. Uso de inteligencia artificial</h2><p class="hint">Puedes seleccionar más de una opción.</p>
+        <div class="field"><label class="legend">¿Qué herramientas de IA utilizas?</label><div class="grid" id="aiTools"></div></div>
+        <div class="field"><label class="legend" for="otraIA">Otra herramienta</label><input id="otraIA" name="otraIA" type="text" placeholder="Escribe el nombre, si corresponde"></div>
+        <div class="field"><label class="legend">¿Para qué utilizas la IA?</label><div class="grid" id="aiUses"></div></div>
+        <div class="field"><label class="legend" for="otroUso">Otro uso</label><input id="otroUso" name="otroUso" type="text" placeholder="Describe brevemente"></div>
+      </section>
+
+      <section class="card"><h2>4. Aplicaciones pagadas</h2><p class="hint">Esto permite conocer los recursos con los que ya cuenta el equipo.</p>
+        <div class="field"><label class="legend">¿Pagas o cuentas con una suscripción de IA?</label><div class="grid"><label class="choice"><input type="radio" name="pagaIA" value="Sí" required> Sí</label><label class="choice"><input type="radio" name="pagaIA" value="No"> No</label></div></div>
+        <div id="paidAppWrap" class="field conditional"><label class="legend" for="appPagada">¿Cuál o cuáles?</label><input id="appPagada" name="appPagada" type="text" placeholder="Ej.: ChatGPT Plus, Canva Pro"></div>
+      </section>
+
+      <section class="card"><h2>5. Referente TEC</h2><p class="hint">Piensa en alguien de la sala de profesores a quien recurrirías por apoyo tecnológico.</p>
+        <div class="field"><label class="legend" for="referenteTEC">¿Qué docente consideras referente TEC? <span class="required">*</span></label><input id="referenteTEC" name="referenteTEC" type="text" required placeholder="Nombre del docente"></div>
+        <div class="field"><label class="legend" for="motivoReferente">¿Por qué lo consideras referente? (opcional)</label><textarea id="motivoReferente" name="motivoReferente" rows="3" placeholder="Describe brevemente"></textarea></div>
+        <details><summary>Configuración para enviar a Google Sheets</summary><div class="field"><label class="legend" for="endpoint">URL de la aplicación web de Apps Script</label><input id="endpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec"><p class="hint">La URL queda guardada solo en este navegador. La persona administradora puede configurarla una vez.</p></div></details>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <div class="actions"><button class="btn secondary" type="button" id="saveBtn">Guardar borrador</button><button class="btn primary" type="submit">Enviar respuestas&nbsp; →</button></div>
+      <p class="privacy">El borrador se guarda únicamente en este dispositivo. Al enviar, los datos se remiten a la hoja configurada.</p>
+    </form>
+  </main><footer class="footer"><strong>Colegio Santa Úrsula Vitacura</strong> · Levantamiento de competencias digitales</footer>
+  <script>
+    const google = ['Drive','Documentos (Docs)','Hojas de cálculo (Sheets)','Presentaciones (Slides)','Formularios (Forms)','Classroom','Calendar','Meet','Gmail','Sites','Gemini','NotebookLM'];
+    const levels = ['No la conozco','Básico','Intermedio','Avanzado','Referente / capacitador'];
+    const ai = ['ChatGPT','Google Gemini','Microsoft Copilot','Claude','Perplexity','Canva IA','Gamma','NotebookLM','MagicSchool AI','Quizizz IA'];
+    const uses = ['Planificar clases','Crear evaluaciones','Elaborar guías','Crear rúbricas','Diseñar presentaciones','Generar imágenes','Diferenciar actividades','Investigar','Analizar datos','Redactar comunicaciones','Retroalimentar a estudiantes','Traducir o corregir textos'];
+    const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,'_');
+    document.querySelector('#googleTools').innerHTML = google.map(t=>`<div class="tool"><label for="g_${slug(t)}">${t}</label><select id="g_${slug(t)}" name="google__${t}">${levels.map(l=>`<option>${l}</option>`).join('')}</select></div>`).join('');
+    const checks=(items,name)=>items.map(x=>`<label class="choice"><input type="checkbox" name="${name}" value="${x}"> <span>${x}</span></label>`).join('');
+    document.querySelector('#aiTools').innerHTML=checks(ai,'herramientasIA'); document.querySelector('#aiUses').innerHTML=checks(uses,'usosIA');
+    const form=document.querySelector('#survey'), statusBox=document.querySelector('#status'), paid=document.querySelector('#paidAppWrap');
+    const getData=()=>{const fd=new FormData(form), out={fecha:new Date().toISOString(),google:{},herramientasIA:fd.getAll('herramientasIA'),usosIA:fd.getAll('usosIA')}; for(const [k,v] of fd){if(k.startsWith('google__'))out.google[k.slice(8)]=v;else if(!['herramientasIA','usosIA'].includes(k))out[k]=v} return out};
+    const show=(msg,type='ok')=>{statusBox.textContent=msg;statusBox.className='status '+type;statusBox.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    function save(){localStorage.setItem('levantamientoDocenteDraft',JSON.stringify(getData())); localStorage.setItem('levantamientoEndpoint',document.querySelector('#endpoint').value.trim()); show('Borrador guardado en este dispositivo.')}
+    function restore(){const raw=localStorage.getItem('levantamientoDocenteDraft');document.querySelector('#endpoint').value=localStorage.getItem('levantamientoEndpoint')||'';if(!raw)return;try{const d=JSON.parse(raw);for(const [k,v] of Object.entries(d)){if(['fecha','google','herramientasIA','usosIA'].includes(k))continue;const els=form.querySelectorAll(`[name="${CSS.escape(k)}"]`);els.forEach(el=>{if(el.type==='radio')el.checked=el.value===v;else el.value=v||''})}for(const [k,v] of Object.entries(d.google||{})){const e=form.elements['google__'+k];if(e)e.value=v}(d.herramientasIA||[]).forEach(v=>{const e=[...form.querySelectorAll('[name="herramientasIA"]')].find(x=>x.value===v);if(e)e.checked=true});(d.usosIA||[]).forEach(v=>{const e=[...form.querySelectorAll('[name="usosIA"]')].find(x=>x.value===v);if(e)e.checked=true});togglePaid()}catch(e){}}
+    function togglePaid(){const yes=form.querySelector('[name="pagaIA"]:checked')?.value==='Sí';paid.classList.toggle('show',yes);document.querySelector('#appPagada').required=yes}
+    form.addEventListener('change',e=>{if(e.target.name==='pagaIA')togglePaid()});document.querySelector('#saveBtn').addEventListener('click',save);
+    form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const endpoint=document.querySelector('#endpoint').value.trim(), data=getData();if(!endpoint){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`respuesta_${slug(data.nombre||'docente')}.json`;a.click();URL.revokeObjectURL(a.href);show('No hay una hoja configurada. La respuesta se descargó como archivo para no perderla.','error');return}try{show('Enviando…');await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});localStorage.removeItem('levantamientoDocenteDraft');form.reset();document.querySelector('#endpoint').value=endpoint;togglePaid();show('Respuesta enviada. ¡Muchas gracias!')}catch(err){show('No se pudo enviar. Guarda el borrador e inténtalo nuevamente.','error')}});
+    restore();
+  </script>
+</body>
+</html>
