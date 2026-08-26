@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DSD I · Sprechsimulator Teil 1</title>
+  <style>
+    :root{--ink:#172235;--muted:#647387;--paper:#fff;--bg:#eef3f8;--line:#d8e0e9;--navy:#143252;--navy2:#245f86;--blue:#143252;--blue2:#eaf3ff;--green:#177451;--amber:#f2a633;--danger:#d9475c;--shadow:0 18px 50px rgba(24,50,75,.13);--radius:18px}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,Helvetica,sans-serif}
+    button,select{font:inherit} button{cursor:pointer} .app{max-width:1260px;margin:24px auto;padding:0 22px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px;padding:25px 30px;border-radius:22px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;box-shadow:var(--shadow)}.brand{display:flex;align-items:center;gap:14px}.logo{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--amber);color:var(--navy);font-weight:900;font-size:19px;box-shadow:none}
+    h1{font-size:clamp(23px,3vw,36px);line-height:1.1;margin:0}.subtitle{margin:5px 0 0;color:#dbe8f2}.mode{display:flex;gap:8px;padding:5px;background:#ffffff18;border:1px solid #ffffff38;border-radius:12px}.mode button{border:0;background:transparent;padding:9px 13px;border-radius:8px;color:#fff;font-weight:700}.mode button.active{background:var(--amber);color:var(--navy)}
+    .layout{display:grid;grid-template-columns:290px minmax(0,1fr) 310px;gap:20px;align-items:start}.panel{background:rgba(255,255,255,.94);border:1px solid rgba(223,229,239,.9);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .topics{padding:18px;position:sticky;top:18px}.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);font-weight:800;margin:0 0 12px}.topic-grid{display:grid;gap:9px}.topic{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:12px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--ink)}.topic:hover{background:#f5f8fb}.topic.active{background:#fff7e7;border-color:var(--amber);box-shadow:inset 5px 0 var(--amber)}.topic-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:10px;background:var(--blue2);font-size:21px}.topic b{display:block}.topic small{color:var(--muted)}
+    .random{width:100%;margin-top:14px;border:0;background:var(--amber);color:var(--navy);border-radius:10px;padding:11px;font-weight:800}
+    main.panel{overflow:hidden}.hero{padding:28px 30px 24px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-bottom:0}.step{display:flex;align-items:center;gap:9px;color:var(--amber);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.dot{width:9px;height:9px;border-radius:50%;background:var(--amber)}.hero h2{font-size:clamp(26px,4vw,42px);margin:8px 0 4px}.hero p{color:#dbe8f2;margin:0}
+    .question-wrap{padding:30px 32px;background:#fff7e7;border-left:6px solid var(--amber)}.question-label{color:var(--navy);font-weight:700}.question{font-size:clamp(25px,3.5vw,40px);line-height:1.25;margin:14px 0 26px;min-height:100px;display:flex;align-items:center}.nav{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:12px 17px;font-weight:800}.primary{background:var(--amber);color:var(--navy)}.secondary{background:#dbe7f2;color:var(--navy)}.outline{background:white;border:1px solid var(--line);color:var(--navy)}.btn:disabled{opacity:.4;cursor:not-allowed}
+    .dots{display:flex;gap:7px;margin-top:24px}.qdot{width:100%;height:5px;border-radius:10px;background:#e1d8c6}.qdot.done,.qdot.now{background:var(--amber)}.qdot.now{box-shadow:0 0 0 3px #ffe6b8}
+    .tools{display:grid;gap:18px}.timer{padding:22px;text-align:center;background:var(--navy);color:#fff}.timer-title{display:flex;justify-content:space-between;color:#dbe8f2;font-weight:700}.clock{font-variant-numeric:tabular-nums;font-size:52px;font-weight:900;letter-spacing:-.04em;margin:12px 0}.clock.warning{color:#ffd36f}.timer-actions{display:flex;justify-content:center;gap:8px}.timer-actions button{border:0;border-radius:9px;padding:9px 12px;font-weight:800}.start{background:var(--amber);color:var(--navy)}.pause,.reset{background:#dbe7f2;color:var(--navy)}.timer-note{font-size:12px;color:#dbe8f2;margin:12px 0 0}
+    .help{padding:22px}.help-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.help h3{margin:0;color:var(--navy);font-size:19px}.pill{background:var(--amber);color:var(--navy);padding:5px 9px;border-radius:99px;font-size:11px;font-weight:900;text-transform:uppercase}.phrases{list-style:none;padding:0;margin:15px 0 0;display:grid;gap:9px}.phrases li{padding:10px 12px;background:var(--blue2);border-radius:9px}.emergency{padding:18px 22px}.emergency summary{font-weight:800;color:var(--navy);cursor:pointer}.emergency ul{padding-left:20px;margin-bottom:0;color:#4d596d}.hidden{display:none!important}
+    .finish{padding:30px;text-align:center}.finish .big{font-size:50px}.finish h2{margin:4px}.finish p{color:var(--muted)}
+    footer{text-align:center;color:var(--muted);font-size:13px;padding:24px}.status{display:inline-flex;gap:7px;align-items:center;background:white;border:1px solid var(--line);border-radius:99px;padding:7px 11px}.status i{width:8px;height:8px;border-radius:50%;background:var(--green)}
+    @media(max-width:1050px){.layout{grid-template-columns:250px 1fr}.tools{grid-column:1/-1;grid-template-columns:1fr 1fr}.topics{position:static}.emergency{grid-column:1/-1}}
+    @media(max-width:740px){.app{padding:14px}header{align-items:flex-start;flex-direction:column}.layout{display:block}.panel{margin-bottom:14px}.topics{padding:14px}.topic-grid{grid-template-columns:repeat(2,1fr)}.topic{padding:9px}.topic-icon{display:none}.hero,.question-wrap{padding:22px}.question{min-height:120px}.tools{display:block}.tools>.panel{margin-bottom:14px}.mode{width:100%}.mode button{flex:1}.phrases li{font-size:15px}}
+    @media print{body{background:#fff}.app{max-width:none;padding:0}.mode,.timer,.nav,.random,footer{display:none}.layout{display:block}.panel{box-shadow:none;margin-bottom:15px}.topics{position:static}.topic-grid{grid-template-columns:repeat(3,1fr)}.question{min-height:auto}.help{display:block!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><div class="logo">DSD</div><div><h1>Sprechsimulator · Teil 1</h1><p class="subtitle">Geführtes Gespräch · Niveau B1</p></div></div>
+    <div class="mode" aria-label="Übungsmodus"><button id="practiceBtn" class="active">Mit Hilfe</button><button id="examBtn">Prüfungsmodus</button></div>
+  </header>
+  <div class="layout">
+    <aside class="panel topics"><p class="eyebrow">Thema wählen</p><div id="topicGrid" class="topic-grid"></div><button id="randomBtn" class="random">↻ Zufälliges Thema</button></aside>
+    <main class="panel" id="mainPanel">
+      <section class="hero" id="hero"><div class="step"><span class="dot"></span><span id="themeNumber"></span></div><h2 id="themeTitle"></h2><p>Antworte frei und begründe deine Meinung.</p></section>
+      <section class="question-wrap" id="questionView"><div class="question-label" id="questionCounter"></div><div class="question" id="question"></div><div class="nav"><button class="btn secondary" id="prevBtn">← Zurück</button><button class="btn primary" id="nextBtn">Nächste Frage →</button><button class="btn outline" id="surpriseBtn">🎲 Zusatzfrage</button></div><div class="dots" id="dots"></div></section>
+      <section class="finish hidden" id="finishView"><div class="big">✓</div><h2>Simulation beendet</h2><p>Gut gemacht! Denke kurz nach: Hast du vollständig geantwortet, begründet und ein Beispiel genannt?</p><button class="btn primary" id="againBtn">Thema noch einmal üben</button></section>
+    </main>
+    <aside class="tools">
+      <section class="panel timer"><div class="timer-title"><span>Sprechzeit</span><span>Training: 5 Min.</span></div><div class="clock" id="clock">05:00</div><div class="timer-actions"><button class="start" id="startTimer">▶ Start</button><button class="pause" id="pauseTimer">Ⅱ Pause</button><button class="reset" id="resetTimer">↺ Reset</button></div><p class="timer-note">Im Prüfungsmodus startet die Zeit automatisch.</p></section>
+      <section class="panel help" id="helpPanel"><div class="help-head"><h3>Redemittel</h3><span class="pill">Hilfe</span></div><ul class="phrases" id="phrases"></ul></section>
+      <details class="panel emergency" open><summary>Wenn du nicht weiterweißt …</summary><ul><li>Das ist eine interessante Frage.</li><li>Ich muss kurz überlegen.</li><li>Könnten Sie die Frage bitte wiederholen?</li><li>Meiner Meinung nach …</li><li>Zum Beispiel …</li></ul></details>
+    </aside>
+  </div>
+  <footer><span class="status"><i></i> Funktioniert offline · Fortschritt wird lokal gespeichert</span></footer>
+</div>
+<script>
+const topics=[
+{title:'Schule',icon:'🎓',color:'#c52c77',soft:'#fff0f7',q:['Wie findest du deine Schule?','Was ist dein Lieblingsfach? Warum?','Welche Fächer findest du schwierig?','Wie sind deine Lehrer?','Sollte man Hausaufgaben haben? Warum (nicht)?'],r:['Ich finde meine Schule (gut / interessant / langweilig), weil …','Mein Lieblingsfach ist …, denn …','Ich habe Schwierigkeiten mit …, weil …','Meine Lehrer sind (nett / streng / hilfsbereit).','Ich denke, dass Hausaufgaben (wichtig / nicht so wichtig) sind, weil …','Meiner Meinung nach …']},
+{title:'Freizeit',icon:'⚽',color:'#d45d67',soft:'#fff1f2',q:['Was machst du in deiner Freizeit?','Hast du ein Hobby?','Wie oft treibst du Sport?','Verbringst du lieber Zeit allein oder mit Freunden?','Was machst du am Wochenende?'],r:['In meiner Freizeit mache ich gern …','Ich interessiere mich für …','Ich spiele / treibe …','Am Wochenende …','Ich verbringe lieber Zeit mit …, weil …','Das macht mir Spaß, weil …']},
+{title:'Familie',icon:'🏠',color:'#d88919',soft:'#fff7e8',q:['Wie viele Personen gibt es in deiner Familie?','Hast du Geschwister?','Verstehst du dich gut mit deiner Familie?','Was macht ihr zusammen?','Ist Familie wichtig für dich? Warum?'],r:['In meiner Familie gibt es …','Ich habe (keine / eine / zwei) … Geschwister.','Ich verstehe mich (gut / nicht so gut) mit …, weil …','Wir machen oft zusammen …','Für mich ist Familie wichtig, weil …']},
+{title:'Medien',icon:'📱',color:'#7452c8',soft:'#f4f0ff',q:['Wie oft benutzt du dein Handy?','Wofür benutzt du das Internet?','Sind soziale Medien wichtig für dich?','Wie viel Zeit verbringst du online?','Sollte man Handys in der Schule erlauben?'],r:['Ich benutze mein Handy jeden Tag / oft / selten.','Ich nutze das Internet, um …','Soziale Medien sind für mich (wichtig / nicht so wichtig), weil …','Ich verbringe etwa … Stunden online.','Ich finde, dass Handys in der Schule (erlaubt / verboten) sein sollten, weil …']},
+{title:'Essen und Gesundheit',icon:'🥗',color:'#168a68',soft:'#eafaf4',q:['Was isst du normalerweise an einem Tag?','Isst du lieber zu Hause oder im Restaurant?','Was ist dein Lieblingsessen?','Versuchst du, gesund zu essen?','Was kann man machen, um gesund zu bleiben?'],r:['Normalerweise esse ich …','Zum Frühstück / Mittagessen / Abendessen esse ich …','Ich esse lieber zu Hause / im Restaurant, weil …','Mein Lieblingsessen ist …, denn …','Ich versuche, gesund zu essen, indem ich …','Um gesund zu bleiben, kann man …','Es ist wichtig, dass man …']},
+{title:'Freunde und Freundschaft',icon:'🤝',color:'#3577bd',soft:'#edf6ff',q:['Wie wichtig sind Freunde für dich?','Was machst du normalerweise mit deinen Freunden?','Hast du viele Freunde oder nur wenige enge Freunde?','Was ist für dich ein guter Freund oder eine gute Freundin?','Kann man ohne Freunde glücklich sein? Warum (nicht)?'],r:['Für mich sind Freunde sehr wichtig, weil …','Ich verbringe viel Zeit mit meinen Freunden und wir …','Ich habe (viele / wenige) Freunde, aber …','Ein guter Freund ist jemand, der …','Ich finde, dass Freundschaft wichtig ist, weil …','Meiner Meinung nach kann man (nicht) ohne Freunde glücklich sein, weil …','Es ist wichtig, dass ein Freund …']}
+];
+let ti=0,qi=0,exam=false,remaining=300,timer=null,seen=JSON.parse(localStorage.getItem('dsd-seen')||'{}');
+const $=id=>document.getElementById(id);
+function renderTopics(){ $('topicGrid').innerHTML=topics.map((t,i)=>`<button class="topic ${i===ti?'active':''}" style="--accent:${t.color};--soft:${t.soft}" data-i="${i}"><span class="topic-icon">${t.icon}</span><span><b>${t.title}</b><small>${seen[i]?.length||0}/${t.q.length} Fragen</small></span></button>`).join(''); document.querySelectorAll('.topic').forEach(b=>b.onclick=()=>selectTopic(+b.dataset.i)); }
+function selectTopic(i){ti=i;qi=0;$('finishView').classList.add('hidden');$('questionView').classList.remove('hidden');render();if(exam){resetTimer();startTimer()}}
+function render(){let t=topics[ti];document.documentElement.style.setProperty('--accent',t.color);document.documentElement.style.setProperty('--soft',t.soft);$('themeNumber').textContent=`Thema ${ti+1} von ${topics.length}`;$('themeTitle').textContent=`${t.icon} ${t.title}`;$('questionCounter').textContent=`Frage ${qi+1} von ${t.q.length}`;$('question').textContent=t.q[qi];$('phrases').innerHTML=t.r.map(x=>`<li>${x}</li>`).join('');$('prevBtn').disabled=qi===0;$('nextBtn').textContent=qi===t.q.length-1?'Simulation beenden ✓':'Nächste Frage →';$('dots').innerHTML=t.q.map((_,i)=>`<span class="qdot ${i===qi?'now':seen[ti]?.includes(i)?'done':''}"></span>`).join('');markSeen();renderTopics()}
+function markSeen(){seen[ti]=[...new Set([...(seen[ti]||[]),qi])];localStorage.setItem('dsd-seen',JSON.stringify(seen))}
+$('prevBtn').onclick=()=>{if(qi>0){qi--;render()}};
+$('nextBtn').onclick=()=>{if(qi<topics[ti].q.length-1){qi++;render()}else{$('questionView').classList.add('hidden');$('finishView').classList.remove('hidden');pauseTimer()}};
+$('againBtn').onclick=()=>selectTopic(ti);
+$('randomBtn').onclick=()=>{let n;do n=Math.floor(Math.random()*topics.length);while(n===ti);selectTopic(n)};
+const extra=['Erzähle ein konkretes Beispiel.','Was sind die Vor- und Nachteile?','Wie war das früher?','Was würdest du gern verändern?','Wie ist das in Chile?','Was denkst du darüber? Begründe deine Meinung.'];
+$('surpriseBtn').onclick=()=>{$('question').textContent=extra[Math.floor(Math.random()*extra.length)];$('questionCounter').textContent='Zusatzfrage · spontan antworten'};
+function setMode(isExam){exam=isExam;$('examBtn').classList.toggle('active',exam);$('practiceBtn').classList.toggle('active',!exam);$('helpPanel').classList.toggle('hidden',exam);$('surpriseBtn').classList.toggle('hidden',exam);if(exam){resetTimer();startTimer()}else pauseTimer()}
+$('practiceBtn').onclick=()=>setMode(false);$('examBtn').onclick=()=>setMode(true);
+function drawClock(){let m=Math.floor(remaining/60),s=remaining%60;$('clock').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;$('clock').classList.toggle('warning',remaining<=30)}
+function startTimer(){if(timer||remaining<=0)return;timer=setInterval(()=>{remaining--;drawClock();if(remaining<=0){pauseTimer();$('clock').textContent='ZEIT!'}},1000)}
+function pauseTimer(){clearInterval(timer);timer=null} function resetTimer(){pauseTimer();remaining=300;drawClock()}
+$('startTimer').onclick=startTimer;$('pauseTimer').onclick=pauseTimer;$('resetTimer').onclick=resetTimer;
+render();drawClock();
+</script>
+</body>
+</html>
