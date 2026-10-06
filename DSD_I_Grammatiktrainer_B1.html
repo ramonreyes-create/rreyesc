@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="google" content="notranslate">
+  <title>DSD I · Grammatiktrainer B1</title>
+  <style>
+    :root{--navy:#172554;--blue:#2563eb;--pale:#eff6ff;--ink:#172033;--red:#b91c1c}
+    *{box-sizing:border-box} body{margin:0;background:#f5f7fb;color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+    header{position:sticky;top:0;z-index:5;background:linear-gradient(110deg,var(--navy),#1d4ed8);color:white;padding:18px 22px;box-shadow:0 4px 18px #0003}
+    header h1{margin:0;font-size:clamp(20px,3vw,30px)} header p{margin:4px 0 0;opacity:.9}
+    main{width:min(960px,94vw);margin:24px auto 80px}.card{background:white;border:1px solid #dbe5f3;border-radius:16px;padding:22px;margin:16px 0;box-shadow:0 6px 22px #17255412}
+    .identity{display:grid;grid-template-columns:2fr 1fr;gap:14px}.identity label{font-weight:700}.identity input{width:100%;margin-top:6px;padding:12px;border:1px solid #9fb3ce;border-radius:10px;font:inherit}
+    fieldset{border:0;margin:0;padding:0} legend{font-weight:750;margin-bottom:12px}.n{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--navy);color:white;margin-right:8px}
+    .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{display:flex;align-items:flex-start;gap:9px;border:1px solid #cbd8ea;border-radius:10px;padding:11px;cursor:pointer}.choice:hover{background:var(--pale)}
+    button{border:0;border-radius:12px;padding:13px 18px;font:700 16px inherit;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:white;color:var(--navy)}
+    #submit{width:100%;font-size:18px}.status{margin-top:14px;padding:12px;border-radius:10px;background:var(--pale);display:none}.warning{color:var(--red);font-weight:700}
+    #gate{position:fixed;inset:0;z-index:20;background:linear-gradient(145deg,#0f172aee,#1e3a8aee);display:grid;place-items:center;padding:20px}.gatebox{max-width:620px;background:white;border-radius:20px;padding:30px;text-align:center}.gatebox h2{margin-top:0;color:var(--navy)}
+    @media(max-width:680px){.identity,.choices{grid-template-columns:1fr}.card{padding:17px}}
+  </style>
+</head>
+<body class="notranslate" translate="no">
+  <div id="gate"><div class="gatebox"><h2>DSD I · Grammatiktrainer B1</h2><p>Die Aktivität wird im Vollbildmodus durchgeführt. Ein Verlassen des Vollbilds sowie Tab- und Fokuswechsel werden protokolliert.</p><button class="primary" id="start">Aktivität starten</button><p id="gateMsg" class="warning"></p></div></div>
+  <header><h1>DSD I · Grammatiktrainer B1</h1><p>35 gemischte Aufgaben · Wähle jeweils eine Antwort.</p></header>
+  <main>
+    <section class="card identity"><label>Name<input id="name" autocomplete="name" required></label><label>Klasse<input id="class" required></label></section>
+    <form id="quiz"></form>
+    <button id="submit" class="primary">Antworten senden</button>
+    <div id="status" class="status" role="status"></div>
+  </main>
+  <script>
+    const WEB_APP_URL="https://script.google.com/macros/s/AKfycbxctYIuXV8tprsDRxJkpWmluTmg3s-BqGW_WfEu8oTGqp7a8awjTdNPhTJub7iwjEnM/exec";
+    const Q=[
+      ["Ich bleibe zu Hause, ___ ich krank bin.",["obwohl","weil","damit","wenn"]],
+      ["Wenn ich mehr Zeit ___, würde ich Gitarre lernen.",["habe","hatte","hätte","haben"]],
+      ["Das ist der Sänger, ___ wir gestern gesehen haben.",["dem","den","der","dessen"]],
+      ["Ich ___ gern öfter auf Konzerte gehen.",["werde","würde","wurde","worden"]],
+      ["Das Lied ___ jeden Morgen im Radio gespielt.",["hat","wird","wurde","ist"]],
+      ["Sie interessiert sich sehr ___ klassische Musik.",["an","über","für","mit"]],
+      ["Er kauft sich einen ___ Kopfhörer.",["neuer","neue","neuen","neues"]],
+      ["Ich ___ das Album schon gehört.",["bin","werde","hatte","habe"]],
+      ["Weißt du, ___ die Band heute spielt?",["dass","weil","ob","wann nicht"]],
+      ["Ich lerne den Text, ___ ich mitsingen kann.",["um","weil","damit","obwohl"]],
+      ["Sie sagt, ___ Musik ihr beim Lernen hilft.",["ob","dass","denn","als"]],
+      ["Als ich klein ___, spielte ich Klavier.",["bin","war","wäre","hatte"]],
+      ["Wir warten ___ den Beginn des Konzerts.",["für","an","auf","über"]],
+      ["Die Musikerin, ___ dort steht, kommt aus Berlin.",["die","der","den","dem"]],
+      ["Viele Tickets ___ online verkauft.",["wird","werden","wurden sein","worden"]],
+      ["Kannst du sagen, wann die Vorstellung ___?",["beginnen","begann","beginnt","begonnen"]],
+      ["___ es regnete, fand das Festival statt.",["Weil","Obwohl","Damit","Deshalb"]],
+      ["Das war ein wirklich ___ Konzert.",["guter","gute","guten","gutes"]],
+      ["Die Instrumente ___ gestern geliefert.",["werden","wurden","worden","würden"]],
+      ["Ich nehme morgen ___ der Probe teil.",["auf","für","an","mit"]],
+      ["Die Karten waren teuer. ___ haben wir sie gekauft.",["Deshalb","Trotzdem","Obwohl","Damit"]],
+      ["Sie übt täglich, ___ besser zu singen.",["damit","weil","um","dass"]],
+      ["Ich helfe ___ Schüler mit der Aufgabe.",["der","den","dem","des"]],
+      ["___ du mir bitte das Mikrofon geben?",["Musst","Konntest","Könnte","Könntest"]],
+      ["Die Lieder ___ nächste Woche aufgenommen.",["werden","wurden","worden","würden"]],
+      ["Wir sprechen oft ___ unsere Lieblingsbands.",["von","an","über","für"]],
+      ["Nachdem er lange geübt ___, trat er auf.",["hat","hatte","hätte","war"]],
+      ["Heute ___ ich früher nach Hause gehen.",["muss","sollte gewesen","würde","werde können"]],
+      ["Seit ich Deutsch ___, verstehe ich mehr Liedtexte.",["lernte","gelernt","lerne","lernen"]],
+      ["Das ist der Komponist, ___ Werke weltberühmt sind.",["den","dessen","dem","der"]],
+      ["Das Konzert ist wegen des Wetters abgesagt ___ .",["werden","geworden","worden","würde"]],
+      ["Weißt du, wie viel das Ticket ___?",["kosten","kostet","gekostet","koste"]],
+      ["Sie war sehr müde. ___ ging sie zur Probe.",["Deshalb","Trotzdem","Obwohl","Damit"]],
+      ["Wenn ich in Wien ___, würde ich die Oper besuchen.",["bin","war","wäre","gewesen"]],
+      ["Ich höre dieses Lied gern, ___ es mich an den Sommer erinnert.",["obwohl","damit","weil","ob"]]
+    ];
+    const quiz=document.querySelector("#quiz"),events=[]; let startedAt=null,fullscreenExits=0,tabChanges=0,blurCount=0,submitting=false;
+    Q.forEach((q,i)=>{const s=document.createElement("section");s.className="card";s.innerHTML=`<fieldset><legend><span class="n">${i+1}</span>${q[0]}</legend><div class="choices">${q[1].map((a,j)=>`<label class="choice"><input type="radio" name="q${i+1}" value="${a.replaceAll('"','&quot;')}"><span>${a}</span></label>`).join("")}</div></fieldset>`;quiz.appendChild(s)});
+    const log=type=>events.push({time:new Date().toISOString(),type});
+    async function full(){try{await document.documentElement.requestFullscreen();return true}catch(e){document.querySelector("#gateMsg").textContent="Bitte erlaube den Vollbildmodus und versuche es erneut.";return false}}
+    document.querySelector("#start").onclick=async()=>{if(await full()){startedAt=new Date();log("started_fullscreen");document.querySelector("#gate").style.display="none"}};
+    document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement&&startedAt&&!submitting){fullscreenExits++;log("fullscreen_exit");document.querySelector("#gate").style.display="grid";document.querySelector("#start").textContent="Vollbild wieder aktivieren"}});
+    document.addEventListener("visibilitychange",()=>{if(document.hidden&&startedAt){tabChanges++;log("tab_hidden")}});
+    window.addEventListener("blur",()=>{if(startedAt){blurCount++;log("window_blur")}});
+    document.addEventListener("contextmenu",e=>e.preventDefault());
+    document.querySelector("#submit").onclick=async()=>{
+      const status=document.querySelector("#status"),name=document.querySelector("#name").value.trim(),studentClass=document.querySelector("#class").value.trim();
+      const answers=Q.map((_,i)=>({id:i+1,answer:(document.querySelector(`input[name="q${i+1}"]:checked`)||{}).value||""}));
+      const missing=answers.filter(x=>!x.answer).length;
+      if(!name||!studentClass||missing){status.style.display="block";status.innerHTML=`<span class="warning">Bitte Name, Klasse und alle Antworten ausfüllen. Es fehlen ${missing} Antworten.</span>`;return}
+      if(WEB_APP_URL.includes("__WEB_APP")){status.style.display="block";status.textContent="Die Web-App-URL ist noch nicht konfiguriert.";return}
+      submitting=true;log("submitted");const end=new Date();
+      const payload={name,studentClass,answers,durationSeconds:Math.round((end-startedAt)/1000),fullscreenExits,tabChanges,blurCount,startTime:startedAt.toISOString(),endTime:end.toISOString(),userAgent:navigator.userAgent,eventLog:events};
+      try{document.querySelector("#submit").disabled=true;status.style.display="block";status.textContent="Wird gesendet …";await fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});status.textContent="Antworten wurden gesendet. Vielen Dank!";if(document.fullscreenElement)await document.exitFullscreen()}catch(e){submitting=false;document.querySelector("#submit").disabled=false;status.innerHTML='<span class="warning">Senden fehlgeschlagen. Bitte erneut versuchen.</span>'}
+    };
+  </script>
+</body>
+</html>
