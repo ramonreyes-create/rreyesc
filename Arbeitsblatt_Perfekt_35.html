@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de" translate="no">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" content="notranslate">
+  <title>Perfekt-Trainer · 35 Übungen</title>
+  <style>
+    :root{--navy:#262052;--violet:#6d44b8;--gold:#f2b134;--pale:#f4f0fb;--ink:#1d1a2b;--muted:#665f75;--line:#d7cee8;--red:#b42318;--ok:#067647}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7f6fa;color:var(--ink);font:16px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif}
+    header{position:sticky;top:0;z-index:5;background:linear-gradient(115deg,var(--navy),var(--violet));color:#fff;padding:16px 22px;box-shadow:0 5px 18px #26205230}.head{width:min(980px,94vw);margin:auto;display:flex;justify-content:space-between;align-items:center;gap:22px}.head h1{margin:0;font-size:clamp(21px,3vw,31px)}.head p{margin:3px 0 0;opacity:.9}.counter{min-width:135px;text-align:center;background:#ffffff1d;border:1px solid #ffffff45;border-radius:14px;padding:8px 12px;font-weight:750}.bar{height:5px;background:#ffffff30;margin-top:8px;border-radius:9px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
+    main{width:min(980px,94vw);margin:24px auto 80px}.card{background:#fff;border:1px solid #e2dceb;border-radius:17px;padding:22px;margin:16px 0;box-shadow:0 7px 24px #26205210}.intro{border-left:7px solid var(--gold)}.intro h2{margin:0 0 8px;color:var(--navy)}.intro ul{margin:8px 0 0;padding-left:22px}.identity{display:grid;grid-template-columns:2fr 1fr;gap:15px}.identity label{font-weight:750}.identity input{width:100%;margin-top:6px;padding:12px;border:1px solid #aca2c2;border-radius:10px;font:inherit}
+    fieldset{border:0;margin:0;padding:0}legend{font-weight:760;margin-bottom:13px}.n{display:inline-grid;place-items:center;width:33px;height:33px;border-radius:50%;background:var(--navy);color:#fff;margin-right:9px}.tag{display:inline-block;margin-left:8px;padding:3px 8px;border-radius:999px;background:var(--pale);color:var(--violet);font-size:12px;font-weight:800;vertical-align:middle}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--line);border-radius:11px;padding:11px;cursor:pointer;transition:.15s}.choice:hover{background:var(--pale);border-color:var(--violet)}.choice:has(input:checked){background:#eee7fa;border-color:var(--violet);box-shadow:inset 0 0 0 1px var(--violet)}.choice input{margin-top:4px;accent-color:var(--violet)}
+    button{border:0;border-radius:12px;padding:13px 18px;font:700 16px inherit;cursor:pointer}.primary{background:var(--violet);color:#fff}.primary:hover{filter:brightness(.94)}#submit{width:100%;font-size:18px}.status{display:none;margin-top:14px;padding:14px;border-radius:11px;background:var(--pale)}.warning{color:var(--red);font-weight:750}.success{color:var(--ok);font-weight:750}#gate{position:fixed;inset:0;z-index:20;background:linear-gradient(145deg,#1e1944ee,#6d44b8ee);display:grid;place-items:center;padding:20px}.gatebox{max-width:630px;background:#fff;border-radius:21px;padding:30px;text-align:center;box-shadow:0 20px 60px #0005}.gatebox h2{margin-top:0;color:var(--navy)}
+    @media(max-width:690px){.identity,.choices{grid-template-columns:1fr}.card{padding:17px}.head{align-items:flex-start}.counter{min-width:112px;font-size:14px}}
+  </style>
+</head>
+<body class="notranslate" translate="no">
+  <div id="gate"><div class="gatebox"><h2>Perfekt-Trainer</h2><p>35 Übungen zu <b>haben/sein</b> und zum <b>Partizip II</b>. Die Aktivität wird im Vollbildmodus durchgeführt; das Verlassen des Vollbilds sowie Tab- und Fokuswechsel werden protokolliert.</p><button class="primary" id="start">Aktivität starten</button><p id="gateMsg" class="warning"></p></div></div>
+  <header><div class="head"><div><h1>Perfekt-Trainer</h1><p>haben oder sein · Partizip II · 35 Übungen</p></div><div class="counter"><span id="done">0</span> / 35 beantwortet<div class="bar"><span id="progress"></span></div></div></div></header>
+  <main><section class="card intro"><h2>Arbeitsauftrag</h2><ul><li>Wähle jeweils die richtige Form im Perfekt.</li><li>Achte auf das Hilfsverb und die Bildung des Partizips II.</li><li>Beantworte alle Übungen und sende deine Antworten anschließend ab.</li></ul></section><section class="card identity"><label>Name<input id="name" autocomplete="name" required></label><label>Klasse<input id="class" required></label></section><form id="quiz"></form><button id="submit" class="primary" type="button">Antworten senden</button><div id="status" class="status" role="status"></div></main>
+  <script>
+    const WEB_APP_URL="https://script.google.com/macros/s/AKfycbxctYIuXV8tprsDRxJkpWmluTmg3s-BqGW_WfEu8oTGqp7a8awjTdNPhTJub7iwjEnM/exec";
+    const QUIZ_ID="perfekt-a1a2-35";
+    const Q=[
+      ["Ich ___ gestern für die Prüfung gelernt.",["habe","bin","hat","ist"],"Hilfsverb"],
+      ["Anna ___ nach der Schule nach Hause gegangen.",["hat","ist","habe","sind"],"Hilfsverb"],
+      ["Wir ___ am Wochenende Fußball gespielt.",["sind","haben","hat","seid"],"Hilfsverb"],
+      ["Paul und Mia ___ sehr spät gekommen.",["haben","seid","sind","ist"],"Hilfsverb"],
+      ["Du ___ deine Großeltern besucht.",["bist","hast","hat","habe"],"Hilfsverb"],
+      ["Ihr ___ um sieben Uhr aufgestanden.",["habt","seid","sind","ist"],"Hilfsverb"],
+      ["Mein Bruder ___ den ganzen Tag zu Hause geblieben.",["hat","ist","sind","habe"],"Hilfsverb"],
+      ["Die Lehrerin ___ die Aufgabe erklärt.",["ist","hat","haben","seid"],"Hilfsverb"],
+      ["Ich ___ mit dem Bus zur Schule gefahren.",["habe","bin","ist","hat"],"Hilfsverb"],
+      ["Die Kinder ___ schnell eingeschlafen.",["haben","sind","ist","seid"],"Hilfsverb"],
+      ["Ich habe gestern zwei Stunden Deutsch ___.",["gelernt","lernen","gelernen","lernt"],"regelmäßig"],
+      ["Wir haben im Park Fußball ___.",["gespielen","gespielt","spielen","spielt"],"regelmäßig"],
+      ["Mia hat am Samstag lange ___.",["gearbeitet","gearbeiten","arbeitet","arbeiten"],"-t/-d"],
+      ["Du hast deine Freundin in Berlin ___.",["besuchen","gebesucht","besucht","besuchet"],"untrennbar"],
+      ["Ihr habt die Hausaufgaben schnell ___.",["gemachen","gemacht","macht","machen"],"regelmäßig"],
+      ["Mein Vater hat eine Suppe ___.",["gekochen","gekocht","kocht","gekochten"],"regelmäßig"],
+      ["Wir haben drei Jahre in Hamburg ___.",["gewohnt","gewohnen","wohnt","wohnen"],"regelmäßig"],
+      ["Lena hat das Fenster ___.",["geöffnet","öffnet","geöffnen","öffnen"],"regelmäßig"],
+      ["Hast du das neue Lied schon ___?",["hören","gehört","gehören","hörte"],"regelmäßig"],
+      ["Ich habe im Supermarkt Brot ___.",["gekauft","gekaufen","kaufen","kauft"],"regelmäßig"],
+      ["Wir sind gestern nach Valparaíso ___.",["gefahrt","gefahren","fahren","gefährt"],"unregelmäßig"],
+      ["Sie ist zu Fuß zur Schule ___.",["gegeht","gegangen","gegehen","ging"],"unregelmäßig"],
+      ["Der Zug ist pünktlich ___.",["angekommen","angekommen hat","geankommen","ankommt"],"trennbar"],
+      ["Anna hat den ganzen Abend ein Buch ___.",["gelesen","geliest","geleset","lesen"],"unregelmäßig"],
+      ["Wir haben gestern einen guten Film ___.",["geseht","gesehen","gesieht","sehen"],"unregelmäßig"],
+      ["Die Schülerinnen haben lange miteinander ___.",["gesprecht","gesprochen","gesprechen","sprechen"],"unregelmäßig"],
+      ["Paul hat den letzten Bus ___.",["genehmt","genommen","genimmt","nehmen"],"unregelmäßig"],
+      ["Ich habe zum Frühstück ein Brötchen ___.",["gegesst","gegessen","geessen","essen"],"unregelmäßig"],
+      ["Du hast mir bei der Aufgabe ___.",["gehelft","geholfen","gehelfen","helfen"],"unregelmäßig"],
+      ["Mara hat gestern zehn Stunden ___.",["geschlaft","geschlafen","geschläft","schlafen"],"unregelmäßig"],
+      ["Wir haben eine E-Mail an die Lehrerin ___.",["geschreibt","geschrieben","geschreiben","schreiben"],"unregelmäßig"],
+      ["Er hat seine Wasserflasche zu Hause ___.",["vergegesst","vergessen","gevergessen","vergesst"],"untrennbar"],
+      ["Der Unterricht hat um acht Uhr ___.",["gebegonnen","beginnt","begonnen","beginnen"],"untrennbar"],
+      ["Ich habe meine Freundin am Abend ___.",["angerufen","geanruft","angeruft","anrufen"],"trennbar"],
+      ["Tom hat einen Kuchen zur Party ___.",["mitgebringt","gemitbracht","mitgebracht","mitbringen"],"trennbar"]
+    ];
+    const quiz=document.querySelector("#quiz"),events=[];let startedAt=null,fullscreenExits=0,tabChanges=0,blurCount=0,submitting=false;const esc=s=>s.replaceAll("&","&amp;").replaceAll('"',"&quot;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+    Q.forEach((q,i)=>{const s=document.createElement("section");s.className="card";s.innerHTML=`<fieldset><legend><span class="n">${i+1}</span>${q[0]}<span class="tag">${q[2]}</span></legend><div class="choices">${q[1].map(a=>`<label class="choice"><input type="radio" name="q${i+1}" value="${esc(a)}"><span>${a}</span></label>`).join("")}</div></fieldset>`;quiz.appendChild(s)});
+    const log=type=>events.push({time:new Date().toISOString(),type}),updateProgress=()=>{const n=document.querySelectorAll('#quiz input:checked').length;document.querySelector('#done').textContent=n;document.querySelector('#progress').style.width=(n/35*100)+'%'};quiz.addEventListener("change",updateProgress);
+    async function full(){try{await document.documentElement.requestFullscreen();return true}catch(e){document.querySelector("#gateMsg").textContent="Bitte erlaube den Vollbildmodus und versuche es erneut.";return false}}document.querySelector("#start").onclick=async()=>{if(await full()){startedAt=new Date();log("started_fullscreen");document.querySelector("#gate").style.display="none"}};document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement&&startedAt&&!submitting){fullscreenExits++;log("fullscreen_exit");document.querySelector("#gate").style.display="grid";document.querySelector("#start").textContent="Vollbild wieder aktivieren"}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&startedAt){tabChanges++;log("tab_hidden")}});window.addEventListener("blur",()=>{if(startedAt){blurCount++;log("window_blur")}});document.addEventListener("contextmenu",e=>e.preventDefault());
+    document.querySelector("#submit").onclick=async()=>{const status=document.querySelector("#status"),name=document.querySelector("#name").value.trim(),studentClass=document.querySelector("#class").value.trim(),answers=Q.map((_,i)=>({id:i+1,answer:(document.querySelector(`input[name="q${i+1}"]:checked`)||{}).value||""})),missing=answers.filter(x=>!x.answer).length;status.style.display="block";if(!name||!studentClass||missing){status.innerHTML=`<span class="warning">Bitte Name, Klasse und alle Antworten ausfüllen. Es fehlen ${missing} Antworten.</span>`;return}if(!startedAt){status.innerHTML='<span class="warning">Bitte starte die Aktivität erneut im Vollbildmodus.</span>';return}submitting=true;log("submitted");const end=new Date(),payload={quizId:QUIZ_ID,name,studentClass,answers,durationSeconds:Math.round((end-startedAt)/1000),fullscreenExits,tabChanges,blurCount,startTime:startedAt.toISOString(),endTime:end.toISOString(),userAgent:navigator.userAgent,eventLog:events};try{document.querySelector("#submit").disabled=true;status.textContent="Wird gesendet …";await fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});status.innerHTML='<span class="success">Deine Antworten wurden gesendet. Vielen Dank!</span>';if(document.fullscreenElement)await document.exitFullscreen()}catch(e){submitting=false;document.querySelector("#submit").disabled=false;status.innerHTML='<span class="warning">Senden fehlgeschlagen. Bitte überprüfe die Internetverbindung und versuche es erneut.</span>'}};
+  </script>
+</body></html>
