@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="google" content="notranslate">
+  <title>Präsens-Trainer · 35 Aufgaben</title>
+  <style>
+    :root{--navy:#123047;--teal:#087e8b;--gold:#f2b134;--pale:#eef8f8;--ink:#17212b;--muted:#586a75;--line:#c6d8dd;--red:#b42318;--ok:#067647}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f8fa;color:var(--ink);font:16px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif}
+    header{position:sticky;top:0;z-index:5;background:linear-gradient(115deg,var(--navy),var(--teal));color:#fff;padding:16px 22px;box-shadow:0 5px 18px #102a4330}
+    .head{width:min(980px,94vw);margin:auto;display:flex;justify-content:space-between;align-items:center;gap:22px}.head h1{margin:0;font-size:clamp(21px,3vw,31px)}.head p{margin:3px 0 0;opacity:.9}.counter{min-width:135px;text-align:center;background:#ffffff1d;border:1px solid #ffffff45;border-radius:14px;padding:8px 12px;font-weight:750}
+    .bar{height:5px;background:#ffffff30;margin-top:8px;border-radius:9px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
+    main{width:min(980px,94vw);margin:24px auto 80px}.card{background:#fff;border:1px solid #dce8eb;border-radius:17px;padding:22px;margin:16px 0;box-shadow:0 7px 24px #12304710}
+    .intro{border-left:7px solid var(--gold)}.intro h2{margin:0 0 8px;color:var(--navy)}.intro ul{margin:8px 0 0;padding-left:22px}.identity{display:grid;grid-template-columns:2fr 1fr;gap:15px}.identity label{font-weight:750}.identity input{width:100%;margin-top:6px;padding:12px;border:1px solid #9db7c0;border-radius:10px;font:inherit}
+    fieldset{border:0;margin:0;padding:0}legend{font-weight:760;margin-bottom:13px}.n{display:inline-grid;place-items:center;width:33px;height:33px;border-radius:50%;background:var(--navy);color:#fff;margin-right:9px}.tag{display:inline-block;margin-left:8px;padding:3px 8px;border-radius:999px;background:var(--pale);color:var(--teal);font-size:12px;font-weight:800;vertical-align:middle}
+    .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--line);border-radius:11px;padding:11px;cursor:pointer;transition:.15s}.choice:hover{background:var(--pale);border-color:var(--teal)}.choice:has(input:checked){background:#e4f5f5;border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal)}.choice input{margin-top:4px;accent-color:var(--teal)}
+    button{border:0;border-radius:12px;padding:13px 18px;font:700 16px inherit;cursor:pointer}.primary{background:var(--teal);color:#fff}.primary:hover{filter:brightness(.94)}.secondary{background:#fff;color:var(--navy)}#submit{width:100%;font-size:18px}.status{display:none;margin-top:14px;padding:14px;border-radius:11px;background:var(--pale)}.warning{color:var(--red);font-weight:750}.success{color:var(--ok);font-weight:750}
+    #gate{position:fixed;inset:0;z-index:20;background:linear-gradient(145deg,#102a43ee,#087e8bee);display:grid;place-items:center;padding:20px}.gatebox{max-width:630px;background:#fff;border-radius:21px;padding:30px;text-align:center;box-shadow:0 20px 60px #0005}.gatebox h2{margin-top:0;color:var(--navy)}
+    @media(max-width:690px){.identity,.choices{grid-template-columns:1fr}.card{padding:17px}.head{align-items:flex-start}.counter{min-width:112px;font-size:14px}}
+  </style>
+</head>
+<body class="notranslate" translate="no">
+  <div id="gate"><div class="gatebox"><h2>Präsens-Trainer</h2><p>35 Aufgaben zu regelmäßigen und unregelmäßigen Verben. Die Aktivität wird im Vollbildmodus durchgeführt; das Verlassen des Vollbilds sowie Tab- und Fokuswechsel werden protokolliert.</p><button class="primary" id="start">Aktivität starten</button><p id="gateMsg" class="warning"></p></div></div>
+  <header><div class="head"><div><h1>Präsens-Trainer</h1><p>Regelmäßige und unregelmäßige Verben · 35 Aufgaben</p></div><div class="counter"><span id="done">0</span> / 35 beantwortet<div class="bar"><span id="progress"></span></div></div></div></header>
+  <main>
+    <section class="card intro"><h2>Arbeitsauftrag</h2><ul><li>Wähle für jeden Satz die richtige Verbform im Präsens.</li><li>Achte auf das Subjekt, die Personalendung und mögliche Vokalwechsel.</li><li>Beantworte alle Aufgaben und sende deine Lösungen anschließend ab.</li></ul></section>
+    <section class="card identity"><label>Name<input id="name" autocomplete="name" required></label><label>Klasse<input id="class" required></label></section>
+    <form id="quiz"></form>
+    <button id="submit" class="primary" type="button">Antworten senden</button>
+    <div id="status" class="status" role="status"></div>
+  </main>
+  <script>
+    const WEB_APP_URL="https://script.google.com/macros/s/AKfycbxctYIuXV8tprsDRxJkpWmluTmg3s-BqGW_WfEu8oTGqp7a8awjTdNPhTJub7iwjEnM/exec";
+    const QUIZ_ID="praesens-a1a2-35";
+    const Q=[
+      ["Ich ___ jeden Abend Deutsch.",["lerne","lernst","lernt","lernen"],"regelmäßig"],
+      ["Du ___ in der Nähe der Schule.",["wohne","wohnst","wohnt","wohnen"],"regelmäßig"],
+      ["Mein Bruder ___ morgens Sport.",["mache","machst","macht","machen"],"regelmäßig"],
+      ["Wir ___ am Wochenende Fußball.",["spiele","spielst","spielt","spielen"],"regelmäßig"],
+      ["Frau Keller ___ in einem Krankenhaus.",["arbeite","arbeitest","arbeitet","arbeiten"],"-t/-d"],
+      ["Ihr ___ im Sommer nach Österreich.",["reise","reist","reisen","reiset"],"regelmäßig"],
+      ["Paul ___ sehr gern Salsa.",["tanze","tanzt","tanzst","tanzen"],"-s/-ß/-z"],
+      ["Ich ___ Emilia.",["heiße","heißt","heißen","heißest"],"-s/-ß/-z"],
+      ["Der Lehrer ___ langsam und deutlich.",["rede","redest","redet","reden"],"-t/-d"],
+      ["Das Museum ___ um zehn Uhr.",["öffne","öffnest","öffnet","öffnen"],"regelmäßig"],
+      ["Du ___ jeden Tag mit dem Bus zur Schule.",["fahrst","fährst","fahrt","fährt"],"Vokalwechsel"],
+      ["Anna ___ gerade einen spannenden Roman.",["lese","liest","lest","lesen"],"Vokalwechsel"],
+      ["Er ___ seine Freunde jeden Nachmittag.",["sehe","siehst","sieht","sehen"],"Vokalwechsel"],
+      ["Du ___ schon sehr gut Deutsch.",["spreche","sprichst","spricht","sprecht"],"Vokalwechsel"],
+      ["Herr Braun ___ morgens immer den Zug.",["nehmt","nimmt","nehme","nehmen"],"Vokalwechsel"],
+      ["Lisa ___ in der Pause einen Apfel.",["esse","isst","esst","essen"],"Vokalwechsel"],
+      ["Der Kursleiter ___ uns viele Beispiele.",["gebe","gibst","gibt","geben"],"Vokalwechsel"],
+      ["Du ___ deiner Schwester bei den Hausaufgaben.",["helfst","hilfst","hilft","helfen"],"Vokalwechsel"],
+      ["Das Baby ___ heute sehr ruhig.",["schlaft","schläft","schlafst","schlafen"],"Vokalwechsel"],
+      ["Du ___ jeden Morgen fünf Kilometer.",["laufst","läufst","läuft","laufen"],"Vokalwechsel"],
+      ["Meine Mutter ___ heute einen blauen Mantel.",["trage","trägst","trägt","tragen"],"Vokalwechsel"],
+      ["Max ___ seine Freunde vor dem Kino.",["treffe","triffst","trifft","treffen"],"Vokalwechsel"],
+      ["Du ___ oft deinen Schlüssel.",["vergesst","vergisst","vergesse","vergessen"],"Vokalwechsel"],
+      ["Mein Vater ___ am Samstag das Auto.",["wasche","wäschst","wäscht","waschen"],"Vokalwechsel"],
+      ["Der Bus ___ direkt vor der Schule.",["halte","hältst","hält","halten"],"Vokalwechsel"],
+      ["Ich ___ heute sehr müde.",["bin","bist","ist","sind"],"sein"],
+      ["Ihr ___ mit der Aufgabe schon fertig.",["seid","seit","sind","bist"],"sein"],
+      ["Das Wetter ___ heute schön.",["bin","bist","ist","seid"],"sein"],
+      ["Du ___ am Freitag Geburtstag.",["habe","hast","hat","haben"],"haben"],
+      ["Unsere Schule ___ eine große Bibliothek.",["habe","hast","hat","haben"],"haben"],
+      ["Wir ___ später Ärztinnen und Ärzte.",["werde","wirst","wird","werden"],"werden"],
+      ["Im Winter ___ es früh dunkel.",["werde","wirst","wird","werden"],"werden"],
+      ["Du ___ die Antwort bestimmt.",["weiß","weißt","wisst","wissen"],"unregelmäßig"],
+      ["Mia ___ sehr gut Klavier spielen.",["kann","kannst","könnt","können"],"Modalverb"],
+      ["Ich ___ morgen früh aufstehen.",["muss","musst","müsst","müssen"],"Modalverb"]
+    ];
+    const quiz=document.querySelector("#quiz"),events=[];let startedAt=null,fullscreenExits=0,tabChanges=0,blurCount=0,submitting=false;
+    const esc=s=>s.replaceAll("&","&amp;").replaceAll('"',"&quot;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+    Q.forEach((q,i)=>{const s=document.createElement("section");s.className="card";s.innerHTML=`<fieldset><legend><span class="n">${i+1}</span>${q[0]}<span class="tag">${q[2]}</span></legend><div class="choices">${q[1].map(a=>`<label class="choice"><input type="radio" name="q${i+1}" value="${esc(a)}"><span>${a}</span></label>`).join("")}</div></fieldset>`;quiz.appendChild(s)});
+    const log=type=>events.push({time:new Date().toISOString(),type});
+    const updateProgress=()=>{const n=document.querySelectorAll('#quiz input:checked').length;document.querySelector('#done').textContent=n;document.querySelector('#progress').style.width=(n/35*100)+'%'};
+    quiz.addEventListener("change",updateProgress);
+    async function full(){try{await document.documentElement.requestFullscreen();return true}catch(e){document.querySelector("#gateMsg").textContent="Bitte erlaube den Vollbildmodus und versuche es erneut.";return false}}
+    document.querySelector("#start").onclick=async()=>{if(await full()){startedAt=new Date();log("started_fullscreen");document.querySelector("#gate").style.display="none"}};
+    document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement&&startedAt&&!submitting){fullscreenExits++;log("fullscreen_exit");document.querySelector("#gate").style.display="grid";document.querySelector("#start").textContent="Vollbild wieder aktivieren"}});
+    document.addEventListener("visibilitychange",()=>{if(document.hidden&&startedAt){tabChanges++;log("tab_hidden")}});window.addEventListener("blur",()=>{if(startedAt){blurCount++;log("window_blur")}});document.addEventListener("contextmenu",e=>e.preventDefault());
+    document.querySelector("#submit").onclick=async()=>{const status=document.querySelector("#status"),name=document.querySelector("#name").value.trim(),studentClass=document.querySelector("#class").value.trim();const answers=Q.map((_,i)=>({id:i+1,answer:(document.querySelector(`input[name="q${i+1}"]:checked`)||{}).value||""}));const missing=answers.filter(x=>!x.answer).length;status.style.display="block";if(!name||!studentClass||missing){status.innerHTML=`<span class="warning">Bitte Name, Klasse und alle Antworten ausfüllen. Es fehlen ${missing} Antworten.</span>`;return}if(!startedAt){status.innerHTML='<span class="warning">Bitte starte die Aktivität erneut im Vollbildmodus.</span>';return}submitting=true;log("submitted");const end=new Date();const payload={quizId:QUIZ_ID,name,studentClass,answers,durationSeconds:Math.round((end-startedAt)/1000),fullscreenExits,tabChanges,blurCount,startTime:startedAt.toISOString(),endTime:end.toISOString(),userAgent:navigator.userAgent,eventLog:events};try{document.querySelector("#submit").disabled=true;status.textContent="Wird gesendet …";await fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});status.innerHTML='<span class="success">Deine Antworten wurden gesendet. Vielen Dank!</span>';if(document.fullscreenElement)await document.exitFullscreen()}catch(e){submitting=false;document.querySelector("#submit").disabled=false;status.innerHTML='<span class="warning">Senden fehlgeschlagen. Bitte überprüfe die Internetverbindung und versuche es erneut.</span>'}};
+  </script>
+</body>
+</html>
