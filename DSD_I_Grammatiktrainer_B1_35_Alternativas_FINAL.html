@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="de" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="de">
+<title>DSD I – Grammatiktrainer B1</title>
+<style>
+:root{--bg:#eef2f7;--card:#fff;--text:#1f2937;--muted:#667085;--border:#d9e0e8;--primary:#1d4ed8;--primary2:#1e40af;--warning:#fff7ed;--danger:#b42318;--ok:#067647}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+.container{max-width:980px;margin:0 auto;padding:24px}
+.header{background:linear-gradient(135deg,#172554,#1d4ed8);color:white;border-radius:18px;padding:28px;margin-bottom:20px;box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.header h1{margin:0 0 8px;font-size:2rem}
+.header p{margin:4px 0;color:#dbeafe}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.info-grid input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.4);background:#fff;font-size:1rem}
+.statusbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:18px}
+.badge{padding:6px 10px;border-radius:999px;background:#eef2ff}
+.exercise{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 4px 14px rgba(16,24,40,.04)}
+.exercise .n{font-weight:700;color:var(--primary);margin-right:6px}
+.exercise p{margin:0 0 12px}
+select{width:100%;padding:11px 12px;border:1px solid #b9c2cf;border-radius:9px;font-size:1rem;background:white}
+.footer{background:white;border:1px solid var(--border);border-radius:14px;padding:20px;margin:24px 0 40px}
+button{border:0;border-radius:10px;padding:13px 18px;font-size:1rem;font-weight:700;cursor:pointer}
+.primary{background:var(--primary);color:white}
+.primary:hover{background:var(--primary2)}
+.full{width:100%}
+#startOverlay,#fsOverlay{position:fixed;inset:0;background:rgba(15,23,42,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px}
+#fsOverlay{display:none}
+.modal{max-width:620px;background:white;border-radius:18px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.warning{background:var(--warning);border:1px solid #fed7aa;padding:12px;border-radius:10px}
+#sendStatus{margin-top:12px;font-weight:700}
+.small{font-size:.9rem;color:var(--muted)}
+.locked{pointer-events:none;opacity:.7}
+@media(max-width:700px){.info-grid{grid-template-columns:1fr}.container{padding:12px}.header{padding:20px}}
+</style>
+</head>
+<body translate="no" class="notranslate">
+
+<div id="startOverlay">
+  <div class="modal notranslate" translate="no">
+    <h2>DSD I – Grammatiktrainer B1</h2>
+    <p>Du bearbeitest <strong>35 gemischte Multiple-Choice-Aufgaben</strong>.</p>
+    <div class="warning"><strong>Wichtig:</strong> Die Aufgabe wird im Vollbildmodus durchgeführt. Das Verlassen des Vollbildmodus oder der Seite wird protokolliert.</div>
+    <p class="small">Automatische Browser-Übersetzung kann technisch nicht vollständig blockiert werden. Diese Seite ist jedoch ausdrücklich als „nicht übersetzen“ markiert.</p>
+    <button class="primary full" onclick="startExam()">Starten</button>
+  </div>
+</div>
+
+<div id="fsOverlay">
+  <div class="modal">
+    <h2>Vollbildmodus verlassen</h2>
+    <p>Das Verlassen des Vollbildmodus wurde registriert.</p>
+    <button class="primary full" onclick="returnFullscreen()">Zurück zum Vollbild</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="header">
+    <h1>DSD I – Grammatiktrainer B1</h1>
+    <p>35 gemischte Aufgaben · 4 Alternativen pro Aufgabe</p>
+    <div class="info-grid">
+      <input id="studentName" type="text" placeholder="Name" autocomplete="off" spellcheck="false">
+      <input id="studentClass" type="text" placeholder="Klasse / Kurs" autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+
+  <div class="statusbar">
+    <span class="badge">Aufgaben: 35</span>
+    <span class="badge">Vollbild-Verlassen: <strong id="fsCount">0</strong></span>
+    <span class="badge">Seitenwechsel: <strong id="tabCount">0</strong></span>
+    <span class="badge">Fensterfokus verloren: <strong id="blurCount">0</strong></span>
+  </div>
+
+  <form id="quizForm" autocomplete="off" translate="no">
+    
+    <div class="exercise" data-id="1">
+      <p><span class="n">1.</span>Ich höre beim Lernen leise Musik, ___ ich mich dann besser konzentrieren kann.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="obwohl">obwohl</option><option value="weil">weil</option><option value="dass">dass</option><option value="wenn">wenn</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="2">
+      <p><span class="n">2.</span>Wenn ich mehr Zeit ___, würde ich jeden Tag lesen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="habe">habe</option><option value="hatte">hatte</option><option value="hätte">hätte</option><option value="haben">haben</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="3">
+      <p><span class="n">3.</span>Der Film, ___ wir gestern gesehen haben, war sehr spannend.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="der">der</option><option value="den">den</option><option value="dem">dem</option><option value="dessen">dessen</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="4">
+      <p><span class="n">4.</span>Ich ___ gern länger in Deutschland bleiben.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="werde">werde</option><option value="würde">würde</option><option value="wurde">wurde</option><option value="war">war</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="5">
+      <p><span class="n">5.</span>Das Fahrrad ___ jeden Tag benutzt.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="wird">wird</option><option value="wurde">wurde</option><option value="ist">ist</option><option value="hat">hat</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="6">
+      <p><span class="n">6.</span>Viele Jugendliche interessieren sich ___ soziale Medien.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="an">an</option><option value="für">für</option><option value="über">über</option><option value="mit">mit</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="7">
+      <p><span class="n">7.</span>Wir besuchen morgen einen ___ Schüler aus Österreich.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="neue">neue</option><option value="neuen">neuen</option><option value="neuer">neuer</option><option value="neues">neues</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="8">
+      <p><span class="n">8.</span>Ich ___ gestern meine Hausaufgaben gemacht.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="bin">bin</option><option value="habe">habe</option><option value="hatte">hatte</option><option value="werde">werde</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="9">
+      <p><span class="n">9.</span>Weißt du, ___ der Bus schon abgefahren ist?</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="dass">dass</option><option value="ob">ob</option><option value="weil">weil</option><option value="wenn">wenn</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="10">
+      <p><span class="n">10.</span>Der Lehrer spricht langsam, ___ alle ihn verstehen können.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="um">um</option><option value="damit">damit</option><option value="weil">weil</option><option value="obwohl">obwohl</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="11">
+      <p><span class="n">11.</span>Ich glaube, ___ Deutsch wichtig ist.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="ob">ob</option><option value="weil">weil</option><option value="dass">dass</option><option value="wenn">wenn</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="12">
+      <p><span class="n">12.</span>Letztes Jahr ___ unsere Klasse in Berlin.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="ist">ist</option><option value="war">war</option><option value="wäre">wäre</option><option value="wird">wird</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="13">
+      <p><span class="n">13.</span>Ich freue mich schon ___ die Ferien.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="über">über</option><option value="auf">auf</option><option value="an">an</option><option value="mit">mit</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="14">
+      <p><span class="n">14.</span>Der Schüler, ___ neben mir sitzt, kommt aus Chile.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="den">den</option><option value="dem">dem</option><option value="der">der</option><option value="dessen">dessen</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="15">
+      <p><span class="n">15.</span>Nächstes Jahr ___ viele Schülerinnen am Austausch teilnehmen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="wurden">wurden</option><option value="würden">würden</option><option value="werden">werden</option><option value="waren">waren</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="16">
+      <p><span class="n">16.</span>Ich möchte wissen, wann der Unterricht ___.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="beginnt">beginnt</option><option value="beginnen">beginnen</option><option value="begann">begann</option><option value="begonnen">begonnen</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="17">
+      <p><span class="n">17.</span>___ es regnete, gingen wir spazieren.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="Weil">Weil</option><option value="Obwohl">Obwohl</option><option value="Damit">Damit</option><option value="Deshalb">Deshalb</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="18">
+      <p><span class="n">18.</span>Das ist ein wirklich ___ Beispiel.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="guter">guter</option><option value="gutes">gutes</option><option value="guten">guten</option><option value="gute">gute</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="19">
+      <p><span class="n">19.</span>Die Tickets ___ gestern verkauft.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="wurden">wurden</option><option value="werden">werden</option><option value="sind">sind</option><option value="haben">haben</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="20">
+      <p><span class="n">20.</span>Er erinnert sich gern ___ seine Schulzeit.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="an">an</option><option value="für">für</option><option value="über">über</option><option value="mit">mit</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="21">
+      <p><span class="n">21.</span>Ich war müde. ___ bin ich früh ins Bett gegangen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="Obwohl">Obwohl</option><option value="Deshalb">Deshalb</option><option value="Weil">Weil</option><option value="Trotzdem">Trotzdem</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="22">
+      <p><span class="n">22.</span>Ich treibe regelmäßig Sport, ___ fit zu bleiben.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="damit">damit</option><option value="um">um</option><option value="weil">weil</option><option value="obwohl">obwohl</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="23">
+      <p><span class="n">23.</span>Der Lehrer, mit ___ wir gesprochen haben, kommt aus Hamburg.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="der">der</option><option value="dem">dem</option><option value="den">den</option><option value="dessen">dessen</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="24">
+      <p><span class="n">24.</span>Mit mehr Geld ___ ich öfter reisen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="konnte">konnte</option><option value="könnte">könnte</option><option value="kann">kann</option><option value="werde">werde</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="25">
+      <p><span class="n">25.</span>Wir ___ im Sommer nach Deutschland fliegen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="würden">würden</option><option value="werden">werden</option><option value="wurden">wurden</option><option value="waren">waren</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="26">
+      <p><span class="n">26.</span>Die Schülerinnen diskutieren ___ die Vorteile von KI.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="über">über</option><option value="für">für</option><option value="an">an</option><option value="auf">auf</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="27">
+      <p><span class="n">27.</span>Nachdem ich gegessen ___, machte ich meine Hausaufgaben.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="habe">habe</option><option value="hatte">hatte</option><option value="bin">bin</option><option value="war">war</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="28">
+      <p><span class="n">28.</span>Ich ___ heute noch für die Prüfung lernen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="muss">muss</option><option value="musste">musste</option><option value="müsste">müsste</option><option value="werde">werde</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="29">
+      <p><span class="n">29.</span>Seit ich Deutsch ___, interessiere ich mich mehr für Deutschland.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="lernte">lernte</option><option value="gelernt">gelernt</option><option value="lerne">lerne</option><option value="lernen">lernen</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="30">
+      <p><span class="n">30.</span>Der Autor, ___ Buch wir lesen, lebt in München.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="deren">deren</option><option value="dessen">dessen</option><option value="dem">dem</option><option value="den">den</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="31">
+      <p><span class="n">31.</span>Die Schule ist vor hundert Jahren gebaut ___.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="geworden">geworden</option><option value="worden">worden</option><option value="werden">werden</option><option value="wurde">wurde</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="32">
+      <p><span class="n">32.</span>Kannst du mir sagen, wie viel das Ticket ___?</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="kostet">kostet</option><option value="kosten">kosten</option><option value="kostete">kostete</option><option value="gekostet">gekostet</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="33">
+      <p><span class="n">33.</span>Es war sehr kalt. ___ gingen wir schwimmen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="Deshalb">Deshalb</option><option value="Trotzdem">Trotzdem</option><option value="Weil">Weil</option><option value="Obwohl">Obwohl</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="34">
+      <p><span class="n">34.</span>Wenn ich in Deutschland ___, würde ich jeden Tag Deutsch sprechen.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="bin">bin</option><option value="war">war</option><option value="wäre">wäre</option><option value="werde">werde</option>
+      </select>
+    </div>
+    <div class="exercise" data-id="35">
+      <p><span class="n">35.</span>Sie lernt viel, ___ sie die Prüfung bestehen möchte.</p>
+      <select>
+        <option value="">Bitte wählen</option>
+        <option value="obwohl">obwohl</option><option value="weil">weil</option><option value="damit">damit</option><option value="trotzdem">trotzdem</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="footer">
+    <p><strong>Vor dem Senden:</strong> Kontrolliere Name, Klasse und alle Antworten.</p>
+    <button id="sendBtn" class="primary full" onclick="submitAnswers()">Antworten senden</button>
+    <div id="sendStatus"></div>
+  </div>
+</div>
+
+<script>
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+let started=false, submitted=false, startTime=null;
+let fullscreenExits=0, tabChanges=0, blurCount=0, eventLog=[];
+let ignoreNextFsChange=false;
+
+function logEvent(type){ eventLog.push({type:type,time:new Date().toISOString()}); }
+
+async function startExam(){
+  if(started) return;
+  try{ if(document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen(); }catch(e){}
+  started=true; startTime=new Date(); logEvent("exam_started");
+  document.getElementById("startOverlay").style.display="none";
+}
+
+async function returnFullscreen(){
+  try{
+    if(!document.fullscreenElement && document.documentElement.requestFullscreen){
+      ignoreNextFsChange=true;
+      await document.documentElement.requestFullscreen();
+    }
+  }catch(e){}
+  document.getElementById("fsOverlay").style.display="none";
+}
+
+document.addEventListener("fullscreenchange",()=>{
+  if(!started||submitted) return;
+  if(ignoreNextFsChange){ignoreNextFsChange=false;return;}
+  if(!document.fullscreenElement){
+    fullscreenExits++;
+    document.getElementById("fsCount").textContent=fullscreenExits;
+    logEvent("fullscreen_exit");
+    document.getElementById("fsOverlay").style.display="flex";
+  } else {
+    logEvent("fullscreen_enter");
+    document.getElementById("fsOverlay").style.display="none";
+  }
+});
+
+document.addEventListener("visibilitychange",()=>{
+  if(!started||submitted) return;
+  if(document.hidden){
+    tabChanges++;
+    document.getElementById("tabCount").textContent=tabChanges;
+    logEvent("page_hidden");
+  } else logEvent("page_visible");
+});
+
+window.addEventListener("blur",()=>{
+  if(!started||submitted) return;
+  blurCount++;
+  document.getElementById("blurCount").textContent=blurCount;
+  logEvent("window_blur");
+});
+
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("copy",e=>{if(started&&!submitted)e.preventDefault();});
+window.addEventListener("beforeunload",e=>{if(started&&!submitted){e.preventDefault();e.returnValue="";}});
+
+function collectAnswers(){
+  return Array.from(document.querySelectorAll(".exercise")).map(ex=>({
+    id:Number(ex.dataset.id),
+    answer:ex.querySelector("select").value.trim()
+  }));
+}
+
+async function submitAnswers(){
+  if(submitted) return;
+
+  const name=document.getElementById("studentName").value.trim();
+  const studentClass=document.getElementById("studentClass").value.trim();
+  const status=document.getElementById("sendStatus");
+
+  if(!name||!studentClass){
+    status.style.color="#b42318";
+    status.textContent="Bitte Name und Klasse eintragen.";
+    return;
+  }
+
+  const answers=collectAnswers();
+  const missing=answers.filter(x=>!x.answer).length;
+  if(missing>0 && !confirm(`Du hast ${missing} Aufgabe(n) nicht beantwortet. Trotzdem senden?`)) return;
+
+  if(GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")){
+    status.style.color="#b42318";
+    status.textContent="Google-Sheets-Verbindung ist noch nicht eingerichtet.";
+    return;
+  }
+
+  const endTime=new Date();
+  const payload={
+    name,
+    studentClass,
+    timestamp:endTime.toISOString(),
+    startTime:startTime?startTime.toISOString():null,
+    endTime:endTime.toISOString(),
+    durationSeconds:startTime?Math.round((endTime-startTime)/1000):null,
+    fullscreenExits,
+    tabChanges,
+    blurCount,
+    answers,
+    eventLog,
+    userAgent:navigator.userAgent
+  };
+
+  document.getElementById("sendBtn").disabled=true;
+  status.style.color="#1d4ed8";
+  status.textContent="Antworten werden gesendet …";
+
+  try{
+    await fetch(GOOGLE_SCRIPT_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload)
+    });
+    submitted=true;
+    status.style.color="#067647";
+    status.textContent="Antworten wurden gesendet.";
+    document.getElementById("quizForm").classList.add("locked");
+    document.getElementById("sendBtn").style.display="none";
+    if(document.fullscreenElement && document.exitFullscreen) await document.exitFullscreen();
+  }catch(err){
+    document.getElementById("sendBtn").disabled=false;
+    status.style.color="#b42318";
+    status.textContent="Senden fehlgeschlagen. Bitte Internetverbindung prüfen.";
+  }
+}
+</script>
+</body>
+</html>
