@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interaktives Arbeitsblatt zur tagesschau in Einfacher Sprache vom 3. Oktober 2026.">
+  <title>Arbeitsblatt | tagesschau in Einfacher Sprache | 03.10.2026</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><div class="header-inner">
+    <span class="pill">DEUTSCH · A2–B1 · HÖR-SEH-VERSTEHEN</span>
+    <h1>Nachrichten verstehen und darüber sprechen</h1>
+    <p>Arbeitsblatt zur <em>tagesschau in Einfacher Sprache</em> vom 3. Oktober 2026</p>
+  </div></header>
+
+  <main>
+    <noscript><p class="note wrong">Für dieses Arbeitsblatt muss JavaScript aktiviert sein.</p></noscript>
+    <form id="worksheet" autocomplete="on">
+      <section class="card">
+        <div class="grid">
+          <div><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="Vor- und Nachname" required></div>
+          <div><label for="klasse">Klasse / Datum</label><input id="klasse" name="klasse" type="text" placeholder="z. B. 10. Klasse / …" required></div>
+        </div>
+        <p><span class="tag">ZIELE</span> Hauptinformationen verstehen · Schlüsselwörter erkennen · Nachrichten vergleichen · eine Meinung begründen</p>
+        <p class="note"><strong>Video:</strong> <a href="https://www.tagesschau.de/tagesschau_in_einfacher_sprache/tse-1462.html" target="_blank" rel="noopener noreferrer">Originalsendung auf tagesschau.de öffnen ↗</a><br><span class="small">Bearbeite die Aufgaben mit dem Originalvideo. Die Sendung ist nicht auf dieser Seite eingebettet.</span></p>
+      </section>
+
+      <section class="card">
+        <h2>1 · Vor dem Sehen – Einstieg <span class="pill">5 Min.</span></h2>
+        <label for="v1">A. Welche Themen erwartest du in den Nachrichten? Nenne drei.</label><textarea id="v1" name="v1" placeholder="Ich erwarte Nachrichten über …"></textarea>
+        <label for="v2">B. Was bedeutet „einfache Sprache“? Erkläre in ein bis zwei Sätzen.</label><textarea id="v2" name="v2" placeholder="Das bedeutet, dass …"></textarea>
+      </section>
+
+      <section class="card">
+        <h2>2 · Erstes Sehen – Überblick <span class="pill">10 Min.</span></h2>
+        <p>Sieh dir die Sendung möglichst ohne Unterbrechung an. Notiere Stichwörter.</p>
+        <label for="g1">A. Welche drei Themen hast du erkannt?</label><textarea id="g1" name="g1" placeholder="1. …&#10;2. …&#10;3. …"></textarea>
+        <label for="g2">B. Welches Thema findest du besonders wichtig? Warum?</label><textarea id="g2" name="g2" placeholder="Ich finde … wichtig, weil …"></textarea>
+        <label for="g3">C. Notiere zwei Wörter, die du gehört hast, aber noch nicht sicher verstehst.</label><textarea id="g3" name="g3" placeholder="Wort 1: …&#10;Wort 2: …"></textarea>
+      </section>
+
+      <section class="card">
+        <h2>3 · Zweites Sehen – Genau verstehen <span class="pill">12 Min.</span></h2>
+        <p>Wähle <strong>eine konkrete Meldung</strong> aus dem Video. Stoppe das Video bei Bedarf.</p>
+        <label for="detail1">A. Was ist passiert? (Was?)</label><textarea id="detail1" name="detail1"></textarea>
+        <div class="grid">
+          <div><label for="detail2">B. Wo ist es passiert? (Wo?)</label><input id="detail2" name="detail2" type="text"></div>
+          <div><label for="detail3">C. Welche Personen oder Gruppen sind beteiligt? (Wer?)</label><input id="detail3" name="detail3" type="text"></div>
+        </div>
+        <label for="detail4">D. Warum ist diese Nachricht wichtig? (Warum?)</label><textarea id="detail4" name="detail4"></textarea>
+        <label for="detail5">E. Was wurde im Beitrag gesagt? Was ist deine eigene Meinung? Schreibe je einen Satz.</label><textarea id="detail5" name="detail5" placeholder="In der Nachricht heißt es, dass …&#10;Meiner Meinung nach …"></textarea>
+      </section>
+
+      <section class="card">
+        <h2>4 · Multiple Choice – Nachrichtenkompetenz <span class="pill">8 Min.</span></h2>
+        <p class="muted small">Diese Fragen testen den richtigen Umgang mit Nachrichtensendungen. Sie sind nicht als Behauptungen über konkrete Meldungen der Ausgabe zu verstehen.</p>
+        <div id="quiz"></div>
+        <div class="buttons"><button id="checkQuiz" type="button">Antworten prüfen</button><button id="resetQuiz" class="secondary" type="button">Antworten zurücksetzen</button></div>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="card">
+        <h2>5 · Wortschatz und Redemittel <span class="pill">7 Min.</span></h2>
+        <p>Ordne die Wörter ihrer Bedeutung zu.</p><div id="vocab"></div>
+        <div class="buttons"><button id="checkVocab" type="button">Wortschatz prüfen</button></div>
+        <p id="vfeedback" class="feedback" aria-live="polite"></p>
+        <p><strong>Redemittel:</strong> <em>In der Sendung geht es um … · Zuerst wird über … berichtet. · Danach … · Die wichtigste Information ist … · Ich denke, dass … · Das ist wichtig, weil …</em></p>
+      </section>
+
+      <section class="card">
+        <h2>6 · Sprechen – Partnerarbeit <span class="pill">8 Min.</span></h2>
+        <p>Besprecht zu zweit die folgenden Fragen. Benutzt mindestens drei Redemittel.</p>
+        <ol><li>Welche Nachricht hat dich am meisten überrascht? Warum?</li><li>Welche Informationen fehlen dir noch?</li><li>Gibt es ein ähnliches Thema in Chile?</li><li>Warum sind zuverlässige Nachrichten wichtig?</li></ol>
+        <label for="spoken">Notiere zwei Argumente aus eurem Gespräch.</label><textarea id="spoken" name="spoken"></textarea>
+      </section>
+
+      <section class="card">
+        <h2>7 · Schreiben – Meine Nachrichtenzusammenfassung <span class="pill">10 Min.</span></h2>
+        <p>Schreibe <strong>70–90 Wörter</strong> über eine Nachricht aus der Sendung. Beschreibe die Fakten und ergänze deine Meinung. Verwende mindestens zwei Konnektoren: <em>weil, deshalb, aber, obwohl, außerdem</em>.</p>
+        <textarea id="summary" name="summary" class="summary" placeholder="In der tagesschau in Einfacher Sprache geht es unter anderem um …"></textarea><p id="count" class="muted small">0 Wörter</p>
+      </section>
+
+      <section class="card">
+        <h2>8 · Selbsteinschätzung – Exit-Ticket <span class="pill">3 Min.</span></h2>
+        <div class="table-wrap"><table><thead><tr><th>Ich kann …</th><th>Meine Einschätzung</th></tr></thead><tbody>
+          <tr><td>die Hauptthemen erkennen.</td><td><select id="self1" name="self1"><option value="">Bitte wählen</option><option>Ja</option><option>Teilweise</option><option>Noch nicht</option></select></td></tr>
+          <tr><td>eine Nachricht auf Deutsch zusammenfassen.</td><td><select id="self2" name="self2"><option value="">Bitte wählen</option><option>Ja</option><option>Teilweise</option><option>Noch nicht</option></select></td></tr>
+          <tr><td>meine Meinung begründen.</td><td><select id="self3" name="self3"><option value="">Bitte wählen</option><option>Ja</option><option>Teilweise</option><option>Noch nicht</option></select></td></tr>
+        </tbody></table></div>
+        <label for="exit">Ein Wort oder Ausdruck, den ich heute gelernt habe:</label><input id="exit" name="exit" type="text">
+      </section>
+
+      <section class="card" id="scoreSection">
+        <h2>Meine Ergebnisse</h2>
+        <p>Die automatisch korrigierten Aufgaben betreffen Nachrichtenkompetenz und Wortschatz. Die Hörverstehensantworten überprüft die Lehrkraft anhand des Videos.</p>
+        <div id="scores" class="note">Noch nicht geprüft.</div>
+        <div class="buttons"><button id="printButton" type="button">Drucken / als PDF speichern</button><button id="downloadButton" type="button" class="secondary">Antworten herunterladen (.txt)</button><button id="clearButton" type="button" class="outline">Alles löschen</button></div>
+        <div class="note send-box">
+          <strong>Ergebnisse an die Lehrkraft senden</strong>
+          <p class="small">Name, Klasse, Antworten und Punktestand werden an das Google Sheet der Lehrkraft übermittelt. Die Antworten bleiben zusätzlich in diesem Browser gespeichert, bis du sie löschst.</p>
+          <label class="consent"><input id="consent" type="checkbox"> Ich habe die Angaben überprüft und möchte sie an die Lehrkraft senden.</label>
+          <div class="buttons"><button id="sendButton" type="button">Ergebnisse an Google Sheets senden</button></div>
+          <p id="sendStatus" class="feedback" role="status" aria-live="polite">Noch nicht gesendet.</p>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer>Didaktisches Arbeitsblatt · Quelle: ARD / tagesschau in Einfacher Sprache, Sendung vom 03.10.2026 · Nur Link auf das Originalvideo, kein übernommenes Videomaterial.</footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
