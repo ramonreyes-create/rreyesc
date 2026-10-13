@@ -1,6 +1,6 @@
 "use strict";
 
-const STORAGE_KEY = "tse-03102026-arbeitsblatt-v2";
+const STORAGE_KEY = "tse-03102026-arbeitsblatt-v3";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzd2Mg6wHvVk83LjKshehg5px_5dZkbfVDZYHS5jT9YyT9_mBSIkC60ff1lNnyb6vCBGw/exec";
 
 const questions = [
