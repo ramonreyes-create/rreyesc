@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arbeitsblatt B2 Nachhaltig reisen</title>
+  <style>
+    :root {
+      --ink: #1c2528;
+      --muted: #52666d;
+      --accent: #244c5a;
+      --accent-soft: #eff5f6;
+      --line: #d9dfe1;
+      --paper: #ffffff;
+      --background: #e9eef0;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--background); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Aptos, "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.46;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      background: rgba(36, 76, 90, 0.96);
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+    .toolbar button {
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 7px;
+      padding: 8px 16px;
+      color: #fff;
+      background: transparent;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    main { padding: 24px 0 48px; }
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto 24px;
+      padding: .64in .75in .7in;
+      background: var(--paper);
+      box-shadow: 0 8px 28px rgba(29, 48, 55, .16);
+      break-after: page;
+    }
+    .page:last-child { break-after: auto; }
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-align: right;
+    }
+    h1, h2, h3 { color: #000; }
+    h1 {
+      margin: 0 0 2px;
+      font-size: 34px;
+      line-height: 1.1;
+    }
+    .subtitle {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+    h2 {
+      margin: 24px 0 8px;
+      font-size: 23px;
+      line-height: 1.2;
+    }
+    h3 {
+      margin: 18px 0 7px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .time {
+      margin-left: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    p { margin: 0 0 9px; }
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 16px 0;
+    }
+    .meta label { font-weight: 700; }
+    input[type="text"] {
+      width: 100%;
+      margin-top: 4px;
+      border: 0;
+      border-bottom: 1.5px solid #89979c;
+      padding: 5px 3px;
+      background: transparent;
+      font: inherit;
+    }
+    .goal { margin: 14px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 18px;
+      font-size: 15px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: middle;
+    }
+    th {
+      color: #fff;
+      background: var(--accent);
+      text-align: left;
+    }
+    tbody tr:nth-child(even) { background: var(--accent-soft); }
+    .schedule th:first-child, .schedule td:first-child,
+    .schedule th:last-child, .schedule td:last-child { text-align: center; }
+    .reading p { margin-bottom: 11px; }
+    .para-number {
+      display: inline-block;
+      width: 25px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .instructions { color: #34474e; }
+    .options, .questions { margin: 8px 0 14px; padding-left: 27px; }
+    .options li, .questions li { margin-bottom: 7px; padding-left: 4px; }
+    .mapping {
+      margin: 12px 0 18px;
+      font-weight: 700;
+      word-spacing: .35em;
+    }
+    .tf th:nth-child(2), .tf th:nth-child(3),
+    .tf td:nth-child(2), .tf td:nth-child(3) {
+      width: 52px;
+      text-align: center;
+    }
+    input[type="checkbox"] { width: 18px; height: 18px; }
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 52px;
+      margin: 6px 0 11px;
+      resize: vertical;
+      border: 1px solid #aeb9bd;
+      border-radius: 4px;
+      padding: 8px;
+      background: repeating-linear-gradient(#fff, #fff 27px, #dfe5e7 28px);
+      font: inherit;
+      line-height: 28px;
+    }
+    .short { min-height: 40px; }
+    .exercise { margin-bottom: 14px; break-inside: avoid; }
+    .exercise-number { font-weight: 800; }
+    .grammar-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 12px 0 20px;
+    }
+    .grammar-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: var(--accent-soft);
+    }
+    .grammar-card h3 { margin-top: 0; }
+    .grammar-card p:last-child { margin-bottom: 0; }
+    .blank {
+      display: inline-block;
+      min-width: 88px;
+      border-bottom: 1px solid #6f7f84;
+    }
+    .prompt-list { margin: 10px 0; padding-left: 26px; }
+    .prompt-list li { margin-bottom: 10px; }
+    .rel-list input[type="text"] {
+      display: inline-block;
+      width: 105px;
+      margin: 0 4px;
+      padding: 2px 3px;
+    }
+    .speaking {
+      columns: 2;
+      column-gap: 32px;
+      margin: 10px 0 18px;
+      padding-left: 26px;
+    }
+    .speaking li { break-inside: avoid; margin-bottom: 10px; }
+    .planning td { width: 50%; }
+    .page-footer {
+      margin-top: 28px;
+      color: #7b888c;
+      font-size: 12px;
+      text-align: center;
+    }
+    @media (max-width: 860px) {
+      main { padding: 0; }
+      .page {
+        width: 100%;
+        min-height: 0;
+        margin: 0;
+        padding: 26px 22px 38px;
+        box-shadow: none;
+      }
+      .meta, .grammar-grid { grid-template-columns: 1fr; }
+      .speaking { columns: 1; }
+    }
+    @media print {
+      @page { size: Letter portrait; margin: 0; }
+      html, body { background: #fff; }
+      body { font-size: 10.5pt; line-height: 1.35; }
+      .toolbar { display: none; }
+      main { padding: 0; }
+      .page {
+        width: 8.5in;
+        min-height: auto;
+        margin: 0;
+        padding: .58in .7in .62in;
+        box-shadow: none;
+        overflow: visible;
+        break-after: auto;
+      }
+      .page + .page { break-before: page; }
+      h1 { font-size: 24pt; }
+      h2 { margin-top: 15px; font-size: 16pt; }
+      h3 { margin-top: 12px; font-size: 12pt; }
+      .subtitle { font-size: 12pt; }
+      table { font-size: 9.5pt; }
+      th, td { padding: 5px 7px; }
+      textarea { min-height: 34px; }
+      .page-footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar"><button type="button" onclick="window.print()">Arbeitsblatt drucken</button></div>
+  <main>
+    <section class="page">
+      <p class="eyebrow">DEUTSCH B2&nbsp;&nbsp;&nbsp;NACHHALTIG REISEN</p>
+      <h1>Nachhaltig reisen</h1>
+      <p class="subtitle">Lesen und Grammatik mit Finalsätzen und Relativsätzen</p>
+
+      <div class="meta">
+        <label>Name <input type="text" aria-label="Name"></label>
+        <label>Datum <input type="text" aria-label="Datum"></label>
+      </div>
+
+      <p class="goal"><strong>Lernziel</strong> Du verstehst einen Text über nachhaltiges Reisen, formulierst Absichten mit <strong>damit</strong> und <strong>um ... zu</strong> und beschreibst Personen und Dinge mit Relativsätzen.</p>
+
+      <table class="schedule">
+        <thead><tr><th>Teil</th><th>Aufgabe</th><th>Zeit</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Lesetext und Leseverstehen</td><td>15 Min.</td></tr>
+          <tr><td>B</td><td>Sprachfokus</td><td>5 Min.</td></tr>
+          <tr><td>C</td><td>Finalsätze</td><td>12 Min.</td></tr>
+          <tr><td>D</td><td>Relativsätze</td><td>13 Min.</td></tr>
+          <tr><td>E</td><td>Gespräch</td><td>15 Min.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>A Lesetext und Leseverstehen <span class="time">15 Minuten</span></h2>
+      <h3>Reisen mit gutem Gewissen</h3>
+      <div class="reading">
+        <p><span class="para-number">1</span>Viele Menschen möchten fremde Länder entdecken, gleichzeitig aber Klima und lokale Bevölkerung möglichst wenig belasten. Genau hier setzt nachhaltiges Reisen an. Es bedeutet nicht, dass man ganz auf Urlaub verzichten muss. Vielmehr geht es darum, bewusste Entscheidungen zu treffen: bei der Anreise, bei der Unterkunft und beim Verhalten am Zielort. Wer zum Beispiel mit dem Zug statt mit dem Flugzeug reist, kann den CO₂-Ausstoß deutlich reduzieren. Allerdings ist das nicht auf jeder Strecke möglich oder bezahlbar.</p>
+        <p><span class="para-number">2</span>Auch die Wahl der Unterkunft spielt eine Rolle. Kleine Hotels und Pensionen, die regionale Produkte verwenden und ihre Mitarbeitenden fair bezahlen, lassen mehr Geld in der Region. Große Ferienanlagen dagegen gehören oft internationalen Unternehmen. Ein erheblicher Teil der Einnahmen fließt dann ins Ausland. Reisende können deshalb nach anerkannten Umweltzeichen suchen oder direkt fragen, welche Maßnahmen ein Betrieb umsetzt, um Energie und Wasser zu sparen.</p>
+        <p><span class="para-number">3</span>Nachhaltigkeit betrifft außerdem den Kontakt mit den Menschen vor Ort. Beliebte Orte leiden manchmal unter Overtourism, durch den Mieten steigen und öffentliche Plätze überfüllt werden. Einige Städte führen Besuchergebühren ein, damit Infrastruktur und Naturschutz finanziert werden können. Andere begrenzen die Zahl der Gäste, um empfindliche Landschaften zu schützen. Solche Regeln werden nicht von allen Reisenden begrüßt, können aber dazu beitragen, dass ein Reiseziel langfristig attraktiv bleibt.</p>
+        <p><span class="para-number">4</span>Trotzdem gibt es keine perfekte Reise. Auch eine Zugfahrt verbraucht Energie, und ein Ökohotel kann soziale Probleme nicht allein lösen. Entscheidend ist daher, Informationen kritisch zu prüfen und Prioritäten zu setzen. Wer länger bleibt, lokale Anbieter unterstützt und außerhalb der Hochsaison reist, verteilt die Belastung besser. Nachhaltiges Reisen beginnt also nicht mit Schuldgefühlen, sondern mit der Frage: Welche realistische Veränderung kann ich bei meiner nächsten Reise umsetzen?</p>
+      </div>
+      <p class="page-footer">Arbeitsblatt B2</p>
+    </section>
+
+    <section class="page">
+      <p class="eyebrow">DEUTSCH B2&nbsp;&nbsp;&nbsp;NACHHALTIG REISEN</p>
+      <h3>Aufgabe A1 Textaufbau</h3>
+      <p class="instructions">Ordne jedem Absatz die passende Überschrift zu. Eine Überschrift bleibt übrig.</p>
+      <ol class="options" type="A">
+        <li>Grenzen und Maßnahmen gegen zu viele Besucher</li>
+        <li>Verantwortung statt Perfektion</li>
+        <li>Nachhaltig einkaufen im Urlaub</li>
+        <li>Bewusst entscheiden statt ganz verzichten</li>
+        <li>Unterkünfte und regionale Wertschöpfung</li>
+      </ol>
+      <p class="mapping">Absatz 1: <span class="blank"></span>&nbsp;&nbsp; Absatz 2: <span class="blank"></span>&nbsp;&nbsp; Absatz 3: <span class="blank"></span>&nbsp;&nbsp; Absatz 4: <span class="blank"></span></p>
+
+      <h3>Aufgabe A2 Richtig oder falsch</h3>
+      <p class="instructions">Kreuze an und korrigiere die falschen Aussagen in einem vollständigen Satz.</p>
+      <table class="tf">
+        <thead><tr><th>Aussage</th><th>R</th><th>F</th></tr></thead>
+        <tbody>
+          <tr><td>1 Nachhaltiges Reisen bedeutet, vollständig auf Urlaubsreisen zu verzichten.</td><td><input type="checkbox" aria-label="Aussage 1 richtig"></td><td><input type="checkbox" aria-label="Aussage 1 falsch"></td></tr>
+          <tr><td>2 Regionale Unterkünfte können dazu beitragen, dass Einnahmen am Reiseziel bleiben.</td><td><input type="checkbox" aria-label="Aussage 2 richtig"></td><td><input type="checkbox" aria-label="Aussage 2 falsch"></td></tr>
+          <tr><td>3 Besuchergebühren werden ausschließlich eingeführt, um Touristen abzuschrecken.</td><td><input type="checkbox" aria-label="Aussage 3 richtig"></td><td><input type="checkbox" aria-label="Aussage 3 falsch"></td></tr>
+          <tr><td>4 Der Text behauptet, dass Zugreisen überhaupt keine Umweltbelastung verursachen.</td><td><input type="checkbox" aria-label="Aussage 4 richtig"></td><td><input type="checkbox" aria-label="Aussage 4 falsch"></td></tr>
+        </tbody>
+      </table>
+      <label>Korrekturen<textarea aria-label="Korrekturen"></textarea></label>
+
+      <h3>Aufgabe A3 Wörter aus dem Kontext</h3>
+      <p class="instructions">Erkläre die Wörter mit eigenen Worten oder nenne ein passendes Synonym.</p>
+      <div class="exercise"><span class="exercise-number">1</span> die Anreise<textarea class="short" aria-label="Bedeutung die Anreise"></textarea></div>
+      <div class="exercise"><span class="exercise-number">2</span> die Einnahmen<textarea class="short" aria-label="Bedeutung die Einnahmen"></textarea></div>
+      <div class="exercise"><span class="exercise-number">3</span> empfindlich<textarea class="short" aria-label="Bedeutung empfindlich"></textarea></div>
+      <div class="exercise"><span class="exercise-number">4</span> die Belastung<textarea class="short" aria-label="Bedeutung die Belastung"></textarea></div>
+
+      <h2>B Sprachfokus <span class="time">5 Minuten</span></h2>
+      <div class="grammar-grid">
+        <div class="grammar-card">
+          <h3>Finalsätze</h3>
+          <p><strong>Gleiches Subjekt: um ... zu</strong><br>Wir reisen im Mai, um die Hochsaison zu vermeiden.</p>
+          <p><strong>Verschiedene Subjekte: damit</strong><br>Die Stadt begrenzt Gäste, damit die Natur geschützt wird.</p>
+        </div>
+        <div class="grammar-card">
+          <h3>Relativsätze</h3>
+          <p>Das Relativpronomen richtet sich in Genus und Numerus nach dem Bezugswort. Der Kasus ergibt sich aus dem Relativsatz.</p>
+          <p>Das Hotel, <strong>das</strong> Energie spart ...<br>Die Stadt, <strong>in der</strong> wir wohnen ...</p>
+        </div>
+      </div>
+      <p class="page-footer">Arbeitsblatt B2</p>
+    </section>
+
+    <section class="page">
+      <p class="eyebrow">DEUTSCH B2&nbsp;&nbsp;&nbsp;NACHHALTIG REISEN</p>
+      <h2>C Finalsätze <span class="time">12 Minuten</span></h2>
+      <h3>Aufgabe C1 Damit oder um zu</h3>
+      <p class="instructions">Verbinde die Sätze. Verwende <strong>um ... zu</strong>, wenn beide Sätze dasselbe Subjekt haben. Verwende sonst <strong>damit</strong>.</p>
+      <div class="exercise"><span class="exercise-number">1</span> Mara fährt mit dem Nachtzug. Sie reduziert ihren CO₂-Ausstoß.<textarea class="short" aria-label="C1 Aufgabe 1"></textarea></div>
+      <div class="exercise"><span class="exercise-number">2</span> Das Hotel installiert Spararmaturen. Die Gäste verbrauchen weniger Wasser.<textarea class="short" aria-label="C1 Aufgabe 2"></textarea></div>
+      <div class="exercise"><span class="exercise-number">3</span> Wir buchen bei einem lokalen Anbieter. Wir unterstützen die Wirtschaft vor Ort.<textarea class="short" aria-label="C1 Aufgabe 3"></textarea></div>
+      <div class="exercise"><span class="exercise-number">4</span> Die Stadt erhebt eine Besuchergebühr. Öffentliche Wege können repariert werden.<textarea class="short" aria-label="C1 Aufgabe 4"></textarea></div>
+      <div class="exercise"><span class="exercise-number">5</span> Jonas reist außerhalb der Hochsaison. Er vermeidet überfüllte Orte.<textarea class="short" aria-label="C1 Aufgabe 5"></textarea></div>
+      <div class="exercise"><span class="exercise-number">6</span> Die Reiseleiterin erklärt die Regeln. Niemand verlässt die markierten Wege.<textarea class="short" aria-label="C1 Aufgabe 6"></textarea></div>
+
+      <h3>Aufgabe C2 Sinnvoll ergänzen</h3>
+      <p class="instructions">Vervollständige die Sätze. Achte auf Satzbau und Bedeutung.</p>
+      <ol class="prompt-list">
+        <li>Viele Reisende vergleichen Umweltzeichen, damit ... <input type="text" aria-label="C2 Aufgabe 1"></li>
+        <li>Ich nehme eine wiederverwendbare Flasche mit, um ... <input type="text" aria-label="C2 Aufgabe 2"></li>
+        <li>Gemeinden begrenzen manchmal die Besucherzahl, damit ... <input type="text" aria-label="C2 Aufgabe 3"></li>
+        <li>Wir informieren uns über lokale Regeln, um nicht ... <input type="text" aria-label="C2 Aufgabe 4"></li>
+      </ol>
+
+      <h3>Aufgabe C3 Fehler finden</h3>
+      <p class="instructions">Korrigiere die Finalsätze.</p>
+      <div class="exercise"><span class="exercise-number">1</span> Lea wählt ein kleines Hotel, damit die lokale Wirtschaft zu unterstützen.<textarea class="short" aria-label="C3 Aufgabe 1"></textarea></div>
+      <div class="exercise"><span class="exercise-number">2</span> Die Gemeinde informiert früh, um alle Gäste die neuen Regeln verstehen.<textarea class="short" aria-label="C3 Aufgabe 2"></textarea></div>
+      <div class="exercise"><span class="exercise-number">3</span> Wir bleiben länger, damit nicht so oft anzureisen.<textarea class="short" aria-label="C3 Aufgabe 3"></textarea></div>
+      <p class="page-footer">Arbeitsblatt B2</p>
+    </section>
+
+    <section class="page">
+      <p class="eyebrow">DEUTSCH B2&nbsp;&nbsp;&nbsp;NACHHALTIG REISEN</p>
+      <h2>D Relativsätze <span class="time">13 Minuten</span></h2>
+      <h3>Aufgabe D1 Das passende Relativpronomen</h3>
+      <p class="instructions">Ergänze das Relativpronomen. Manchmal brauchst du eine Präposition.</p>
+      <ol class="prompt-list rel-list">
+        <li>Das Hostel, <input type="text" aria-label="D1 Aufgabe 1"> Solarenergie nutzt, liegt am Stadtrand.</li>
+        <li>Die Reiseleiterin, <input type="text" aria-label="D1 Aufgabe 2"> wir gestern kennengelernt haben, kommt aus der Region.</li>
+        <li>Die Gäste, mit <input type="text" aria-label="D1 Aufgabe 3"> wir gesprochen haben, reisen mit dem Zug.</li>
+        <li>Das Dorf, in <input type="text" aria-label="D1 Aufgabe 4"> nur wenige Menschen leben, schützt seine Wasserreserven.</li>
+        <li>Der Nationalpark, <input type="text" aria-label="D1 Aufgabe 5"> Wege streng kontrolliert werden, ist sehr empfindlich.</li>
+        <li>Die Maßnahmen, <input type="text" aria-label="D1 Aufgabe 6"> die Stadt beschlossen hat, gelten ab Mai.</li>
+        <li>Der Anbieter, bei <input type="text" aria-label="D1 Aufgabe 7"> wir die Tour gebucht haben, beschäftigt lokale Guides.</li>
+        <li>Die Region, <input type="text" aria-label="D1 Aufgabe 8"> Wirtschaft stark vom Tourismus abhängt, sucht neue Konzepte.</li>
+      </ol>
+
+      <h3>Aufgabe D2 Zwei Sätze werden einer</h3>
+      <p class="instructions">Verbinde die Sätze zu einem Satz mit Relativsatz.</p>
+      <div class="exercise"><span class="exercise-number">1</span> Wir besuchen eine Pension. Die Pension serviert Produkte aus der Region.<textarea class="short" aria-label="D2 Aufgabe 1"></textarea></div>
+      <div class="exercise"><span class="exercise-number">2</span> Die Stadt führt eine Gebühr ein. Mit der Gebühr finanziert sie den Naturschutz.<textarea class="short" aria-label="D2 Aufgabe 2"></textarea></div>
+      <div class="exercise"><span class="exercise-number">3</span> Viele Menschen meiden Orte. Die Orte sind in der Hochsaison überfüllt.<textarea class="short" aria-label="D2 Aufgabe 3"></textarea></div>
+      <div class="exercise"><span class="exercise-number">4</span> Das ist ein Projekt. Von dem Projekt profitieren auch kleine Betriebe.<textarea class="short" aria-label="D2 Aufgabe 4"></textarea></div>
+
+      <h3>Aufgabe D3 Ein Reiseziel beschreiben</h3>
+      <p class="instructions">Schreibe zwei eigene Sätze über ein Reiseziel. Verwende mindestens einen Relativsatz mit Präposition.</p>
+      <textarea aria-label="D3 eigene Sätze"></textarea>
+      <p class="page-footer">Arbeitsblatt B2</p>
+    </section>
+
+    <section class="page">
+      <p class="eyebrow">DEUTSCH B2&nbsp;&nbsp;&nbsp;NACHHALTIG REISEN</p>
+      <h2>E Gespräch <span class="time">15 Minuten</span></h2>
+      <p>Arbeitet zu zweit oder zu dritt. Wählt zuerst drei Fragen. Sprecht anschließend über eine konkrete Reiseidee. Verwendet im Gespräch mindestens zwei Finalsätze und zwei Relativsätze.</p>
+      <ol class="speaking">
+        <li>Was bedeutet nachhaltiges Reisen für dich persönlich?</li>
+        <li>Welche Veränderung würdest du bei deiner nächsten Reise umsetzen, um umweltbewusster zu reisen?</li>
+        <li>Gibt es ein Reiseziel, das deiner Meinung nach unter Overtourism leidet? Woran erkennt man das?</li>
+        <li>Sollten Städte Besuchergebühren einführen, damit Natur und Infrastruktur geschützt werden? Warum oder warum nicht?</li>
+        <li>Welche Unterkünfte, in denen du schon übernachtet hast, waren besonders nachhaltig oder wenig nachhaltig?</li>
+        <li>Welche Regeln für Reisende findest du sinnvoll, und welche schränken die persönliche Freiheit zu stark ein?</li>
+        <li>Ist nachhaltiges Reisen nur für Menschen möglich, die mehr Geld haben? Begründe deine Meinung.</li>
+        <li>Welche Verantwortung haben Reisende, Reiseunternehmen und Politik jeweils?</li>
+      </ol>
+
+      <h3>Mini Planung</h3>
+      <p>Plant eine dreitägige Reise in eine Stadt oder Naturregion. Einigt euch auf Anreise, Unterkunft und zwei Aktivitäten. Begründet eure Entscheidungen.</p>
+      <table class="planning">
+        <thead><tr><th>Finalsätze</th><th>Relativsätze</th></tr></thead>
+        <tbody><tr><td>Wir ..., um ... zu ...<br>Die Stadt ..., damit ...</td><td>Wir wählen eine Unterkunft, die ...<br>Die Region, in der ..., ...</td></tr></tbody>
+      </table>
+      <label>Notizen zur Reiseidee<textarea style="min-height:220px" aria-label="Notizen zur Reiseidee"></textarea></label>
+      <p class="page-footer">Arbeitsblatt B2</p>
+    </section>
+  </main>
+</body>
+</html>
