@@ -1040,10 +1040,32 @@ body {
         ? 'La entrega ya había sido registrada y no se duplicó.'
         : 'Respuestas enviadas correctamente al profesor.';
     } catch (error) {
-      gradeBtn.disabled = false;
-      gradeBtn.textContent = 'Reintentar envío';
-      status.dataset.state = 'error';
-      status.textContent = `No se pudo confirmar el envío (${error.message}). Las respuestas permanecen guardadas en este dispositivo.`;
+      status.dataset.state = 'sending';
+      status.textContent = 'El navegador bloqueó la confirmación. Enviando mediante el modo compatible…';
+      try {
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          redirect: 'follow',
+          headers: {'Content-Type': 'text/plain;charset=utf-8'},
+          body: JSON.stringify(payload)
+        });
+        localStorage.setItem(submittedKey, JSON.stringify({
+          submissionId: payload.submissionId,
+          score: localScore,
+          deliveryMode: 'no-cors',
+          at: Date.now()
+        }));
+        save();
+        lockSubmittedAttempt();
+        status.dataset.state = 'success';
+        status.textContent = 'Respuestas enviadas al profesor.';
+      } catch (fallbackError) {
+        gradeBtn.disabled = false;
+        gradeBtn.textContent = 'Reintentar envío';
+        status.dataset.state = 'error';
+        status.textContent = `No se pudo enviar la prueba (${fallbackError.message}). Las respuestas permanecen guardadas en este dispositivo.`;
+      }
     }
   });
 
