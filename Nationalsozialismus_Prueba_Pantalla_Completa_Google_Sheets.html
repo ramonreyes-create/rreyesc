@@ -247,6 +247,28 @@ textarea { min-height: 108px; resize: vertical; line-height: 1.55; }
   --test-muted: #657184;
 }
 
+.start-gate,.fullscreen-warning { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 20% 15%,rgba(208,168,91,.18),transparent 28rem),linear-gradient(145deg,#071a2a,#123b57); }
+.start-gate[hidden],.fullscreen-warning[hidden] { display: none; }
+.start-gate__card,.fullscreen-warning__card { width: min(610px,100%); padding: clamp(28px,5vw,48px); border: 1px solid rgba(255,255,255,.18); border-radius: 24px; color: #eaf1f4; background: rgba(10,31,48,.9); box-shadow: 0 30px 90px rgba(0,0,0,.38); text-align: center; backdrop-filter: blur(18px); }
+.start-gate__seal { display: grid; place-items: center; width: 70px; height: 70px; margin: 0 auto 20px; border-radius: 50%; color: var(--test-navy); background: linear-gradient(135deg,#f1d795,var(--test-gold)); font: 900 1rem/1 Georgia,serif; box-shadow: 0 14px 34px rgba(208,168,91,.25); }
+.start-gate__eyebrow { margin: 0 0 8px; color: #e6c979; text-transform: uppercase; letter-spacing: .17em; font-size: .75rem; font-weight: 900; }
+.start-gate h1 { margin: 0; color: #fff; font: 800 clamp(2.2rem,6vw,4.1rem)/.98 Georgia,serif; letter-spacing: -.035em; }
+.start-gate__lead { margin: 15px 0 22px; color: #cfdae0; font-size: 1.08rem; }
+.monitoring-notice { margin: 0 0 24px; padding: 18px 20px; border: 1px solid rgba(241,215,149,.24); border-radius: 15px; background: rgba(255,255,255,.07); text-align: left; }
+.monitoring-notice strong { color: #f1d795; }
+.monitoring-notice ul { margin: 10px 0 0; padding-left: 21px; color: #dce5e9; }
+.monitoring-notice li + li { margin-top: 7px; }
+.start-gate__button { width: 100%; padding: 14px 18px; color: var(--test-navy); background: linear-gradient(135deg,#f1d795,var(--test-gold)); box-shadow: 0 14px 34px rgba(208,168,91,.22); font-weight: 900; }
+.start-gate__status { margin: 13px 0 0; color: #aebfc9; font-size: .82rem; }
+.start-gate__status[data-state="error"] { color: #ffc2c8; font-weight: 800; }
+.fullscreen-warning { z-index: 1100; background: rgba(5,16,26,.92); }
+.fullscreen-warning__card { max-width: 520px; }
+.fullscreen-warning__icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 50%; color: #fff; background: var(--test-red); font: 900 1.8rem/1 Georgia,serif; box-shadow: 0 0 0 10px rgba(161,58,69,.14); }
+.fullscreen-warning h2 { margin: 0 0 12px; color: #fff; font: 800 1.8rem/1.1 Georgia,serif; }
+.fullscreen-warning p { margin: 0 0 22px; color: #d7e0e5; }
+.monitor-toast { position: fixed; z-index: 1200; top: 22px; left: 50%; transform: translateX(-50%); padding: 12px 18px; border-radius: 999px; color: #fff; background: var(--test-red); box-shadow: 0 16px 34px rgba(62,18,25,.28); font-size: .88rem; font-weight: 900; }
+.monitor-toast[hidden] { display: none; }
+
 body {
   color: var(--test-ink);
   background:
@@ -475,6 +497,11 @@ body {
   </style>
 </head>
 <body>
+  <div class="start-gate" id="startGate" role="dialog" aria-modal="true" aria-labelledby="startGateTitle">
+    <div class="start-gate__card"><div class="start-gate__seal" aria-hidden="true">CSUV</div><p class="start-gate__eyebrow">Evaluación supervisada</p><h1 id="startGateTitle">Der Weg zum Holocaust</h1><p class="start-gate__lead">La prueba se realizará en pantalla completa.</p><div class="monitoring-notice"><strong>Antes de comenzar:</strong><ul><li>Se registrará cada pérdida de foco o cambio de pestaña.</li><li>Se registrará cada salida de pantalla completa.</li><li>Estos registros se enviarán al profesor junto con tus respuestas y tu nota.</li></ul></div><button type="button" class="btn start-gate__button" id="startTestBtn">Iniciar prueba en pantalla completa</button><p class="start-gate__status" id="startGateStatus">El temporizador comenzará al pulsar el botón.</p></div>
+  </div>
+  <div class="fullscreen-warning" id="fullscreenWarning" role="alertdialog" aria-modal="true" aria-labelledby="fullscreenWarningTitle" hidden><div class="fullscreen-warning__card"><div class="fullscreen-warning__icon" aria-hidden="true">!</div><h2 id="fullscreenWarningTitle">Salida de pantalla completa registrada</h2><p>Este evento quedó guardado en el registro de la sesión. Vuelve a pantalla completa para continuar.</p><button type="button" class="btn" id="returnFullscreenBtn">Volver a pantalla completa</button></div></div>
+  <div class="monitor-toast" id="monitorToast" role="status" aria-live="assertive" hidden>Salida de foco registrada</div>
   <header class="topbar"><div class="topbar__inner">
     <div class="brand"><div class="brand__mark">C</div><div class="brand__text"><strong>CSUV</strong><span>Historia · Alemán</span></div></div>
     <div class="progress-wrap"><div class="progress-meta"><span id="progressText">0 de 6 bloques</span><span>Progreso</span></div><div class="progress-track" role="progressbar" aria-label="Progreso"><div class="progress-bar" id="progressBar"></div></div></div>
@@ -500,7 +527,7 @@ body {
         <div class="instruction"><span class="instruction__number">02</span><div><strong>Formato</strong>Marca una alternativa en cada pregunta.</div></div>
         <div class="instruction"><span class="instruction__number">03</span><div><strong>Puntaje</strong>40 puntos en total; 1 punto por respuesta.</div></div>
       </div>
-      <div class="integrity-panel"><div class="integrity-panel__copy"><span class="integrity-panel__icon" aria-hidden="true">◎</span><div><strong>Registro de la sesión</strong><p>La prueba registra cambios de pestaña, pérdidas de foco y salidas de pantalla completa. No bloquea tu trabajo.</p></div></div><div class="integrity-panel__actions"><span class="integrity-status" id="fullscreenStatus" data-state="off">Pantalla completa inactiva</span><span class="integrity-counter">Pérdidas de foco: <strong id="focusCount">0</strong></span><button type="button" class="btn btn--fullscreen" id="fullscreenBtn">Iniciar pantalla completa</button></div></div>
+      <div class="integrity-panel"><div class="integrity-panel__copy"><span class="integrity-panel__icon" aria-hidden="true">◎</span><div><strong>Registro de la sesión activo</strong><p>Se registran cambios de pestaña, pérdidas de foco y cada salida de pantalla completa.</p></div></div><div class="integrity-panel__actions"><span class="integrity-status" id="fullscreenStatus" data-state="off">Pantalla completa inactiva</span><span class="integrity-counter">Pérdidas de foco: <strong id="focusCount">0</strong></span></div></div>
       </section>
 
       <nav class="task-nav" aria-label="Navegación de la prueba"><a href="#bloque-1">1 · Lesen (DE)</a><a href="#bloque-2">2 · Chronologie (DE)</a><a href="#bloque-3">3 · Relaciones (ES)</a><a href="#bloque-4">4 · Fuentes (ES)</a><a href="#bloque-5">5 · Begriffe (DE)</a><a href="#bloque-6">6 · Síntesis (ES)</a></nav>
@@ -610,7 +637,7 @@ body {
   // Si se incorpora aquí una URL /exec, la prueba quedará conectada en todos los dispositivos.
   const DEFAULT_ENDPOINT = '';
 
-  const storageKey = 'csuv-holocaust-prueba-parte2-v2';
+  const storageKey = 'csuv-holocaust-prueba-parte2-v3';
   const startedKey = `${storageKey}-started`;
   const submittedKey = `${storageKey}-submitted`;
   const randomSeedKey = `${storageKey}-random-seed`;
@@ -619,18 +646,22 @@ body {
   const duration = Number(form.dataset.minutes || 80) * 60;
   const gradeBtn = document.querySelector('#gradeBtn');
   const status = document.querySelector('#submitStatus');
-  const fullscreenBtn = document.querySelector('#fullscreenBtn');
   const fullscreenStatus = document.querySelector('#fullscreenStatus');
   const focusCount = document.querySelector('#focusCount');
+  const startGate = document.querySelector('#startGate');
+  const startTestBtn = document.querySelector('#startTestBtn');
+  const startGateStatus = document.querySelector('#startGateStatus');
+  const fullscreenWarning = document.querySelector('#fullscreenWarning');
+  const returnFullscreenBtn = document.querySelector('#returnFullscreenBtn');
+  const monitorToast = document.querySelector('#monitorToast');
   let saveTimer;
   let lastBlurAt = 0;
   let suppressBlurUntil = 0;
+  let testStarted = false;
+  let pendingFocusWarning = false;
+  let toastTimer;
 
   let startedAt = Number(localStorage.getItem(startedKey));
-  if (!startedAt) {
-    startedAt = Date.now();
-    localStorage.setItem(startedKey, String(startedAt));
-  }
 
   let randomSeed = Number(localStorage.getItem(randomSeedKey));
   if (!randomSeed) {
@@ -710,8 +741,13 @@ body {
 
   const pad = value => String(value).padStart(2, '0');
   function updateTimer() {
-    const remaining = duration - Math.floor((Date.now() - startedAt) / 1000);
     const timer = document.querySelector('#timer');
+    if (!startedAt) {
+      timer.textContent = `${pad(Math.floor(duration / 60))}:${pad(duration % 60)}`;
+      timer.setAttribute('aria-label', '80 minutos disponibles');
+      return;
+    }
+    const remaining = duration - Math.floor((Date.now() - startedAt) / 1000);
     const absolute = Math.abs(remaining);
     timer.textContent = `${remaining < 0 ? '+' : ''}${pad(Math.floor(absolute / 60))}:${pad(absolute % 60)}`;
     timer.setAttribute('aria-label', remaining >= 0 ? `${Math.ceil(remaining / 60)} minutos restantes` : 'Tiempo finalizado');
@@ -723,51 +759,93 @@ body {
       fullscreenStatus.dataset.state = active ? 'on' : 'off';
       fullscreenStatus.textContent = active ? 'Pantalla completa activa' : 'Pantalla completa inactiva';
     }
-    if (fullscreenBtn) fullscreenBtn.textContent = active ? 'Salir de pantalla completa' : 'Iniciar pantalla completa';
   }
 
-  if (fullscreenBtn) {
-    if (!document.fullscreenEnabled) {
-      fullscreenBtn.disabled = true;
-      fullscreenStatus.textContent = 'Pantalla completa no disponible en este navegador';
-    } else {
-      fullscreenBtn.addEventListener('click', async () => {
-        suppressBlurUntil = Date.now() + 1800;
-        try {
-          if (document.fullscreenElement) await document.exitFullscreen();
-          else await document.documentElement.requestFullscreen();
-        } catch (error) {
-          fullscreenStatus.dataset.state = 'warning';
-          fullscreenStatus.textContent = `No se pudo cambiar el modo (${error.message}).`;
-        }
-      });
-    }
+  function showMonitorToast(message) {
+    if (!monitorToast) return;
+    clearTimeout(toastTimer);
+    monitorToast.textContent = message;
+    monitorToast.hidden = false;
+    toastTimer = setTimeout(() => { monitorToast.hidden = true; }, 4200);
   }
+
+  async function enterFullscreen() {
+    if (!document.fullscreenEnabled) throw new Error('El navegador no permite pantalla completa');
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+  }
+
+  startTestBtn.addEventListener('click', async () => {
+    startTestBtn.disabled = true;
+    startTestBtn.textContent = 'Iniciando…';
+    suppressBlurUntil = Date.now() + 1800;
+    try {
+      await enterFullscreen();
+      if (!startedAt) {
+        startedAt = Date.now();
+        localStorage.setItem(startedKey, String(startedAt));
+      }
+      testStarted = true;
+      startGate.hidden = true;
+      recordIntegrityEvent('test-start');
+      updateTimer();
+    } catch (error) {
+      startTestBtn.disabled = false;
+      startTestBtn.textContent = 'Iniciar prueba en pantalla completa';
+      startGateStatus.dataset.state = 'error';
+      startGateStatus.textContent = `No se pudo iniciar: ${error.message}. Usa un navegador que permita pantalla completa.`;
+    }
+  });
+
+  returnFullscreenBtn.addEventListener('click', async () => {
+    returnFullscreenBtn.disabled = true;
+    suppressBlurUntil = Date.now() + 1800;
+    try {
+      await enterFullscreen();
+      fullscreenWarning.hidden = true;
+    } catch (error) {
+      returnFullscreenBtn.disabled = false;
+      showMonitorToast(`No se pudo volver a pantalla completa: ${error.message}`);
+    }
+  });
 
   document.addEventListener('fullscreenchange', () => {
     const active = Boolean(document.fullscreenElement);
     if (active) {
       integrity.fullscreenEver = true;
       recordIntegrityEvent('fullscreen-enter');
+      if (testStarted) fullscreenWarning.hidden = true;
     } else if (integrity.fullscreenEver) {
       integrity.fullscreenExits += 1;
       recordIntegrityEvent('fullscreen-exit');
+      if (testStarted) {
+        fullscreenWarning.hidden = false;
+        returnFullscreenBtn.disabled = false;
+      }
     }
     refreshFullscreenStatus();
   });
 
   window.addEventListener('blur', () => {
+    if (!testStarted) return;
     const now = Date.now();
     if (now < suppressBlurUntil || now - lastBlurAt < 1200) return;
     lastBlurAt = now;
     integrity.focusLosses += 1;
     recordIntegrityEvent('window-blur');
+    pendingFocusWarning = true;
+  });
+
+  window.addEventListener('focus', () => {
+    if (!testStarted || !pendingFocusWarning) return;
+    pendingFocusWarning = false;
+    showMonitorToast('Salida de foco registrada');
   });
 
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) return;
+    if (!testStarted || !document.hidden) return;
     integrity.tabHiddenCount += 1;
     recordIntegrityEvent('page-hidden');
+    pendingFocusWarning = true;
   });
 
   function collect() {
